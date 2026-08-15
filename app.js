@@ -128,9 +128,7 @@ function updateDisplay() {
 function checkout() {
 
     let orderItems = [];
-
     let total = 0;
-
 
     for (const key in cart) {
 
@@ -141,20 +139,46 @@ function checkout() {
             const product = products[key];
 
             orderItems.push({
-
                 product: product.name,
-
                 quantity: quantity,
-
                 price: product.price
-
             });
 
             total += product.price * quantity;
-
         }
-
     }
+
+    if (orderItems.length === 0) {
+
+        tg.showAlert("Keranjang masih kosong!");
+
+        return;
+    }
+
+    const order = {
+        type: "bakso_order",
+        items: orderItems,
+        total: total
+    };
+
+    tg.sendData(JSON.stringify(order));
+}
+
+    if (orderItems.length === 0) {
+
+        tg.showAlert("Keranjang masih kosong!");
+
+        return;
+    }
+
+    const order = {
+        type: "bakso_order",
+        items: orderItems,
+        total: total
+    };
+
+    tg.sendData(JSON.stringify(order));
+}
 
 
     if (orderItems.length === 0) {
