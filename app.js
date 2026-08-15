@@ -3,9 +3,7 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-
 const products = {
-
     bakso_urat: {
         name: "Bakso Urat",
         price: 4
@@ -20,37 +18,31 @@ const products = {
         name: "Mie Ayam",
         price: 3
     }
-
 };
 
-
 const cart = {
-
     bakso_urat: 0,
     bakso_telur: 0,
     mie_ayam: 0
-
 };
 
 
 function increase(product) {
 
-    cart[product]++;
-
-    updateDisplay();
+    if (cart[product] !== undefined) {
+        cart[product]++;
+        updateDisplay();
+    }
 
 }
 
 
 function decrease(product) {
 
-    if (cart[product] > 0) {
-
+    if (cart[product] !== undefined && cart[product] > 0) {
         cart[product]--;
-
+        updateDisplay();
     }
-
-    updateDisplay();
 
 }
 
@@ -88,7 +80,6 @@ function updateDisplay() {
 
             html += `
                 <div class="cart-row">
-
                     <span>
                         ${product.name} × ${quantity}
                     </span>
@@ -96,7 +87,6 @@ function updateDisplay() {
                     <strong>
                         $${subtotal}
                     </strong>
-
                 </div>
             `;
 
@@ -130,6 +120,7 @@ function checkout() {
     let orderItems = [];
     let total = 0;
 
+
     for (const key in cart) {
 
         const quantity = cart[key];
@@ -145,52 +136,26 @@ function checkout() {
             });
 
             total += product.price * quantity;
+
         }
+
     }
+
 
     if (orderItems.length === 0) {
 
-        tg.showAlert("Keranjang masih kosong!");
+        tg.showAlert(
+            "Keranjang masih kosong!"
+        );
 
         return;
+
     }
 
+
     const order = {
+
         type: "bakso_order",
-        items: orderItems,
-        total: total
-    };
-
-    tg.sendData(JSON.stringify(order));
-}
-
-    if (orderItems.length === 0) {
-
-        tg.showAlert("Keranjang masih kosong!");
-
-        return;
-    }
-
-    const order = {
-        type: "bakso_order",
-        items: orderItems,
-        total: total
-    };
-
-    tg.sendData(JSON.stringify(order));
-}
-
-
-    if (orderItems.length === 0) {
-
-        tg.showAlert("Keranjang masih kosong!");
-
-        return;
-
-    }
-
-
-    const order = {
 
         items: orderItems,
 
@@ -199,11 +164,8 @@ function checkout() {
     };
 
 
-    tg.showAlert(
-        "Total order kamu: $" + total
+    tg.sendData(
+        JSON.stringify(order)
     );
-
-
-    console.log(order);
 
 }
