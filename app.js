@@ -256,6 +256,10 @@ window.increase = increase;
 window.decrease = decrease;
 window.checkout = checkout;
 
+document
+    .getElementById("checkout-button")
+    .addEventListener("click", checkout);
 
 // Jalankan pertama kali
 updateDisplay();
+
