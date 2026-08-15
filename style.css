@@ -165,3 +165,43 @@ body {
     font-size: 17px;
     font-weight: bold;
 }
+
+.payment-section {
+    display: none;
+    margin-top: 20px;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 15px;
+}
+
+.payment-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.payment-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.payment-option {
+    flex: 1;
+    min-width: 120px;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.payment-option.selected {
+    border-color: #0088cc;
+    background: #e8f5ff;
+}
+
+#confirm-order {
+    width: 100%;
+    margin-top: 15px;
+}

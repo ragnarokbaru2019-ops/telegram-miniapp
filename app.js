@@ -4,7 +4,12 @@ tg.ready();
 tg.expand();
 
 
+// ==============================
+// PRODUK
+// ==============================
+
 const products = {
+
     bakso_urat: {
         name: "Bakso Urat",
         price: 4
@@ -19,14 +24,28 @@ const products = {
         name: "Mie Ayam",
         price: 3
     }
+
 };
 
 
+// ==============================
+// CART
+// ==============================
+
 const cart = {
+
     bakso_urat: 0,
     bakso_telur: 0,
     mie_ayam: 0
+
 };
+
+
+// ==============================
+// PAYMENT
+// ==============================
+
+let selectedPayment = null;
 
 
 // ==============================
@@ -125,6 +144,7 @@ function updateDisplay() {
     document.getElementById("cart-items").innerHTML =
         html;
 
+
     document.getElementById("total").innerText =
         "$" + total;
 
@@ -132,14 +152,13 @@ function updateDisplay() {
 
 
 // ==============================
-// CHECKOUT
+// AMBIL DATA ORDER
 // ==============================
 
-function checkout() {
-
-    console.log("CHECKOUT DIKLIK");
+function getOrderData() {
 
     let items = [];
+
     let total = 0;
 
 
@@ -149,37 +168,162 @@ function checkout() {
 
             const product = products[key];
 
+
             items.push({
+
                 product: product.name,
+
                 quantity: cart[key],
+
                 price: product.price
+
             });
 
-            total += cart[key] * product.price;
+
+            total +=
+                cart[key] * product.price;
+
         }
+
     }
 
 
-    console.log("ITEMS:", items);
-    console.log("TOTAL:", total);
+    return {
+        items: items,
+        total: total
+    };
+
+}
 
 
-    // Jika kosong
-    if (items.length === 0) {
+// ==============================
+// LANJUT ORDER
+// ==============================
 
-        console.log("KERANJANG KOSONG");
+function checkout() {
 
-        document.getElementById("total").innerText =
-            "Pilih menu dulu";
+    const orderData =
+        getOrderData();
+
+
+    // Keranjang kosong
+
+    if (orderData.items.length === 0) {
+
+        alert("Pilih menu terlebih dahulu.");
 
         return;
+
+    }
+
+
+    // Tampilkan pembayaran
+
+    const paymentSection =
+        document.getElementById(
+            "payment-section"
+        );
+
+
+    paymentSection.style.display =
+        "block";
+
+
+    // Scroll ke pembayaran
+
+    paymentSection.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+// ==============================
+// PILIH PEMBAYARAN
+// ==============================
+
+function selectPayment(payment) {
+
+    selectedPayment =
+        payment;
+
+
+    document
+        .querySelectorAll(".payment-option")
+        .forEach(function(button) {
+
+            button.classList.remove(
+                "selected"
+            );
+
+        });
+
+
+    const selectedButton =
+        document.querySelector(
+            `[data-payment="${payment}"]`
+        );
+
+
+    if (selectedButton) {
+
+        selectedButton.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    console.log(
+        "Metode pembayaran:",
+        selectedPayment
+    );
+
+}
+
+
+// ==============================
+// KONFIRMASI ORDER
+// ==============================
+
+function confirmOrder() {
+
+    const orderData =
+        getOrderData();
+
+
+    if (orderData.items.length === 0) {
+
+        alert(
+            "Keranjang masih kosong."
+        );
+
+        return;
+
+    }
+
+
+    if (!selectedPayment) {
+
+        alert(
+            "Silakan pilih metode pembayaran."
+        );
+
+        return;
+
     }
 
 
     const order = {
+
         type: "bakso_order",
-        items: items,
-        total: total
+
+        items: orderData.items,
+
+        total: orderData.total,
+
+        payment: selectedPayment
+
     };
 
 
@@ -189,7 +333,8 @@ function checkout() {
     );
 
 
-    // Kirim order ke bot
+    // Kirim ke Telegram Bot
+
     if (
         typeof tg.sendData === "function"
     ) {
@@ -208,13 +353,14 @@ function checkout() {
 
 }
 
+
 // ==============================
 // SAAT HALAMAN SELESAI
 // ==============================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
 
         console.log(
             "Mini App siap"
@@ -227,29 +373,55 @@ document.addEventListener(
             );
 
 
-        if (!checkoutButton) {
-
-            console.error(
-                "TOMBOL CHECKOUT TIDAK DITEMUKAN"
+        const confirmButton =
+            document.getElementById(
+                "confirm-order"
             );
 
-            return;
+
+        if (checkoutButton) {
+
+            checkoutButton.addEventListener(
+                "click",
+                checkout
+            );
 
         }
 
 
-        checkoutButton.addEventListener(
-            "click",
-            function () {
+        if (confirmButton) {
 
-                console.log(
-                    "TOMBOL LANJUT ORDER DIKLIK"
+            confirmButton.addEventListener(
+                "click",
+                confirmOrder
+            );
+
+        }
+
+
+        // Tombol pembayaran
+
+        document
+            .querySelectorAll(
+                ".payment-option"
+            )
+            .forEach(function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        const payment =
+                            this.dataset.payment;
+
+                        selectPayment(
+                            payment
+                        );
+
+                    }
                 );
 
-                checkout();
-
-            }
-        );
+            });
 
 
         updateDisplay();
@@ -258,6 +430,12 @@ document.addEventListener(
 );
 
 
-// Untuk tombol + / -
-window.increase = increase;
-window.decrease = decrease;
+// ==============================
+// GLOBAL
+// ==============================
+
+window.increase =
+    increase;
+
+window.decrease =
+    decrease;
