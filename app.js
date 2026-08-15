@@ -3,6 +3,7 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
+
 const products = {
     bakso_urat: {
         name: "Bakso Urat",
@@ -20,6 +21,7 @@ const products = {
     }
 };
 
+
 const cart = {
     bakso_urat: 0,
     bakso_telur: 0,
@@ -27,29 +29,41 @@ const cart = {
 };
 
 
+// ================================
+// TAMBAH PRODUK
+// ================================
+
 function increase(product) {
 
-    if (cart[product] !== undefined) {
-        cart[product]++;
-        updateDisplay();
-    }
+    cart[product] = cart[product] + 1;
+
+    updateDisplay();
 
 }
 
+
+// ================================
+// KURANGI PRODUK
+// ================================
 
 function decrease(product) {
 
-    if (cart[product] !== undefined && cart[product] > 0) {
-        cart[product]--;
-        updateDisplay();
+    if (cart[product] > 0) {
+
+        cart[product] = cart[product] - 1;
+
     }
+
+    updateDisplay();
 
 }
 
 
-function updateDisplay() {
+// ================================
+// UPDATE TAMPILAN
+// ================================
 
-    let total = 0;
+function updateDisplay() {
 
     document.getElementById("qty-bakso_urat").innerText =
         cart.bakso_urat;
@@ -61,36 +75,76 @@ function updateDisplay() {
         cart.mie_ayam;
 
 
+    let total = 0;
+
     let html = "";
 
 
-    for (const key in cart) {
+    // Bakso Urat
+    if (cart.bakso_urat > 0) {
 
-        const quantity = cart[key];
+        let subtotal =
+            cart.bakso_urat * products.bakso_urat.price;
 
-        if (quantity > 0) {
+        total = total + subtotal;
 
-            const product = products[key];
+        html += `
+            <div class="cart-row">
+                <span>
+                    Bakso Urat × ${cart.bakso_urat}
+                </span>
 
-            const subtotal =
-                product.price * quantity;
+                <strong>
+                    $${subtotal}
+                </strong>
+            </div>
+        `;
 
-            total += subtotal;
+    }
 
 
-            html += `
-                <div class="cart-row">
-                    <span>
-                        ${product.name} × ${quantity}
-                    </span>
+    // Bakso Telur
+    if (cart.bakso_telur > 0) {
 
-                    <strong>
-                        $${subtotal}
-                    </strong>
-                </div>
-            `;
+        let subtotal =
+            cart.bakso_telur * products.bakso_telur.price;
 
-        }
+        total = total + subtotal;
+
+        html += `
+            <div class="cart-row">
+                <span>
+                    Bakso Telur × ${cart.bakso_telur}
+                </span>
+
+                <strong>
+                    $${subtotal}
+                </strong>
+            </div>
+        `;
+
+    }
+
+
+    // Mie Ayam
+    if (cart.mie_ayam > 0) {
+
+        let subtotal =
+            cart.mie_ayam * products.mie_ayam.price;
+
+        total = total + subtotal;
+
+        html += `
+            <div class="cart-row">
+                <span>
+                    Mie Ayam × ${cart.mie_ayam}
+                </span>
+
+                <strong>
+                    $${subtotal}
+                </strong>
+            </div>
+        `;
 
     }
 
@@ -115,34 +169,57 @@ function updateDisplay() {
 }
 
 
+// ================================
+// CHECKOUT
+// ================================
+
 function checkout() {
 
-    let orderItems = [];
+    let items = [];
+
     let total = 0;
 
 
-    for (const key in cart) {
+    if (cart.bakso_urat > 0) {
 
-        const quantity = cart[key];
+        items.push({
+            product: "Bakso Urat",
+            quantity: cart.bakso_urat,
+            price: 4
+        });
 
-        if (quantity > 0) {
-
-            const product = products[key];
-
-            orderItems.push({
-                product: product.name,
-                quantity: quantity,
-                price: product.price
-            });
-
-            total += product.price * quantity;
-
-        }
+        total = total + (cart.bakso_urat * 4);
 
     }
 
 
-    if (orderItems.length === 0) {
+    if (cart.bakso_telur > 0) {
+
+        items.push({
+            product: "Bakso Telur",
+            quantity: cart.bakso_telur,
+            price: 4
+        });
+
+        total = total + (cart.bakso_telur * 4);
+
+    }
+
+
+    if (cart.mie_ayam > 0) {
+
+        items.push({
+            product: "Mie Ayam",
+            quantity: cart.mie_ayam,
+            price: 3
+        });
+
+        total = total + (cart.mie_ayam * 3);
+
+    }
+
+
+    if (items.length === 0) {
 
         tg.showAlert(
             "Keranjang masih kosong!"
@@ -157,7 +234,7 @@ function checkout() {
 
         type: "bakso_order",
 
-        items: orderItems,
+        items: items,
 
         total: total
 
@@ -170,6 +247,15 @@ function checkout() {
 
 }
 
+
+// ================================
+// UNTUK onclick DI HTML
+// ================================
+
 window.increase = increase;
 window.decrease = decrease;
 window.checkout = checkout;
+
+
+// Jalankan pertama kali
+updateDisplay();
