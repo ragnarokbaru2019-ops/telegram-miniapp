@@ -169,3 +169,7 @@ function checkout() {
     );
 
 }
+
+window.increase = increase;
+window.decrease = decrease;
+window.checkout = checkout;
