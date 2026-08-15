@@ -140,7 +140,6 @@ function checkout() {
     console.log("CHECKOUT DIKLIK");
 
     let items = [];
-
     let total = 0;
 
 
@@ -151,20 +150,13 @@ function checkout() {
             const product = products[key];
 
             items.push({
-
                 product: product.name,
-
                 quantity: cart[key],
-
                 price: product.price
-
             });
 
-            total +=
-                cart[key] * product.price;
-
+            total += cart[key] * product.price;
         }
-
     }
 
 
@@ -172,25 +164,22 @@ function checkout() {
     console.log("TOTAL:", total);
 
 
+    // Jika kosong
     if (items.length === 0) {
 
-        tg.showAlert(
-            "Keranjang masih kosong!"
-        );
+        console.log("KERANJANG KOSONG");
+
+        document.getElementById("total").innerText =
+            "Pilih menu dulu";
 
         return;
-
     }
 
 
     const order = {
-
         type: "bakso_order",
-
         items: items,
-
         total: total
-
     };
 
 
@@ -200,12 +189,24 @@ function checkout() {
     );
 
 
-    tg.sendData(
-        JSON.stringify(order)
-    );
+    // Kirim order ke bot
+    if (
+        typeof tg.sendData === "function"
+    ) {
+
+        tg.sendData(
+            JSON.stringify(order)
+        );
+
+    } else {
+
+        console.error(
+            "Telegram WebApp sendData tidak tersedia"
+        );
+
+    }
 
 }
-
 
 // ==============================
 // SAAT HALAMAN SELESAI
