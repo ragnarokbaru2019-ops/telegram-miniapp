@@ -7,7 +7,12 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta
+        name="theme-color"
+        content="#ffffff"
     >
 
     <title>Bakso Juragan</title>
@@ -17,9 +22,8 @@
         href="style.css"
     >
 
-    <script
-        src="https://telegram.org/js/telegram-web-app.js"
-    ></script>
+    <!-- Telegram Mini App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 </head>
 
@@ -28,8 +32,9 @@
 
 <div class="container">
 
-
-    <!-- HEADER -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
     <div class="header">
 
@@ -48,7 +53,9 @@
     </div>
 
 
-    <!-- MENU -->
+    <!-- =====================================================
+         MENU
+    ====================================================== -->
 
     <div class="menu-title">
 
@@ -59,16 +66,15 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          BAKSO URAT
-    ========================================== -->
+    ====================================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🍜
         </div>
-
 
         <div class="product-info">
 
@@ -86,7 +92,6 @@
 
         </div>
 
-
         <div class="quantity">
 
             <button
@@ -96,11 +101,9 @@
                 −
             </button>
 
-
             <span id="qty-bakso_urat">
                 0
             </span>
-
 
             <button
                 type="button"
@@ -114,16 +117,15 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          BAKSO TELUR
-    ========================================== -->
+    ====================================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🥚
         </div>
-
 
         <div class="product-info">
 
@@ -141,7 +143,6 @@
 
         </div>
 
-
         <div class="quantity">
 
             <button
@@ -151,11 +152,9 @@
                 −
             </button>
 
-
             <span id="qty-bakso_telur">
                 0
             </span>
-
 
             <button
                 type="button"
@@ -169,16 +168,15 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          MIE AYAM
-    ========================================== -->
+    ====================================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🍗
         </div>
-
 
         <div class="product-info">
 
@@ -196,7 +194,6 @@
 
         </div>
 
-
         <div class="quantity">
 
             <button
@@ -206,11 +203,9 @@
                 −
             </button>
 
-
             <span id="qty-mie_ayam">
                 0
             </span>
-
 
             <button
                 type="button"
@@ -224,9 +219,9 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          CART
-    ========================================== -->
+    ====================================================== -->
 
     <div class="cart">
 
@@ -238,7 +233,6 @@
 
         </div>
 
-
         <div id="cart-items">
 
             <p class="empty">
@@ -246,7 +240,6 @@
             </p>
 
         </div>
-
 
         <div class="total">
 
@@ -261,18 +254,16 @@
         </div>
 
 
-        <!-- =====================================
-             LANJUT ORDER
-        ====================================== -->
+        <!-- =================================================
+             CHECKOUT
+        ================================================== -->
 
         <button
             class="checkout"
             id="checkout-button"
             type="button"
         >
-
             🛒 LANJUT ORDER
-
         </button>
 
     </div>
@@ -280,11 +271,60 @@
 </div>
 
 
-<!-- APP JS -->
+<!-- =====================================================
+     APP JS
+====================================================== -->
 
-<script
-    src="app.js"
-></script>
+<script src="app.js"></script>
+
+
+<!-- =====================================================
+     TELEGRAM WEB APP INIT
+====================================================== -->
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            if (
+                window.Telegram &&
+                window.Telegram.WebApp
+            ) {
+
+                const tg =
+                    window.Telegram.WebApp;
+
+                tg.ready();
+                tg.expand();
+
+                console.log(
+                    "✅ Telegram WebApp READY"
+                );
+
+                console.log(
+                    "📱 Telegram version:",
+                    tg.version
+                );
+
+                console.log(
+                    "👤 Telegram user:",
+                    tg.initDataUnsafe?.user || null
+                );
+
+            } else {
+
+                console.warn(
+                    "⚠️ Telegram WebApp tidak terdeteksi"
+                );
+
+            }
+
+        }
+    );
+
+</script>
 
 
 </body>
