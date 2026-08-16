@@ -26,7 +26,6 @@
 
 </head>
 
-
 <body>
 
 <div class="container">
@@ -41,7 +40,9 @@
 
             <h1>🍜 Bakso Juragan</h1>
 
-            <p>Bakso enak, siap diantar!</p>
+            <p>
+                Bakso enak, siap diantar!
+            </p>
 
         </div>
 
@@ -54,7 +55,9 @@
 
     <div class="menu-title">
 
-        <h2>Menu Kami</h2>
+        <h2>
+            Menu Kami
+        </h2>
 
     </div>
 
@@ -71,11 +74,17 @@
 
         <div class="product-info">
 
-            <h3>Bakso Urat</h3>
+            <h3>
+                Bakso Urat
+            </h3>
 
-            <p>Bakso urat sapi yang lezat</p>
+            <p>
+                Bakso urat sapi yang lezat
+            </p>
 
-            <strong>$4</strong>
+            <strong>
+                $4
+            </strong>
 
         </div>
 
@@ -88,7 +97,9 @@
                 −
             </button>
 
-            <span id="qty-bakso_urat">0</span>
+            <span id="qty-bakso_urat">
+                0
+            </span>
 
             <button
                 type="button"
@@ -114,11 +125,17 @@
 
         <div class="product-info">
 
-            <h3>Bakso Telur</h3>
+            <h3>
+                Bakso Telur
+            </h3>
 
-            <p>Bakso dengan isian telur</p>
+            <p>
+                Bakso dengan isian telur
+            </p>
 
-            <strong>$4</strong>
+            <strong>
+                $4
+            </strong>
 
         </div>
 
@@ -131,7 +148,9 @@
                 −
             </button>
 
-            <span id="qty-bakso_telur">0</span>
+            <span id="qty-bakso_telur">
+                0
+            </span>
 
             <button
                 type="button"
@@ -157,11 +176,17 @@
 
         <div class="product-info">
 
-            <h3>Mie Ayam</h3>
+            <h3>
+                Mie Ayam
+            </h3>
 
-            <p>Mie ayam gurih dan nikmat</p>
+            <p>
+                Mie ayam gurih dan nikmat
+            </p>
 
-            <strong>$3</strong>
+            <strong>
+                $3
+            </strong>
 
         </div>
 
@@ -174,7 +199,9 @@
                 −
             </button>
 
-            <span id="qty-mie_ayam">0</span>
+            <span id="qty-mie_ayam">
+                0
+            </span>
 
             <button
                 type="button"
@@ -196,7 +223,9 @@
 
         <div class="cart-header">
 
-            <h2>🛒 Keranjang</h2>
+            <h2>
+                🛒 Keranjang
+            </h2>
 
         </div>
 
@@ -210,9 +239,13 @@
 
         <div class="total">
 
-            <span>Total</span>
+            <span>
+                Total
+            </span>
 
-            <strong id="total">$0</strong>
+            <strong id="total">
+                $0
+            </strong>
 
         </div>
 
@@ -228,7 +261,7 @@
 
 
     <!-- =====================================================
-         CHECKOUT FORM
+         CHECKOUT
     ====================================================== -->
 
     <div
@@ -238,14 +271,18 @@
 
         <div class="cart">
 
-            <h2>📦 Detail Pengantaran</h2>
+            <h2>
+                📦 Detail Pengantaran
+            </h2>
 
 
             <!-- PAYMENT -->
 
             <div style="margin-top:20px;">
 
-                <h3>💵 Metode Pembayaran</h3>
+                <h3>
+                    💵 Metode Pembayaran
+                </h3>
 
                 <button
                     type="button"
@@ -262,17 +299,19 @@
                     id="payment-aba"
                     onclick="selectPayment('aba')"
                 >
-                    🏦 ABA / QR
+                    🦁 ABA / QR
                 </button>
 
             </div>
 
 
-            <!-- ALAMAT -->
+            <!-- ADDRESS -->
 
             <div style="margin-top:20px;">
 
-                <h3>📍 Alamat Pengantaran</h3>
+                <h3>
+                    📍 Alamat Pengantaran
+                </h3>
 
                 <textarea
                     id="address"
@@ -292,48 +331,50 @@
             </div>
 
 
-            <!-- GPS -->
+            <!-- =================================================
+                 GPS
+            ================================================== -->
 
-<!-- =====================================================
-     GPS
-====================================================== -->
+            <div style="margin-top:20px;">
 
-<div style="margin-top:20px;">
+                <h3>
+                    📍 Lokasi GPS
+                </h3>
 
-    <h3>📍 Lokasi Pengantaran</h3>
+                <button
+                    type="button"
+                    id="gps-button"
+                    class="gps-button"
+                >
+                    📍 GUNAKAN LOKASI SAYA
+                </button>
 
-    <button
-        type="button"
-        id="gps-button"
-        class="gps-button"
-    >
-        📍 GUNAKAN LOKASI SAYA
-    </button>
+                <div
+                    id="gps-status"
+                    class="gps-status"
+                >
+                    Lokasi belum diambil
+                </div>
 
-    <p
-        id="gps-status"
-        class="gps-status"
-    >
-        Lokasi belum diambil
-    </p>
+            </div>
 
-</div>
 
             <!-- CONFIRM -->
 
             <button
                 type="button"
-                id="confirm-order-button"
+                id="confirm-order"
                 class="checkout"
-                onclick="confirmOrder()"
             >
                 ✅ KONFIRMASI ORDER
             </button>
 
 
+            <!-- BACK -->
+
             <button
                 type="button"
-                onclick="backToMenu()"
+                id="back-button"
                 style="
                     width:100%;
                     margin-top:10px;
@@ -355,128 +396,15 @@
 
 
 <!-- =====================================================
-     CHECKOUT
+     APP JS
 ====================================================== -->
 
-<div id="checkout-page" class="checkout-page" style="display:none;">
-
-    <div class="checkout-header">
-        <button
-            type="button"
-            id="back-menu"
-            class="back-button"
-        >
-            ← Kembali
-        </button>
-
-        <h2>🧾 Checkout</h2>
-    </div>
-
-    <!-- RINGKASAN -->
-    <div class="checkout-box">
-
-        <h3>🛒 Pesanan</h3>
-
-        <div id="checkout-items"></div>
-
-        <div class="checkout-total">
-            <span>Total</span>
-            <strong id="checkout-total">$0</strong>
-        </div>
-
-    </div>
+<script src="app.js?v=20260816-03"></script>
 
 
-    <!-- ALAMAT -->
-    <div class="checkout-box">
-
-        <h3>📍 Alamat Pengantaran</h3>
-
-        <textarea
-            id="address"
-            placeholder="Masukkan alamat lengkap..."
-            rows="4"
-        ></textarea>
-
-        <button
-            type="button"
-            id="gps-button"
-            class="gps-button"
-        >
-            📍 Gunakan Lokasi Saya
-        </button>
-
-        <div
-            id="gps-status"
-            class="gps-status"
-        >
-            Lokasi belum diambil
-        </div>
-
-    </div>
-
-
-    <!-- PAYMENT -->
-    <div class="checkout-box">
-
-        <h3>💵 Metode Pembayaran</h3>
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="Cash"
-                checked
-            >
-
-            💵 Cash
-
-        </label>
-
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="ABA"
-            >
-
-            🏦 ABA
-
-        </label>
-
-
-        <label class="payment-option">
-
-            <input
-                type="radio"
-                name="payment"
-                value="AC"
-            >
-
-            🏦 ACLEDA
-
-        </label>
-
-    </div>
-
-
-    <!-- CONFIRM -->
-    <button
-        type="button"
-        id="confirm-order"
-        class="checkout"
-    >
-        ✅ KONFIRMASI ORDER
-    </button>
-
-</div>
-
-
-<script src="app.js?v=20260816-02"></script>
-
+<!-- =====================================================
+     TELEGRAM INIT
+====================================================== -->
 
 <script>
 
@@ -493,6 +421,7 @@ document.addEventListener(
                 window.Telegram.WebApp;
 
             tg.ready();
+
             tg.expand();
 
             console.log(
