@@ -10,7 +10,7 @@ const tg = window.Telegram.WebApp;
 // =========================================================
 
 const API_URL =
-    "https://tension-chance-protocols-beam.trycloudflare.com";
+    "https://porcelain-wanna-blacks-composed.trycloudflare.com";
 
 
 // =========================================================
