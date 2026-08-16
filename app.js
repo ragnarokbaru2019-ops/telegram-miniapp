@@ -10,7 +10,7 @@ const tg = window.Telegram.WebApp;
 // =========================================================
 
 const API_URL =
-    "https://porcelain-wanna-blacks-composed.trycloudflare.com";
+    "https://responsibility-channels-lots-importantly.trycloudflare.com";
 
 
 // =========================================================
