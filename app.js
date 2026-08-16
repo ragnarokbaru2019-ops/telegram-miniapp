@@ -1,12 +1,16 @@
+// =========================================================
+// TELEGRAM MINI APP - BAKSO JURAGAN
+// =========================================================
+
 const tg = window.Telegram.WebApp;
 
 tg.ready();
 tg.expand();
 
 
-// ==============================
+// =========================================================
 // PRODUK
-// ==============================
+// =========================================================
 
 const products = {
 
@@ -28,9 +32,9 @@ const products = {
 };
 
 
-// ==============================
+// =========================================================
 // CART
-// ==============================
+// =========================================================
 
 const cart = {
 
@@ -41,18 +45,15 @@ const cart = {
 };
 
 
-// ==============================
-// PAYMENT
-// ==============================
-
-let selectedPayment = null;
-
-
-// ==============================
-// TAMBAH
-// ==============================
+// =========================================================
+// TAMBAH PRODUK
+// =========================================================
 
 function increase(product) {
+
+    if (!cart.hasOwnProperty(product)) {
+        return;
+    }
 
     cart[product]++;
 
@@ -61,16 +62,18 @@ function increase(product) {
 }
 
 
-// ==============================
-// KURANG
-// ==============================
+// =========================================================
+// KURANG PRODUK
+// =========================================================
 
 function decrease(product) {
 
+    if (!cart.hasOwnProperty(product)) {
+        return;
+    }
+
     if (cart[product] > 0) {
-
         cart[product]--;
-
     }
 
     updateDisplay();
@@ -78,21 +81,42 @@ function decrease(product) {
 }
 
 
-// ==============================
-// UPDATE CART
-// ==============================
+// =========================================================
+// UPDATE TAMPILAN
+// =========================================================
 
 function updateDisplay() {
 
-    document.getElementById("qty-bakso_urat").innerText =
-        cart.bakso_urat;
+    // Quantity Bakso Urat
+    const qtyUrat =
+        document.getElementById("qty-bakso_urat");
 
-    document.getElementById("qty-bakso_telur").innerText =
-        cart.bakso_telur;
+    if (qtyUrat) {
+        qtyUrat.innerText = cart.bakso_urat;
+    }
 
-    document.getElementById("qty-mie_ayam").innerText =
-        cart.mie_ayam;
 
+    // Quantity Bakso Telur
+    const qtyTelur =
+        document.getElementById("qty-bakso_telur");
+
+    if (qtyTelur) {
+        qtyTelur.innerText = cart.bakso_telur;
+    }
+
+
+    // Quantity Mie Ayam
+    const qtyMie =
+        document.getElementById("qty-mie_ayam");
+
+    if (qtyMie) {
+        qtyMie.innerText = cart.mie_ayam;
+    }
+
+
+    // =====================================================
+    // CART
+    // =====================================================
 
     let total = 0;
 
@@ -101,31 +125,31 @@ function updateDisplay() {
 
     for (const key in cart) {
 
-        if (cart[key] > 0) {
-
-            const product = products[key];
-
-            const subtotal =
-                cart[key] * product.price;
-
-            total += subtotal;
-
-
-            html += `
-                <div class="cart-row">
-
-                    <span>
-                        ${product.name} × ${cart[key]}
-                    </span>
-
-                    <strong>
-                        $${subtotal}
-                    </strong>
-
-                </div>
-            `;
-
+        if (cart[key] <= 0) {
+            continue;
         }
+
+        const product = products[key];
+
+        const subtotal =
+            cart[key] * product.price;
+
+        total += subtotal;
+
+
+        html += `
+            <div class="cart-row">
+
+                <span>
+                    ${product.name} × ${cart[key]}
+                </span>
+
+                <strong>
+                    $${subtotal}
+                </strong>
+
+            </div>
+        `;
 
     }
 
@@ -141,231 +165,283 @@ function updateDisplay() {
     }
 
 
-    document.getElementById("cart-items").innerHTML =
-        html;
+    const cartItems =
+        document.getElementById("cart-items");
+
+    if (cartItems) {
+        cartItems.innerHTML = html;
+    }
 
 
-    document.getElementById("total").innerText =
-        "$" + total;
+    const totalElement =
+        document.getElementById("total");
+
+    if (totalElement) {
+        totalElement.innerText =
+            "$" + total;
+    }
 
 }
 
 
-// ==============================
-// AMBIL DATA ORDER
-// ==============================
+// =========================================================
+// CHECKOUT
+// =========================================================
+//
+// MINI APP HANYA MENGIRIM:
+// - Produk
+// - Quantity
+// - Harga
+// - Total
+//
+// PEMBAYARAN DAN LOKASI DIPROSES OLEH BOT
+// =========================================================
 
-function getOrderData() {
+function checkout() {
+
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "🛒 LANJUT ORDER DIKLIK"
+    );
+
 
     let items = [];
 
     let total = 0;
 
 
+    // =====================================================
+    // AMBIL ITEM
+    // =====================================================
+
     for (const key in cart) {
 
-        if (cart[key] > 0) {
-
-            const product = products[key];
-
-
-            items.push({
-
-                product: product.name,
-
-                quantity: cart[key],
-
-                price: product.price
-
-            });
-
-
-            total +=
-                cart[key] * product.price;
-
+        if (cart[key] <= 0) {
+            continue;
         }
 
-    }
+
+        const product = products[key];
 
 
-    return {
-        items: items,
-        total: total
-    };
-
-}
+        const quantity =
+            cart[key];
 
 
-// ==============================
-// LANJUT ORDER
-// ==============================
-
-function checkout() {
-
-    const orderData =
-        getOrderData();
+        const subtotal =
+            quantity * product.price;
 
 
-    // Keranjang kosong
+        items.push({
 
-    if (orderData.items.length === 0) {
+            product: product.name,
 
-        alert("Pilih menu terlebih dahulu.");
+            quantity: quantity,
 
-        return;
+            price: product.price,
 
-    }
-
-
-    // Tampilkan pembayaran
-
-    const paymentSection =
-        document.getElementById(
-            "payment-section"
-        );
-
-
-    paymentSection.style.display =
-        "block";
-
-
-    // Scroll ke pembayaran
-
-    paymentSection.scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-// ==============================
-// PILIH PEMBAYARAN
-// ==============================
-
-function selectPayment(payment) {
-
-    selectedPayment =
-        payment;
-
-
-    document
-        .querySelectorAll(".payment-option")
-        .forEach(function(button) {
-
-            button.classList.remove(
-                "selected"
-            );
+            subtotal: subtotal
 
         });
 
 
-    const selectedButton =
-        document.querySelector(
-            `[data-payment="${payment}"]`
-        );
-
-
-    if (selectedButton) {
-
-        selectedButton.classList.add(
-            "selected"
-        );
+        total += subtotal;
 
     }
 
 
     console.log(
-        "Metode pembayaran:",
-        selectedPayment
+        "ITEMS:",
+        items
     );
 
-}
+
+    console.log(
+        "TOTAL:",
+        total
+    );
 
 
-// ==============================
-// KONFIRMASI ORDER
-// ==============================
+    // =====================================================
+    // CEK KERANJANG
+    // =====================================================
 
-function confirmOrder() {
+    if (items.length === 0) {
 
-    const orderData =
-        getOrderData();
-
-
-    if (orderData.items.length === 0) {
-
-        alert(
-            "Keranjang masih kosong."
+        console.log(
+            "❌ KERANJANG KOSONG"
         );
+
+
+        if (typeof tg.showAlert === "function") {
+
+            tg.showAlert(
+                "Silakan pilih menu terlebih dahulu."
+            );
+
+        } else {
+
+            alert(
+                "Silakan pilih menu terlebih dahulu."
+            );
+
+        }
 
         return;
 
     }
 
 
-    if (!selectedPayment) {
-
-        alert(
-            "Silakan pilih metode pembayaran."
-        );
-
-        return;
-
-    }
-
+    // =====================================================
+    // DATA YANG DIKIRIM KE BOT
+    // =====================================================
 
     const order = {
 
         type: "bakso_order",
 
-        items: orderData.items,
+        items: items,
 
-        total: orderData.total,
-
-        payment: selectedPayment
+        total: total
 
     };
 
 
     console.log(
-        "DATA ORDER:",
+        "DATA ORDER:"
+    );
+
+
+    console.log(
         JSON.stringify(order)
     );
 
 
-    // Kirim ke Telegram Bot
+    // =====================================================
+    // KIRIM KE TELEGRAM BOT
+    // =====================================================
 
     if (
         typeof tg.sendData === "function"
     ) {
 
+        console.log(
+            "📤 Mengirim data ke BOT..."
+        );
+
+
         tg.sendData(
             JSON.stringify(order)
         );
 
+
+        console.log(
+            "✅ DATA ORDER TERKIRIM"
+        );
+
+
     } else {
 
         console.error(
-            "Telegram WebApp sendData tidak tersedia"
+            "❌ Telegram WebApp sendData tidak tersedia"
         );
+
+
+        if (typeof tg.showAlert === "function") {
+
+            tg.showAlert(
+                "Mini App Telegram tidak dapat mengirim data."
+            );
+
+        }
 
     }
 
 }
 
 
-// ==============================
-// SAAT HALAMAN SELESAI
-// ==============================
+// =========================================================
+// SEMBUNYIKAN BAGIAN PEMBAYARAN / KONFIRMASI DI MINI APP
+// =========================================================
+//
+// Pembayaran dan konfirmasi FINAL dilakukan BOT.
+// Jadi kalau HTML lama masih memiliki tombol:
+// - Cash
+// - ABA / KHQR
+// - KONFIRMASI ORDER
+//
+// kita sembunyikan supaya customer tidak bingung.
+//
+// =========================================================
+
+function hideOldCheckoutButtons() {
+
+    const elements =
+        document.querySelectorAll(
+            "button, .payment-section, .payment-buttons, .confirm-order"
+        );
+
+
+    elements.forEach(function (element) {
+
+        const text =
+            element.innerText
+                ? element.innerText.trim().toUpperCase()
+                : "";
+
+
+        if (
+
+            text.includes("KONFIRMASI ORDER") ||
+
+            text.includes("CONFIRM ORDER") ||
+
+            text === "💵 CASH" ||
+
+            text === "CASH" ||
+
+            text.includes("ABA / KHQR") ||
+
+            text.includes("KHQR")
+
+        ) {
+
+            element.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+// =========================================================
+// DOM READY
+// =========================================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    function () {
 
         console.log(
-            "Mini App siap"
+            "================================"
         );
 
+        console.log(
+            "🍜 BAKSO JURAGAN MINI APP"
+        );
+
+        console.log(
+            "✅ Mini App siap"
+        );
+
+
+        // =================================================
+        // TOMBOL LANJUT ORDER
+        // =================================================
 
         const checkoutButton =
             document.getElementById(
@@ -373,69 +449,62 @@ document.addEventListener(
             );
 
 
-        const confirmButton =
-            document.getElementById(
-                "confirm-order"
+        if (!checkoutButton) {
+
+            console.error(
+                "❌ TOMBOL checkout-button TIDAK DITEMUKAN"
             );
 
-
-        if (checkoutButton) {
+        } else {
 
             checkoutButton.addEventListener(
                 "click",
-                checkout
+                function () {
+
+                    console.log(
+                        "🛒 TOMBOL LANJUT ORDER DIKLIK"
+                    );
+
+
+                    checkout();
+
+                }
             );
 
         }
 
 
-        if (confirmButton) {
-
-            confirmButton.addEventListener(
-                "click",
-                confirmOrder
-            );
-
-        }
-
-
-        // Tombol pembayaran
-
-        document
-            .querySelectorAll(
-                ".payment-option"
-            )
-            .forEach(function(button) {
-
-                button.addEventListener(
-                    "click",
-                    function() {
-
-                        const payment =
-                            this.dataset.payment;
-
-                        selectPayment(
-                            payment
-                        );
-
-                    }
-                );
-
-            });
-
+        // =================================================
+        // UPDATE CART
+        // =================================================
 
         updateDisplay();
+
+
+        // =================================================
+        // HILANGKAN TOMBOL LAMA
+        // =================================================
+
+        hideOldCheckoutButtons();
 
     }
 );
 
 
-// ==============================
-// GLOBAL
-// ==============================
+// =========================================================
+// GLOBAL FUNCTION
+// =========================================================
+//
+// Dibutuhkan kalau HTML menggunakan:
+// onclick="increase('bakso_urat')"
+// onclick="decrease('bakso_urat')"
+// =========================================================
 
 window.increase =
     increase;
 
 window.decrease =
     decrease;
+
+window.checkout =
+    checkout;
