@@ -17,23 +17,33 @@
         href="style.css"
     >
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script
+        src="https://telegram.org/js/telegram-web-app.js"
+    ></script>
 
 </head>
+
 
 <body>
 
 <div class="container">
 
+
     <!-- HEADER -->
 
     <div class="header">
 
-        <h1>🍜 Bakso Juragan</h1>
+        <div>
 
-        <p>
-            Bakso enak, siap diantar!
-        </p>
+            <h1>
+                🍜 Bakso Juragan
+            </h1>
+
+            <p>
+                Bakso enak, siap diantar!
+            </p>
+
+        </div>
 
     </div>
 
@@ -49,13 +59,16 @@
     </div>
 
 
-    <!-- BAKSO URAT -->
+    <!-- =========================================
+         BAKSO URAT
+    ========================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🍜
         </div>
+
 
         <div class="product-info">
 
@@ -73,6 +86,7 @@
 
         </div>
 
+
         <div class="quantity">
 
             <button
@@ -82,9 +96,11 @@
                 −
             </button>
 
+
             <span id="qty-bakso_urat">
                 0
             </span>
+
 
             <button
                 type="button"
@@ -98,13 +114,16 @@
     </div>
 
 
-    <!-- BAKSO TELUR -->
+    <!-- =========================================
+         BAKSO TELUR
+    ========================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🥚
         </div>
+
 
         <div class="product-info">
 
@@ -122,6 +141,7 @@
 
         </div>
 
+
         <div class="quantity">
 
             <button
@@ -131,9 +151,11 @@
                 −
             </button>
 
+
             <span id="qty-bakso_telur">
                 0
             </span>
+
 
             <button
                 type="button"
@@ -147,13 +169,16 @@
     </div>
 
 
-    <!-- MIE AYAM -->
+    <!-- =========================================
+         MIE AYAM
+    ========================================== -->
 
     <div class="product">
 
         <div class="product-icon">
             🍗
         </div>
+
 
         <div class="product-info">
 
@@ -171,6 +196,7 @@
 
         </div>
 
+
         <div class="quantity">
 
             <button
@@ -180,9 +206,11 @@
                 −
             </button>
 
+
             <span id="qty-mie_ayam">
                 0
             </span>
+
 
             <button
                 type="button"
@@ -196,7 +224,9 @@
     </div>
 
 
-    <!-- CART -->
+    <!-- =========================================
+         CART
+    ========================================== -->
 
     <div class="cart">
 
@@ -208,6 +238,7 @@
 
         </div>
 
+
         <div id="cart-items">
 
             <p class="empty">
@@ -215,6 +246,7 @@
             </p>
 
         </div>
+
 
         <div class="total">
 
@@ -229,14 +261,18 @@
         </div>
 
 
-        <!-- LANJUT ORDER -->
+        <!-- =====================================
+             LANJUT ORDER
+        ====================================== -->
 
         <button
-            type="button"
             class="checkout"
             id="checkout-button"
+            type="button"
         >
+
             🛒 LANJUT ORDER
+
         </button>
 
     </div>
@@ -244,7 +280,12 @@
 </div>
 
 
-<script src="app.js"></script>
+<!-- APP JS -->
+
+<script
+    src="app.js"
+></script>
+
 
 </body>
 
