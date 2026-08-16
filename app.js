@@ -362,28 +362,149 @@ function backToMenu() {
 function getGPS() {
 
     const status =
-        document.getElementById(
-            "gps-status"
-        );
+        document.getElementById("gps-status");
 
+    const button =
+        document.getElementById("gps-button");
+
+    if (!status) {
+        console.error("GPS status element tidak ditemukan");
+        return;
+    }
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "📡 MENGAMBIL LOKASI...";
+    }
 
     status.textContent =
         "📡 Mengambil lokasi...";
 
+    console.log("📍 REQUEST GPS");
+
+    // =====================================================
+    // TELEGRAM LOCATION
+    // =====================================================
+
+    const tg =
+        window.Telegram &&
+        window.Telegram.WebApp
+            ? window.Telegram.WebApp
+            : null;
+
+    if (
+        tg &&
+        typeof tg.requestLocation === "function"
+    ) {
+
+        console.log(
+            "📱 Menggunakan Telegram requestLocation()"
+        );
+
+        try {
+
+            tg.requestLocation(function(location) {
+
+                console.log(
+                    "📍 TELEGRAM LOCATION:",
+                    location
+                );
+
+                if (
+                    location &&
+                    typeof location.latitude === "number" &&
+                    typeof location.longitude === "number"
+                ) {
+
+                    gps = {
+
+                        latitude:
+                            location.latitude,
+
+                        longitude:
+                            location.longitude,
+
+                        accuracy:
+                            location.horizontal_accuracy || null
+
+                    };
+
+                    status.textContent =
+                        "✅ Lokasi berhasil diambil";
+
+                    if (button) {
+
+                        button.disabled = false;
+
+                        button.textContent =
+                            "✅ LOKASI SUDAH DIAMBIL";
+
+                    }
+
+                    console.log(
+                        "✅ GPS:",
+                        gps
+                    );
+
+                } else {
+
+                    status.textContent =
+                        "❌ Lokasi tidak tersedia";
+
+                    if (button) {
+
+                        button.disabled = false;
+
+                        button.textContent =
+                            "📍 GUNAKAN LOKASI SAYA";
+
+                    }
+
+                }
+
+            });
+
+            return;
+
+        } catch (error) {
+
+            console.error(
+                "❌ Telegram GPS ERROR:",
+                error
+            );
+
+        }
+
+    }
+
+    // =====================================================
+    // FALLBACK BROWSER GPS
+    // =====================================================
+
+    console.log(
+        "🌐 Menggunakan browser Geolocation"
+    );
 
     if (!navigator.geolocation) {
 
         status.textContent =
-            "❌ GPS tidak tersedia.";
+            "❌ GPS tidak tersedia di perangkat ini.";
+
+        if (button) {
+
+            button.disabled = false;
+
+            button.textContent =
+                "📍 GUNAKAN LOKASI SAYA";
+
+        }
 
         return;
-
     }
-
 
     navigator.geolocation.getCurrentPosition(
 
-        position => {
+        function(position) {
 
             gps = {
 
@@ -398,27 +519,63 @@ function getGPS() {
 
             };
 
+            console.log(
+                "✅ BROWSER GPS:",
+                gps
+            );
 
             status.textContent =
                 "✅ Lokasi berhasil diambil";
 
-            console.log(
-                "📍 GPS:",
-                gps
-            );
+            if (button) {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "✅ LOKASI SUDAH DIAMBIL";
+
+            }
 
         },
 
-        error => {
+        function(error) {
 
             console.error(
-                "GPS ERROR:",
+                "❌ GPS ERROR:",
                 error
             );
 
+            let message =
+                "❌ Gagal mengambil lokasi.";
+
+            if (error.code === 1) {
+
+                message =
+                    "❌ Izin lokasi ditolak. Silakan izinkan akses lokasi.";
+
+            } else if (error.code === 2) {
+
+                message =
+                    "❌ Lokasi tidak tersedia.";
+
+            } else if (error.code === 3) {
+
+                message =
+                    "❌ Waktu mengambil lokasi habis.";
+
+            }
 
             status.textContent =
-                "❌ Gagal mengambil lokasi.";
+                message;
+
+            if (button) {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "📍 GUNAKAN LOKASI SAYA";
+
+            }
 
         },
 
@@ -426,7 +583,7 @@ function getGPS() {
 
             enableHighAccuracy: true,
 
-            timeout: 10000,
+            timeout: 15000,
 
             maximumAge: 0
 
@@ -435,7 +592,6 @@ function getGPS() {
     );
 
 }
-
 
 // =========================================================
 // TELEGRAM USER
