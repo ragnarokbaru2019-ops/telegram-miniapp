@@ -22,7 +22,6 @@
         href="style.css"
     >
 
-    <!-- Telegram Mini App -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 </head>
@@ -40,13 +39,9 @@
 
         <div>
 
-            <h1>
-                🍜 Bakso Juragan
-            </h1>
+            <h1>🍜 Bakso Juragan</h1>
 
-            <p>
-                Bakso enak, siap diantar!
-            </p>
+            <p>Bakso enak, siap diantar!</p>
 
         </div>
 
@@ -59,9 +54,7 @@
 
     <div class="menu-title">
 
-        <h2>
-            Menu Kami
-        </h2>
+        <h2>Menu Kami</h2>
 
     </div>
 
@@ -78,17 +71,11 @@
 
         <div class="product-info">
 
-            <h3>
-                Bakso Urat
-            </h3>
+            <h3>Bakso Urat</h3>
 
-            <p>
-                Bakso urat sapi yang lezat
-            </p>
+            <p>Bakso urat sapi yang lezat</p>
 
-            <strong>
-                $4
-            </strong>
+            <strong>$4</strong>
 
         </div>
 
@@ -101,9 +88,7 @@
                 −
             </button>
 
-            <span id="qty-bakso_urat">
-                0
-            </span>
+            <span id="qty-bakso_urat">0</span>
 
             <button
                 type="button"
@@ -129,17 +114,11 @@
 
         <div class="product-info">
 
-            <h3>
-                Bakso Telur
-            </h3>
+            <h3>Bakso Telur</h3>
 
-            <p>
-                Bakso dengan isian telur
-            </p>
+            <p>Bakso dengan isian telur</p>
 
-            <strong>
-                $4
-            </strong>
+            <strong>$4</strong>
 
         </div>
 
@@ -152,9 +131,7 @@
                 −
             </button>
 
-            <span id="qty-bakso_telur">
-                0
-            </span>
+            <span id="qty-bakso_telur">0</span>
 
             <button
                 type="button"
@@ -180,17 +157,11 @@
 
         <div class="product-info">
 
-            <h3>
-                Mie Ayam
-            </h3>
+            <h3>Mie Ayam</h3>
 
-            <p>
-                Mie ayam gurih dan nikmat
-            </p>
+            <p>Mie ayam gurih dan nikmat</p>
 
-            <strong>
-                $3
-            </strong>
+            <strong>$3</strong>
 
         </div>
 
@@ -203,9 +174,7 @@
                 −
             </button>
 
-            <span id="qty-mie_ayam">
-                0
-            </span>
+            <span id="qty-mie_ayam">0</span>
 
             <button
                 type="button"
@@ -227,9 +196,7 @@
 
         <div class="cart-header">
 
-            <h2>
-                🛒 Keranjang
-            </h2>
+            <h2>🛒 Keranjang</h2>
 
         </div>
 
@@ -243,20 +210,11 @@
 
         <div class="total">
 
-            <span>
-                Total
-            </span>
+            <span>Total</span>
 
-            <strong id="total">
-                $0
-            </strong>
+            <strong id="total">$0</strong>
 
         </div>
-
-
-        <!-- =================================================
-             CHECKOUT
-        ================================================== -->
 
         <button
             class="checkout"
@@ -268,63 +226,178 @@
 
     </div>
 
+
+    <!-- =====================================================
+         CHECKOUT FORM
+    ====================================================== -->
+
+    <div
+        id="checkout-section"
+        style="display:none;"
+    >
+
+        <div class="cart">
+
+            <h2>📦 Detail Pengantaran</h2>
+
+
+            <!-- PAYMENT -->
+
+            <div style="margin-top:20px;">
+
+                <h3>💵 Metode Pembayaran</h3>
+
+                <button
+                    type="button"
+                    class="payment-option"
+                    id="payment-cash"
+                    onclick="selectPayment('cash')"
+                >
+                    💵 Cash
+                </button>
+
+                <button
+                    type="button"
+                    class="payment-option"
+                    id="payment-aba"
+                    onclick="selectPayment('aba')"
+                >
+                    🏦 ABA / QR
+                </button>
+
+            </div>
+
+
+            <!-- ALAMAT -->
+
+            <div style="margin-top:20px;">
+
+                <h3>📍 Alamat Pengantaran</h3>
+
+                <textarea
+                    id="address"
+                    rows="4"
+                    placeholder="Contoh: Golden Crown Hotel, Poipet"
+                    style="
+                        width:100%;
+                        box-sizing:border-box;
+                        padding:12px;
+                        border-radius:10px;
+                        border:1px solid #ccc;
+                        font-size:16px;
+                        resize:none;
+                    "
+                ></textarea>
+
+            </div>
+
+
+            <!-- GPS -->
+
+            <div style="margin-top:20px;">
+
+                <h3>🗺️ Lokasi GPS</h3>
+
+                <button
+                    type="button"
+                    id="gps-button"
+                    class="checkout"
+                    onclick="getGPS()"
+                >
+                    📍 KIRIM LOKASI SAYA
+                </button>
+
+                <p
+                    id="gps-status"
+                    style="text-align:center;"
+                >
+                    Lokasi belum dikirim
+                </p>
+
+            </div>
+
+
+            <!-- CONFIRM -->
+
+            <button
+                type="button"
+                id="confirm-order-button"
+                class="checkout"
+                onclick="confirmOrder()"
+            >
+                ✅ KONFIRMASI ORDER
+            </button>
+
+
+            <button
+                type="button"
+                onclick="backToMenu()"
+                style="
+                    width:100%;
+                    margin-top:10px;
+                    padding:14px;
+                    border:none;
+                    border-radius:10px;
+                    background:#ddd;
+                    font-size:16px;
+                "
+            >
+                ← KEMBALI KE MENU
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 
 
-<!-- =====================================================
-     APP JS
-====================================================== -->
+<script src="app.js?v=20260816-02"></script>
 
-<script src="app.js?v=20260816-01"></script>
-
-<!-- =====================================================
-     TELEGRAM WEB APP INIT
-====================================================== -->
 
 <script>
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-            if (
-                window.Telegram &&
-                window.Telegram.WebApp
-            ) {
+        if (
+            window.Telegram &&
+            window.Telegram.WebApp
+        ) {
 
-                const tg =
-                    window.Telegram.WebApp;
+            const tg =
+                window.Telegram.WebApp;
 
-                tg.ready();
-                tg.expand();
+            tg.ready();
+            tg.expand();
 
-                console.log(
-                    "✅ Telegram WebApp READY"
-                );
+            console.log(
+                "✅ Telegram WebApp READY"
+            );
 
-                console.log(
-                    "📱 Telegram version:",
-                    tg.version
-                );
+            console.log(
+                "📱 Telegram version:",
+                tg.version
+            );
 
-                console.log(
-                    "👤 Telegram user:",
-                    tg.initDataUnsafe?.user || null
-                );
+            console.log(
+                "👤 Telegram user:",
+                tg.initDataUnsafe?.user || null
+            );
 
-            } else {
+        } else {
 
-                console.warn(
-                    "⚠️ Telegram WebApp tidak terdeteksi"
-                );
-
-            }
+            console.warn(
+                "⚠️ Telegram WebApp tidak terdeteksi"
+            );
 
         }
-    );
+
+    }
+);
 
 </script>
-
 
 </body>
 
