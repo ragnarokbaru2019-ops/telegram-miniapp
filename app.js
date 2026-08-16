@@ -15,8 +15,7 @@ const tg =
 
 // MASUKKAN URL /order KAMU YANG SEKARANG
 const ORDER_API_URL =
-    "https://responsibility-channels-lots-importantly.trycloudflare.com";
-
+    "https://responsibility-channels-lots-importantly.trycloudflare.com/order";
 
 // =========================================================
 // PRODUCTS
