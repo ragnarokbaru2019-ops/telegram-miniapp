@@ -1,9 +1,15 @@
 // =========================================================
-// TELEGRAM MINI APP - BAKSO JURAGAN V2
-// PAYMENT + ALAMAT + GPS
+// BAKSO JURAGAN - MINI APP V2
 // =========================================================
 
 const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+console.log("================================");
+console.log("🍜 BAKSO JURAGAN MINI APP V2");
+console.log("================================");
 
 
 // =========================================================
@@ -12,22 +18,6 @@ const tg = window.Telegram.WebApp;
 
 const API_URL =
     "https://responsibility-channels-lots-importantly.trycloudflare.com";
-
-
-// =========================================================
-// INIT
-// =========================================================
-
-console.log("================================");
-console.log("🍜 BAKSO JURAGAN MINI APP V2");
-console.log("================================");
-
-console.log("Telegram WebApp:", tg);
-console.log("Telegram version:", tg.version);
-console.log("Platform:", tg.platform);
-
-tg.ready();
-tg.expand();
 
 
 // =========================================================
@@ -68,16 +58,10 @@ let cart = {
 
 
 // =========================================================
-// CHECKOUT DATA
+// GPS
 // =========================================================
 
-let selectedPayment = null;
-
-let gpsData = {
-
-    latitude: null,
-    longitude: null
-};
+let gps = null;
 
 
 // =========================================================
@@ -87,17 +71,10 @@ let gpsData = {
 function increase(product) {
 
     if (!products[product]) {
-
-        console.error(
-            "❌ Produk tidak ditemukan:",
-            product
-        );
-
         return;
     }
 
-    cart[product] =
-        Number(cart[product]) + 1;
+    cart[product]++;
 
     updateDisplay();
 
@@ -111,12 +88,6 @@ function increase(product) {
 function decrease(product) {
 
     if (!products[product]) {
-
-        console.error(
-            "❌ Produk tidak ditemukan:",
-            product
-        );
-
         return;
     }
 
@@ -132,49 +103,24 @@ function decrease(product) {
 
 
 // =========================================================
-// UPDATE CART
+// UPDATE MENU
 // =========================================================
 
 function updateDisplay() {
 
-    const qtyUrat =
-        document.getElementById(
-            "qty-bakso_urat"
-        );
-
-    const qtyTelur =
-        document.getElementById(
-            "qty-bakso_telur"
-        );
-
-    const qtyMie =
-        document.getElementById(
-            "qty-mie_ayam"
-        );
+    document.getElementById(
+        "qty-bakso_urat"
+    ).textContent = cart.bakso_urat;
 
 
-    if (qtyUrat) {
-
-        qtyUrat.textContent =
-            cart.bakso_urat;
-
-    }
+    document.getElementById(
+        "qty-bakso_telur"
+    ).textContent = cart.bakso_telur;
 
 
-    if (qtyTelur) {
-
-        qtyTelur.textContent =
-            cart.bakso_telur;
-
-    }
-
-
-    if (qtyMie) {
-
-        qtyMie.textContent =
-            cart.mie_ayam;
-
-    }
+    document.getElementById(
+        "qty-mie_ayam"
+    ).textContent = cart.mie_ayam;
 
 
     let total = 0;
@@ -183,12 +129,12 @@ function updateDisplay() {
 
 
     Object.keys(cart).forEach(
-        function(key) {
+        key => {
 
-            const quantity =
+            const qty =
                 Number(cart[key]);
 
-            if (quantity <= 0) {
+            if (qty <= 0) {
                 return;
             }
 
@@ -198,7 +144,7 @@ function updateDisplay() {
 
 
             const subtotal =
-                quantity * product.price;
+                qty * product.price;
 
 
             total += subtotal;
@@ -208,7 +154,7 @@ function updateDisplay() {
                 <div class="cart-row">
 
                     <span>
-                        ${product.name} × ${quantity}
+                        ${product.name} × ${qty}
                     </span>
 
                     <strong>
@@ -233,60 +179,31 @@ function updateDisplay() {
     }
 
 
-    const cartItems =
-        document.getElementById(
-            "cart-items"
-        );
+    document.getElementById(
+        "cart-items"
+    ).innerHTML = html;
 
 
-    if (cartItems) {
-
-        cartItems.innerHTML =
-            html;
-
-    }
-
-
-    const totalElement =
-        document.getElementById(
-            "total"
-        );
-
-
-    if (totalElement) {
-
-        totalElement.textContent =
-            "$" + total;
-
-    }
-
-
-    console.log(
-        "🛒 CART:",
-        cart
-    );
-
-    console.log(
-        "💰 TOTAL:",
-        total
-    );
+    document.getElementById(
+        "total"
+    ).textContent = "$" + total;
 
 }
 
 
 // =========================================================
-// HITUNG ORDER
+// GET CART DATA
 // =========================================================
 
-function buildOrderItems() {
+function getOrderItems() {
 
-    let items = [];
+    const items = [];
 
     let total = 0;
 
 
     Object.keys(cart).forEach(
-        function(key) {
+        key => {
 
             const quantity =
                 Number(cart[key]);
@@ -329,34 +246,24 @@ function buildOrderItems() {
 
 
     return {
-
-        items: items,
-
-        total: total
-
+        items,
+        total
     };
 
 }
 
 
 // =========================================================
-// LANJUT ORDER
+// BUKA CHECKOUT
 // =========================================================
 
 function checkout() {
 
-    console.log(
-        "🛒 LANJUT ORDER"
-    );
+    const order =
+        getOrderItems();
 
 
-    const orderData =
-        buildOrderItems();
-
-
-    if (
-        orderData.items.length === 0
-    ) {
+    if (order.items.length === 0) {
 
         alert(
             "Silakan pilih menu terlebih dahulu."
@@ -367,274 +274,65 @@ function checkout() {
     }
 
 
-    const menu =
-        document.querySelector(
-            ".cart"
-        );
+    document.querySelector(
+        ".container"
+    ).style.display = "none";
 
 
-    const checkoutSection =
-        document.getElementById(
-            "checkout-section"
-        );
+    document.getElementById(
+        "checkout-page"
+    ).style.display = "block";
 
 
-    if (menu) {
-
-        menu.style.display =
-            "none";
-
-    }
-
-
-    if (checkoutSection) {
-
-        checkoutSection.style.display =
-            "block";
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
-
-    console.log(
-        "📦 Checkout dimulai:",
-        orderData
+    renderCheckout(
+        order
     );
 
 }
 
 
 // =========================================================
-// PAYMENT
+// RENDER CHECKOUT
 // =========================================================
 
-function selectPayment(payment) {
+function renderCheckout(order) {
 
-    selectedPayment =
-        payment;
-
-
-    const cashButton =
-        document.getElementById(
-            "payment-cash"
-        );
-
-    const abaButton =
-        document.getElementById(
-            "payment-aba"
-        );
+    let html = "";
 
 
-    if (cashButton) {
+    order.items.forEach(
+        item => {
 
-        cashButton.style.border =
-            "2px solid transparent";
+            html += `
 
-    }
+                <div class="cart-row">
 
+                    <span>
+                        ${item.product}
+                        × ${item.quantity}
+                    </span>
 
-    if (abaButton) {
+                    <strong>
+                        $${item.subtotal}
+                    </strong>
 
-        abaButton.style.border =
-            "2px solid transparent";
+                </div>
 
-    }
-
-
-    if (
-        payment === "cash"
-    ) {
-
-        if (cashButton) {
-
-            cashButton.style.border =
-                "3px solid green";
+            `;
 
         }
-
-        console.log(
-            "💵 PAYMENT: CASH"
-        );
-
-    }
-
-
-    if (
-        payment === "aba"
-    ) {
-
-        if (abaButton) {
-
-            abaButton.style.border =
-                "3px solid green";
-
-        }
-
-        console.log(
-            "🏦 PAYMENT: ABA / QR"
-        );
-
-    }
-
-}
-
-
-// =========================================================
-// GPS
-// =========================================================
-
-function getGPS() {
-
-    console.log(
-        "📍 Meminta lokasi GPS..."
     );
 
 
-    const status =
-        document.getElementById(
-            "gps-status"
-        );
+    document.getElementById(
+        "checkout-items"
+    ).innerHTML = html;
 
 
-    const button =
-        document.getElementById(
-            "gps-button"
-        );
-
-
-    if (!navigator.geolocation) {
-
-        alert(
-            "Browser/Telegram tidak mendukung GPS."
-        );
-
-        return;
-
-    }
-
-
-    if (status) {
-
-        status.textContent =
-            "📡 Mengambil lokasi...";
-
-    }
-
-
-    if (button) {
-
-        button.disabled =
-            true;
-
-        button.textContent =
-            "📡 MENGAMBIL LOKASI...";
-
-    }
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position) {
-
-            gpsData.latitude =
-                position.coords.latitude;
-
-            gpsData.longitude =
-                position.coords.longitude;
-
-
-            console.log(
-                "✅ GPS LAT:",
-                gpsData.latitude
-            );
-
-            console.log(
-                "✅ GPS LNG:",
-                gpsData.longitude
-            );
-
-
-            if (status) {
-
-                status.innerHTML =
-                    "✅ Lokasi berhasil dikirim<br>" +
-                    gpsData.latitude.toFixed(6) +
-                    ", " +
-                    gpsData.longitude.toFixed(6);
-
-            }
-
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.textContent =
-                    "📍 LOKASI SUDAH TERKIRIM";
-
-            }
-
-        },
-
-
-        function(error) {
-
-            console.error(
-                "❌ GPS ERROR:",
-                error
-            );
-
-
-            if (status) {
-
-                status.textContent =
-                    "❌ Gagal mengambil lokasi.";
-
-            }
-
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.textContent =
-                    "📍 COBA LAGI";
-
-            }
-
-
-            alert(
-                "Tidak bisa mengambil lokasi.\n\n" +
-                "Pastikan izin lokasi Telegram sudah diberikan."
-            );
-
-        },
-
-
-        {
-
-            enableHighAccuracy:
-                true,
-
-            timeout:
-                10000,
-
-            maximumAge:
-                0
-
-        }
-
-    );
+    document.getElementById(
+        "checkout-total"
+    ).textContent =
+        "$" + order.total;
 
 }
 
@@ -645,38 +343,173 @@ function getGPS() {
 
 function backToMenu() {
 
-    const menu =
-        document.querySelector(
-            ".cart"
-        );
+    document.getElementById(
+        "checkout-page"
+    ).style.display = "none";
 
 
-    const checkoutSection =
-        document.getElementById(
-            "checkout-section"
-        );
-
-
-    if (checkoutSection) {
-
-        checkoutSection.style.display =
-            "none";
-
-    }
-
-
-    if (menu) {
-
-        menu.style.display =
-            "block";
-
-    }
+    document.querySelector(
+        ".container"
+    ).style.display = "block";
 
 }
 
 
 // =========================================================
-// KONFIRMASI ORDER
+// GPS
+// =========================================================
+
+function getGPS() {
+
+    const status =
+        document.getElementById(
+            "gps-status"
+        );
+
+
+    status.textContent =
+        "📡 Mengambil lokasi...";
+
+
+    if (!navigator.geolocation) {
+
+        status.textContent =
+            "❌ GPS tidak tersedia.";
+
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        position => {
+
+            gps = {
+
+                latitude:
+                    position.coords.latitude,
+
+                longitude:
+                    position.coords.longitude,
+
+                accuracy:
+                    position.coords.accuracy
+
+            };
+
+
+            status.textContent =
+                "✅ Lokasi berhasil diambil";
+
+            console.log(
+                "📍 GPS:",
+                gps
+            );
+
+        },
+
+        error => {
+
+            console.error(
+                "GPS ERROR:",
+                error
+            );
+
+
+            status.textContent =
+                "❌ Gagal mengambil lokasi.";
+
+        },
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 0
+
+        }
+
+    );
+
+}
+
+
+// =========================================================
+// TELEGRAM USER
+// =========================================================
+
+function getTelegramUser() {
+
+    const user =
+        tg.initDataUnsafe?.user;
+
+
+    if (!user) {
+
+        console.warn(
+            "⚠️ Telegram user tidak tersedia"
+        );
+
+        return null;
+
+    }
+
+
+    return {
+
+        id:
+            user.id,
+
+        first_name:
+            user.first_name || "",
+
+        last_name:
+            user.last_name || "",
+
+        username:
+            user.username || "",
+
+        language_code:
+            user.language_code || "",
+
+        allows_write_to_pm:
+            user.allows_write_to_pm || false,
+
+        photo_url:
+            user.photo_url || ""
+
+    };
+
+}
+
+
+// =========================================================
+// PAYMENT
+// =========================================================
+
+function getPayment() {
+
+    const selected =
+        document.querySelector(
+            'input[name="payment"]:checked'
+        );
+
+
+    if (!selected) {
+        return null;
+    }
+
+
+    return selected.value;
+
+}
+
+
+// =========================================================
+// CONFIRM ORDER
 // =========================================================
 
 async function confirmOrder() {
@@ -687,7 +520,7 @@ async function confirmOrder() {
     );
 
     console.log(
-        "✅ KONFIRMASI ORDER"
+        "📦 KONFIRMASI ORDER"
     );
 
     console.log(
@@ -695,17 +528,11 @@ async function confirmOrder() {
     );
 
 
-    // -----------------------------------------------------
-    // CHECK CART
-    // -----------------------------------------------------
-
-    const orderData =
-        buildOrderItems();
+    const order =
+        getOrderItems();
 
 
-    if (
-        orderData.items.length === 0
-    ) {
+    if (order.items.length === 0) {
 
         alert(
             "Keranjang kosong."
@@ -716,11 +543,28 @@ async function confirmOrder() {
     }
 
 
-    // -----------------------------------------------------
-    // CHECK PAYMENT
-    // -----------------------------------------------------
+    const address =
+        document.getElementById(
+            "address"
+        ).value.trim();
 
-    if (!selectedPayment) {
+
+    if (!address) {
+
+        alert(
+            "Silakan masukkan alamat pengantaran."
+        );
+
+        return;
+
+    }
+
+
+    const payment =
+        getPayment();
+
+
+    if (!payment) {
 
         alert(
             "Silakan pilih metode pembayaran."
@@ -731,104 +575,43 @@ async function confirmOrder() {
     }
 
 
-    // -----------------------------------------------------
-    // ADDRESS
-    // -----------------------------------------------------
-
-    const addressElement =
-        document.getElementById(
-            "address"
-        );
-
-
-    const address =
-        addressElement
-            ? addressElement.value.trim()
-            : "";
-
-
-    if (!address) {
-
-        alert(
-            "Silakan isi alamat pengantaran."
-        );
-
-        if (addressElement) {
-
-            addressElement.focus();
-
-        }
-
-        return;
-
-    }
-
-
-    // -----------------------------------------------------
-    // GPS
-    // -----------------------------------------------------
-
-    if (
-        !gpsData.latitude ||
-        !gpsData.longitude
-    ) {
-
-        alert(
-            "Silakan kirim lokasi GPS terlebih dahulu."
-        );
-
-        return;
-
-    }
-
-
-    // -----------------------------------------------------
-    // TELEGRAM USER
-    // -----------------------------------------------------
-
     const telegramUser =
-        tg.initDataUnsafe?.user || null;
+        getTelegramUser();
 
 
-    console.log(
-        "👤 USER:",
-        telegramUser
-    );
+    if (!telegramUser) {
+
+        alert(
+            "Data Telegram tidak tersedia."
+        );
+
+        return;
+
+    }
 
 
-    // -----------------------------------------------------
-    // BUILD ORDER
-    // -----------------------------------------------------
-
-    const order = {
+    const data = {
 
         type:
             "bakso_order",
 
         items:
-            orderData.items,
+            order.items,
 
         total:
-            orderData.total,
+            order.total,
 
         telegram_user:
             telegramUser,
 
         payment:
-            selectedPayment,
+            payment,
 
         address:
             address,
 
-        gps: {
-
-            latitude:
-                gpsData.latitude,
-
-            longitude:
-                gpsData.longitude
-
-        }
+        gps:
+            gps
 
     };
 
@@ -839,43 +622,26 @@ async function confirmOrder() {
 
     console.log(
         JSON.stringify(
-            order
+            data,
+            null,
+            2
         )
     );
 
 
-    // -----------------------------------------------------
-    // BUTTON
-    // -----------------------------------------------------
-
     const button =
         document.getElementById(
-            "confirm-order-button"
+            "confirm-order"
         );
 
 
-    if (button) {
+    button.disabled = true;
 
-        button.disabled =
-            true;
+    button.textContent =
+        "⏳ MENGIRIM ORDER...";
 
-        button.textContent =
-            "⏳ MENGIRIM ORDER...";
-
-    }
-
-
-    // -----------------------------------------------------
-    // SEND API
-    // -----------------------------------------------------
 
     try {
-
-        console.log(
-            "📡 POST:",
-            API_URL + "/order"
-        );
-
 
         const response =
             await fetch(
@@ -893,147 +659,137 @@ async function confirmOrder() {
                     },
 
                     body:
-                        JSON.stringify(
-                            order
-                        )
+                        JSON.stringify(data)
 
                 }
             );
 
 
         console.log(
-            "📡 HTTP STATUS:",
+            "HTTP STATUS:",
             response.status
         );
 
 
-        const responseText =
-            await response.text();
+        const result =
+            await response.json();
 
 
         console.log(
-            "📡 SERVER RESPONSE:",
-            responseText
-        );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Server error " +
-                response.status +
-                ": " +
-                responseText
-            );
-
-        }
-
-
-        let result;
-
-
-        try {
-
-            result =
-                JSON.parse(
-                    responseText
-                );
-
-        } catch (error) {
-
-            throw new Error(
-                "Server tidak mengirim JSON yang valid."
-            );
-
-        }
-
-
-        console.log(
-            "✅ RESPONSE:",
+            "SERVER RESPONSE:",
             result
         );
 
 
-        // -------------------------------------------------
-        // SUCCESS
-        // -------------------------------------------------
+        if (!response.ok || !result.success) {
 
-        alert(
-            "✅ ORDER BERHASIL!\n\n" +
-            "Order ID: " +
-            (
-                result.order_id ||
-                "BERHASIL"
-            ) +
-            "\n\n" +
-            "Pesanan sedang diproses."
-        );
+            throw new Error(
+                result.error ||
+                "Order gagal."
+            );
+
+        }
 
 
         console.log(
-            "✅ ORDER BERHASIL"
+            "✅ ORDER BERHASIL:",
+            result.order_id
         );
 
 
-        // -------------------------------------------------
-        // CLOSE MINI APP
-        // -------------------------------------------------
+        // =================================================
+        // SUKSES
+        // =================================================
 
-        setTimeout(
-            function() {
+        document.getElementById(
+            "checkout-page"
+        ).innerHTML = `
 
-                try {
+            <div
+                style="
+                    text-align:center;
+                    padding:40px 20px;
+                "
+            >
 
-                    tg.close();
+                <div
+                    style="
+                        font-size:70px;
+                        margin-bottom:20px;
+                    "
+                >
+                    ✅
+                </div>
 
-                } catch (error) {
+                <h2>
+                    Order Berhasil!
+                </h2>
 
-                    console.log(
-                        "Telegram close tidak tersedia."
-                    );
+                <p>
+                    Nomor Order
+                </p>
 
-                }
+                <h2>
+                    ${result.order_id}
+                </h2>
 
-            },
-            500
-        );
+                <p>
+                    Pesanan kamu sudah diterima
+                    dan sedang diproses.
+                </p>
+
+                <button
+                    type="button"
+                    class="checkout"
+                    onclick="closeMiniApp()"
+                >
+                    👍 SELESAI
+                </button>
+
+            </div>
+
+        `;
 
 
     } catch (error) {
 
         console.error(
-            "================================"
-        );
-
-        console.error(
-            "❌ ORDER GAGAL"
-        );
-
-        console.error(
+            "❌ ORDER GAGAL:",
             error
-        );
-
-        console.error(
-            "================================"
         );
 
 
         alert(
-            "❌ ORDER GAGAL\n\n" +
-            error.message +
-            "\n\nSilakan coba lagi."
+            "Order gagal:\n\n" +
+            error.message
         );
 
 
-        if (button) {
+        button.disabled = false;
 
-            button.disabled =
-                false;
+        button.textContent =
+            "✅ KONFIRMASI ORDER";
 
-            button.textContent =
-                "✅ KONFIRMASI ORDER";
+    }
 
-        }
+}
+
+
+// =========================================================
+// CLOSE MINI APP
+// =========================================================
+
+function closeMiniApp() {
+
+    try {
+
+        tg.close();
+
+    } catch (error) {
+
+        console.log(
+            "Telegram close tidak tersedia"
+        );
 
     }
 
@@ -1063,13 +819,55 @@ document.addEventListener(
 
             checkoutButton.addEventListener(
                 "click",
-                function(event) {
+                checkout
+            );
 
-                    event.preventDefault();
+        }
 
-                    checkout();
 
-                }
+        const backButton =
+            document.getElementById(
+                "back-menu"
+            );
+
+
+        if (backButton) {
+
+            backButton.addEventListener(
+                "click",
+                backToMenu
+            );
+
+        }
+
+
+        const gpsButton =
+            document.getElementById(
+                "gps-button"
+            );
+
+
+        if (gpsButton) {
+
+            gpsButton.addEventListener(
+                "click",
+                getGPS
+            );
+
+        }
+
+
+        const confirmButton =
+            document.getElementById(
+                "confirm-order"
+            );
+
+
+        if (confirmButton) {
+
+            confirmButton.addEventListener(
+                "click",
+                confirmOrder
             );
 
         }
@@ -1094,14 +892,11 @@ window.decrease =
 window.checkout =
     checkout;
 
-window.selectPayment =
-    selectPayment;
+window.confirmOrder =
+    confirmOrder;
 
 window.getGPS =
     getGPS;
 
-window.confirmOrder =
-    confirmOrder;
-
-window.backToMenu =
-    backToMenu;
+window.closeMiniApp =
+    closeMiniApp;

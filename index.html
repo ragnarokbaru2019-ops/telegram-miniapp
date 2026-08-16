@@ -352,6 +352,127 @@
 </div>
 
 
+<!-- =====================================================
+     CHECKOUT
+====================================================== -->
+
+<div id="checkout-page" class="checkout-page" style="display:none;">
+
+    <div class="checkout-header">
+        <button
+            type="button"
+            id="back-menu"
+            class="back-button"
+        >
+            ← Kembali
+        </button>
+
+        <h2>🧾 Checkout</h2>
+    </div>
+
+    <!-- RINGKASAN -->
+    <div class="checkout-box">
+
+        <h3>🛒 Pesanan</h3>
+
+        <div id="checkout-items"></div>
+
+        <div class="checkout-total">
+            <span>Total</span>
+            <strong id="checkout-total">$0</strong>
+        </div>
+
+    </div>
+
+
+    <!-- ALAMAT -->
+    <div class="checkout-box">
+
+        <h3>📍 Alamat Pengantaran</h3>
+
+        <textarea
+            id="address"
+            placeholder="Masukkan alamat lengkap..."
+            rows="4"
+        ></textarea>
+
+        <button
+            type="button"
+            id="gps-button"
+            class="gps-button"
+        >
+            📍 Gunakan Lokasi Saya
+        </button>
+
+        <div
+            id="gps-status"
+            class="gps-status"
+        >
+            Lokasi belum diambil
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT -->
+    <div class="checkout-box">
+
+        <h3>💵 Metode Pembayaran</h3>
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="Cash"
+                checked
+            >
+
+            💵 Cash
+
+        </label>
+
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="ABA"
+            >
+
+            🏦 ABA
+
+        </label>
+
+
+        <label class="payment-option">
+
+            <input
+                type="radio"
+                name="payment"
+                value="AC"
+            >
+
+            🏦 ACLEDA
+
+        </label>
+
+    </div>
+
+
+    <!-- CONFIRM -->
+    <button
+        type="button"
+        id="confirm-order"
+        class="checkout"
+    >
+        ✅ KONFIRMASI ORDER
+    </button>
+
+</div>
+
+
 <script src="app.js?v=20260816-02"></script>
 
 
