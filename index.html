@@ -1,167 +1,281 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Bakso Juragan</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script
+        src="https://telegram.org/js/telegram-web-app.js"
+    ></script>
+
 </head>
+
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="header">
-            <div>
-                <h1>🍜 Bakso Juragan</h1>
-                <p>Bakso enak, siap diantar!</p>
-            </div>
-        </div>
 
-        <div class="menu-title">
-            <h2>Menu Kami</h2>
-        </div>
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
 
-        <!-- BAKSO URAT -->
-        <div class="product">
+    <div class="header">
 
-            <div class="product-icon">
-                🍜
-            </div>
+        <div>
 
-            <div class="product-info">
-                <h3>Bakso Urat</h3>
-                <p>Bakso urat sapi yang lezat</p>
-                <strong>$4</strong>
-            </div>
+            <h1>
+                🍜 Bakso Juragan
+            </h1>
 
-            <div class="quantity">
-                <button onclick="decrease('bakso_urat')">−</button>
-                <span id="qty-bakso_urat">0</span>
-                <button onclick="increase('bakso_urat')">+</button>
-            </div>
+            <p>
+                Bakso enak, siap diantar!
+            </p>
 
         </div>
 
+    </div>
 
-        <!-- BAKSO TELUR -->
-        <div class="product">
 
-            <div class="product-icon">
-                🥚
-            </div>
+    <!-- ================================================= -->
+    <!-- MENU -->
+    <!-- ================================================= -->
 
-            <div class="product-info">
-                <h3>Bakso Telur</h3>
-                <p>Bakso dengan isian telur</p>
-                <strong>$4</strong>
-            </div>
+    <div class="menu-title">
 
-            <div class="quantity">
-                <button onclick="decrease('bakso_telur')">−</button>
-                <span id="qty-bakso_telur">0</span>
-                <button onclick="increase('bakso_telur')">+</button>
-            </div>
+        <h2>
+            Menu Kami
+        </h2>
 
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- BAKSO URAT -->
+    <!-- ================================================= -->
+
+    <div class="product">
+
+        <div class="product-icon">
+            🍜
         </div>
 
+        <div class="product-info">
 
-        <!-- MIE AYAM -->
-        <div class="product">
+            <h3>
+                Bakso Urat
+            </h3>
 
-            <div class="product-icon">
-                🍗
-            </div>
+            <p>
+                Bakso urat sapi yang lezat
+            </p>
 
-            <div class="product-info">
-                <h3>Mie Ayam</h3>
-                <p>Mie ayam gurih dan nikmat</p>
-                <strong>$3</strong>
-            </div>
-
-            <div class="quantity">
-                <button onclick="decrease('mie_ayam')">−</button>
-                <span id="qty-mie_ayam">0</span>
-                <button onclick="increase('mie_ayam')">+</button>
-            </div>
+            <strong>
+                $4
+            </strong>
 
         </div>
 
 
-        <!-- CART -->
-        <div class="cart">
+        <div class="quantity">
 
-            <div class="cart-header">
-                <h2>🛒 Keranjang</h2>
-            </div>
+            <button
+                type="button"
+                onclick="decrease('bakso_urat')"
+            >
+                −
+            </button>
 
-            <div id="cart-items">
-                <p class="empty">
-                    Keranjang masih kosong
-                </p>
-            </div>
+            <span id="qty-bakso_urat">
+                0
+            </span>
 
-            <div class="total">
+            <button
+                type="button"
+                onclick="increase('bakso_urat')"
+            >
+                +
+            </button>
 
-                <span>Total</span>
+        </div>
 
-                <strong id="total">
-                    $0
-                </strong>
+    </div>
 
-            </div>
 
-<button
-    class="checkout"
-    id="checkout-button"
-    type="button"
->
-    🛒 LANJUT ORDER
-</button>
+    <!-- ================================================= -->
+    <!-- BAKSO TELUR -->
+    <!-- ================================================= -->
 
-<!-- PAYMENT -->
-<div id="payment-section" class="payment-section">
+    <div class="product">
 
-    <h2>💳 Metode Pembayaran</h2>
+        <div class="product-icon">
+            🥚
+        </div>
 
-    <div class="payment-options">
+        <div class="product-info">
+
+            <h3>
+                Bakso Telur
+            </h3>
+
+            <p>
+                Bakso dengan isian telur
+            </p>
+
+            <strong>
+                $4
+            </strong>
+
+        </div>
+
+
+        <div class="quantity">
+
+            <button
+                type="button"
+                onclick="decrease('bakso_telur')"
+            >
+                −
+            </button>
+
+            <span id="qty-bakso_telur">
+                0
+            </span>
+
+            <button
+                type="button"
+                onclick="increase('bakso_telur')"
+            >
+                +
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- MIE AYAM -->
+    <!-- ================================================= -->
+
+    <div class="product">
+
+        <div class="product-icon">
+            🍗
+        </div>
+
+        <div class="product-info">
+
+            <h3>
+                Mie Ayam
+            </h3>
+
+            <p>
+                Mie ayam gurih dan nikmat
+            </p>
+
+            <strong>
+                $3
+            </strong>
+
+        </div>
+
+
+        <div class="quantity">
+
+            <button
+                type="button"
+                onclick="decrease('mie_ayam')"
+            >
+                −
+            </button>
+
+            <span id="qty-mie_ayam">
+                0
+            </span>
+
+            <button
+                type="button"
+                onclick="increase('mie_ayam')"
+            >
+                +
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- CART -->
+    <!-- ================================================= -->
+
+    <div class="cart">
+
+        <div class="cart-header">
+
+            <h2>
+                🛒 Keranjang
+            </h2>
+
+        </div>
+
+
+        <div id="cart-items">
+
+            <p class="empty">
+                Keranjang masih kosong
+            </p>
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <strong id="total">
+                $0
+            </strong>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- CHECKOUT -->
+        <!-- ================================================= -->
 
         <button
+            class="checkout"
+            id="checkout-button"
             type="button"
-            class="payment-option"
-            data-payment="Cash"
         >
-            💵 Cash
-        </button>
-
-        <button
-            type="button"
-            class="payment-option"
-            data-payment="ABA / KHQR"
-        >
-            🏦 ABA / KHQR
+            🛒 LANJUT ORDER
         </button>
 
     </div>
 
-    <button
-        type="button"
-        id="confirm-order"
-        class="checkout"
-    >
-        ✅ KONFIRMASI ORDER
-    </button>
 
 </div>
-        </div>
 
-    </div>
 
-    <script src="app.js"></script>
+<script src="app.js"></script>
 
 </body>
+
 </html>
