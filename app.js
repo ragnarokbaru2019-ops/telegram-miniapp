@@ -1,18 +1,56 @@
 // =========================================================
-// TELEGRAM MINI APP - BAKSO JURAGAN
+// TELEGRAM MINI APP - BAKSO JURAGAN V3
 // =========================================================
 
 const tg = window.Telegram.WebApp;
 
+
+// =========================================================
+// API SERVER
+// =========================================================
+
+const API_URL =
+    "https://tension-chance-protocols-beam.trycloudflare.com";
+
+
+// =========================================================
+// TELEGRAM INIT
+// =========================================================
+
 console.log("================================");
-console.log("🍜 BAKSO JURAGAN MINI APP");
+console.log("🍜 BAKSO JURAGAN MINI APP V3");
 console.log("================================");
 
-console.log("Telegram WebApp:", tg);
-console.log("Telegram version:", tg.version);
-console.log("Platform:", tg.platform);
-console.log("initData tersedia:", !!tg.initData);
-console.log("user:", tg.initDataUnsafe?.user || null);
+console.log(
+    "Telegram WebApp:",
+    tg
+);
+
+console.log(
+    "Telegram version:",
+    tg.version
+);
+
+console.log(
+    "Platform:",
+    tg.platform
+);
+
+console.log(
+    "initData tersedia:",
+    !!tg.initData
+);
+
+console.log(
+    "user:",
+    tg.initDataUnsafe?.user || null
+);
+
+console.log(
+    "API:",
+    API_URL
+);
+
 
 tg.ready();
 tg.expand();
@@ -56,53 +94,69 @@ let cart = {
 
 
 // =========================================================
-// TAMBAH
+// TAMBAH PRODUK
 // =========================================================
 
 function increase(product) {
 
-    console.log("➕ increase:", product);
+    console.log(
+        "➕ TAMBAH:",
+        product
+    );
+
 
     if (!products[product]) {
-        console.error("❌ Produk tidak ditemukan:", product);
+
+        console.error(
+            "❌ Produk tidak ditemukan:",
+            product
+        );
+
         return;
     }
+
 
     cart[product] =
         Number(cart[product]) + 1;
 
-    console.log(
-        "CART:",
-        cart
-    );
 
     updateDisplay();
+
 }
 
 
 // =========================================================
-// KURANG
+// KURANG PRODUK
 // =========================================================
 
 function decrease(product) {
 
-    console.log("➖ decrease:", product);
+    console.log(
+        "➖ KURANG:",
+        product
+    );
+
 
     if (!products[product]) {
-        console.error("❌ Produk tidak ditemukan:", product);
+
+        console.error(
+            "❌ Produk tidak ditemukan:",
+            product
+        );
+
         return;
     }
 
+
     if (cart[product] > 0) {
+
         cart[product]--;
+
     }
 
-    console.log(
-        "CART:",
-        cart
-    );
 
     updateDisplay();
+
 }
 
 
@@ -112,15 +166,21 @@ function decrease(product) {
 
 function updateDisplay() {
 
+    // -----------------------------------------------------
+    // QUANTITY
+    // -----------------------------------------------------
+
     const qtyUrat =
         document.getElementById(
             "qty-bakso_urat"
         );
 
+
     const qtyTelur =
         document.getElementById(
             "qty-bakso_telur"
         );
+
 
     const qtyMie =
         document.getElementById(
@@ -129,20 +189,32 @@ function updateDisplay() {
 
 
     if (qtyUrat) {
+
         qtyUrat.textContent =
             cart.bakso_urat;
+
     }
+
 
     if (qtyTelur) {
+
         qtyTelur.textContent =
             cart.bakso_telur;
+
     }
+
 
     if (qtyMie) {
+
         qtyMie.textContent =
             cart.mie_ayam;
+
     }
 
+
+    // -----------------------------------------------------
+    // CART
+    // -----------------------------------------------------
 
     let total = 0;
 
@@ -155,15 +227,21 @@ function updateDisplay() {
             const quantity =
                 Number(cart[key]);
 
+
             if (quantity <= 0) {
+
                 return;
+
             }
+
 
             const product =
                 products[key];
 
+
             const subtotal =
                 quantity * product.price;
+
 
             total += subtotal;
 
@@ -186,6 +264,10 @@ function updateDisplay() {
     );
 
 
+    // -----------------------------------------------------
+    // EMPTY CART
+    // -----------------------------------------------------
+
     if (!html) {
 
         html = `
@@ -197,20 +279,33 @@ function updateDisplay() {
     }
 
 
+    // -----------------------------------------------------
+    // CART HTML
+    // -----------------------------------------------------
+
     const cartItems =
         document.getElementById(
             "cart-items"
         );
 
+
     if (cartItems) {
-        cartItems.innerHTML = html;
+
+        cartItems.innerHTML =
+            html;
+
     }
 
+
+    // -----------------------------------------------------
+    // TOTAL
+    // -----------------------------------------------------
 
     const totalElement =
         document.getElementById(
             "total"
         );
+
 
     if (totalElement) {
 
@@ -225,6 +320,7 @@ function updateDisplay() {
         JSON.stringify(cart)
     );
 
+
     console.log(
         "💰 TOTAL:",
         total
@@ -234,24 +330,10 @@ function updateDisplay() {
 
 
 // =========================================================
-// CHECKOUT
+// BUAT DATA ORDER
 // =========================================================
 
-function checkout() {
-
-    console.log("");
-    console.log(
-        "================================"
-    );
-
-    console.log(
-        "🛒 LANJUT ORDER"
-    );
-
-    console.log(
-        "================================"
-    );
-
+function buildOrder() {
 
     let items = [];
 
@@ -264,15 +346,11 @@ function checkout() {
             const quantity =
                 Number(cart[key]);
 
-            console.log(
-                "CHECK:",
-                key,
-                quantity
-            );
-
 
             if (quantity <= 0) {
+
                 return;
+
             }
 
 
@@ -307,16 +385,70 @@ function checkout() {
     );
 
 
+    return {
+
+        items:
+            items,
+
+        total:
+            total
+
+    };
+
+}
+
+
+// =========================================================
+// CHECKOUT
+// =========================================================
+
+async function checkout() {
+
+    console.log("");
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "🛒 LANJUT ORDER"
+    );
+
+    console.log(
+        "================================"
+    );
+
+
+    // -----------------------------------------------------
+    // BUILD ORDER
+    // -----------------------------------------------------
+
+    const orderData =
+        buildOrder();
+
+
+    const items =
+        orderData.items;
+
+
+    const total =
+        orderData.total;
+
+
     console.log(
         "ITEMS:",
         items
     );
+
 
     console.log(
         "TOTAL:",
         total
     );
 
+
+    // -----------------------------------------------------
+    // CEK KERANJANG
+    // -----------------------------------------------------
 
     if (items.length === 0) {
 
@@ -329,6 +461,24 @@ function checkout() {
     }
 
 
+    // -----------------------------------------------------
+    // TELEGRAM USER
+    // -----------------------------------------------------
+
+    const telegramUser =
+        tg.initDataUnsafe?.user || null;
+
+
+    console.log(
+        "👤 TELEGRAM USER:",
+        telegramUser
+    );
+
+
+    // -----------------------------------------------------
+    // DATA ORDER
+    // -----------------------------------------------------
+
     const order = {
 
         type:
@@ -338,7 +488,19 @@ function checkout() {
             items,
 
         total:
-            total
+            total,
+
+        telegram_user:
+            telegramUser,
+
+        payment:
+            null,
+
+        address:
+            null,
+
+        gps:
+            null
 
     };
 
@@ -347,23 +509,32 @@ function checkout() {
         "📦 DATA ORDER:"
     );
 
+
     console.log(
-        JSON.stringify(order)
+        JSON.stringify(
+            order
+        )
     );
 
 
-    // =====================================================
-    // CEK TELEGRAM
-    // =====================================================
+    // -----------------------------------------------------
+    // VALIDASI API
+    // -----------------------------------------------------
 
-    if (!window.Telegram) {
-
-        console.error(
-            "❌ window.Telegram TIDAK ADA"
-        );
+    if (
+        !API_URL ||
+        API_URL.includes(
+            "GANTI"
+        )
+    ) {
 
         alert(
-            "Mini App tidak dibuka dari Telegram."
+            "API server belum dikonfigurasi."
+        );
+
+        console.error(
+            "❌ API_URL:",
+            API_URL
         );
 
         return;
@@ -371,114 +542,223 @@ function checkout() {
     }
 
 
-    if (!window.Telegram.WebApp) {
+    // -----------------------------------------------------
+    // LOADING
+    // -----------------------------------------------------
 
-        console.error(
-            "❌ Telegram.WebApp TIDAK ADA"
+    const checkoutButton =
+        document.getElementById(
+            "checkout-button"
         );
 
-        alert(
-            "Telegram WebApp tidak tersedia."
-        );
 
-        return;
+    if (checkoutButton) {
+
+        checkoutButton.disabled =
+            true;
+
+        checkoutButton.textContent =
+            "⏳ MENGIRIM ORDER...";
 
     }
 
 
-    if (!tg.sendData) {
-
-        console.error(
-            "❌ tg.sendData TIDAK TERSEDIA"
-        );
-
-        alert(
-            "Fitur kirim order tidak tersedia di Mini App ini."
-        );
-
-        return;
-
-    }
-
-
-    console.log(
-        "📱 Telegram version:",
-        tg.version
-    );
-
-    console.log(
-        "📱 Platform:",
-        tg.platform
-    );
-
-    console.log(
-        "📱 initData:",
-        tg.initData
-    );
-
-    console.log(
-        "📱 user:",
-        tg.initDataUnsafe?.user || null
-    );
-
-
-    // =====================================================
-    // KIRIM KE BOT
-    // =====================================================
+    // -----------------------------------------------------
+    // SEND TO FLASK
+    // -----------------------------------------------------
 
     try {
 
-        const jsonOrder =
-            JSON.stringify(order);
-
-
         console.log(
-            "📤 MENGIRIM tg.sendData()..."
-        );
-
-
-        tg.sendData(
-            jsonOrder
+            "📤 MENGIRIM ORDER KE SERVER..."
         );
 
 
         console.log(
-            "✅ tg.sendData() DIPANGGIL"
+            "🌐 URL:",
+            API_URL + "/order"
         );
 
 
-        // Tutup Mini App setelah data dikirim
-        setTimeout(
-            function() {
+        const response =
+            await fetch(
+                API_URL + "/order",
+                {
 
-                try {
+                    method:
+                        "POST",
 
-                    tg.close();
+                    headers: {
 
-                } catch (error) {
+                        "Content-Type":
+                            "application/json"
 
-                    console.log(
-                        "ℹ️ tg.close() tidak tersedia"
-                    );
+                    },
+
+                    body:
+                        JSON.stringify(
+                            order
+                        )
 
                 }
+            );
 
-            },
-            500
+
+        console.log(
+            "📡 HTTP STATUS:",
+            response.status
         );
+
+
+        // -------------------------------------------------
+        // SERVER RESPONSE
+        // -------------------------------------------------
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "📨 SERVER RESPONSE:",
+            result
+        );
+
+
+        // -------------------------------------------------
+        // SERVER ERROR
+        // -------------------------------------------------
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Server error " +
+                response.status
+            );
+
+        }
+
+
+        if (!result.success) {
+
+            throw new Error(
+                result.error ||
+                "Order gagal diproses."
+            );
+
+        }
+
+
+        // -------------------------------------------------
+        // BERHASIL
+        // -------------------------------------------------
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "✅ ORDER BERHASIL"
+        );
+
+        console.log(
+            "🧾 ORDER ID:",
+            result.order_id
+        );
+
+        console.log(
+            "🖨️ PRINT:",
+            result.printed
+        );
+
+        console.log(
+            "================================"
+        );
+
+
+        // -------------------------------------------------
+        // SUCCESS MESSAGE
+        // -------------------------------------------------
+
+        alert(
+
+            "✅ ORDER BERHASIL!\n\n" +
+
+            "🧾 No Order: " +
+            result.order_id +
+
+            "\n💰 Total: $" +
+            total +
+
+            "\n\n" +
+
+            "Pesanan sedang diproses."
+
+        );
+
+
+        // -------------------------------------------------
+        // RESET CART
+        // -------------------------------------------------
+
+        cart = {
+
+            bakso_urat: 0,
+            bakso_telur: 0,
+            mie_ayam: 0
+
+        };
+
+
+        updateDisplay();
 
 
     } catch (error) {
 
         console.error(
-            "❌ ERROR tg.sendData():",
+            "================================"
+        );
+
+        console.error(
+            "❌ ORDER GAGAL"
+        );
+
+        console.error(
             error
         );
 
-        alert(
-            "Gagal mengirim order:\n" +
-            error.message
+        console.error(
+            "================================"
         );
+
+
+        alert(
+
+            "❌ ORDER GAGAL\n\n" +
+
+            error.message +
+
+            "\n\n" +
+
+            "Silakan coba lagi."
+
+        );
+
+    } finally {
+
+        // -------------------------------------------------
+        // RESTORE BUTTON
+        // -------------------------------------------------
+
+        if (checkoutButton) {
+
+            checkoutButton.disabled =
+                false;
+
+            checkoutButton.textContent =
+                "🛒 LANJUT ORDER";
+
+        }
 
     }
 
@@ -494,7 +774,15 @@ document.addEventListener(
     function() {
 
         console.log(
+            "================================"
+        );
+
+        console.log(
             "✅ DOM READY"
+        );
+
+        console.log(
+            "================================"
         );
 
 
@@ -520,6 +808,10 @@ document.addEventListener(
         );
 
 
+        // -------------------------------------------------
+        // CHECKOUT BUTTON
+        // -------------------------------------------------
+
         checkoutButton.addEventListener(
             "click",
             function(event) {
@@ -530,11 +822,16 @@ document.addEventListener(
                     "🛒 BUTTON LANJUT ORDER DIKLIK"
                 );
 
+
                 checkout();
 
             }
         );
 
+
+        // -------------------------------------------------
+        // INITIAL DISPLAY
+        // -------------------------------------------------
 
         updateDisplay();
 
@@ -543,14 +840,21 @@ document.addEventListener(
 
 
 // =========================================================
-// GLOBAL FUNCTION
+// GLOBAL FUNCTIONS
 // =========================================================
 
 window.increase =
     increase;
 
+
 window.decrease =
     decrease;
 
+
 window.checkout =
     checkout;
+
+
+console.log(
+    "🔥 BAKSO JURAGAN MINI APP V3 READY"
+);
