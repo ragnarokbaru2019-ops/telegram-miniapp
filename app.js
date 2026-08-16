@@ -15,7 +15,7 @@ const tg =
 
 // MASUKKAN URL /order KAMU YANG SEKARANG
 const ORDER_API_URL =
-    "https://ragnarokbaru2019-ops.github.io/telegram-miniapp/";
+    "https://responsibility-channels-lots-importantly.trycloudflare.com";
 
 
 // =========================================================
