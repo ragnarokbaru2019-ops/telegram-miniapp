@@ -41,7 +41,7 @@ const products = {
         name: "Mie Ayam",
         description: "Mie ayam gurih dan nikmat",
         price: 3,
-        image: "images/Bakso Komplit - Urat.jpg"
+        image: "images/Bakso Komplit - Telur.jpg"
     }
 
 };
