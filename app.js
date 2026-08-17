@@ -1199,26 +1199,36 @@ async function confirmOrder() {
 // =========================================================
 
 const SERVER_STATUS_URL =
-    "https://baksojuraganpoipet.id/health";
+    "https://baksojuraganpoipet.id/";
+
 
 let serverOnline = false;
 
 
-// =========================================================
-// CHECK SERVER STATUS
-// =========================================================
-
 async function checkServerStatus() {
 
     const statusElement =
-        document.getElementById("server-status");
+        document.getElementById(
+            "server-status"
+        );
 
     const indicator =
-        document.getElementById("server-indicator");
+        document.getElementById(
+            "server-indicator"
+        );
 
 
-    if (!statusElement || !indicator) {
+    if (
+        !statusElement ||
+        !indicator
+    ) {
+
+        console.error(
+            "❌ SERVER STATUS ELEMENT TIDAK DITEMUKAN"
+        );
+
         return;
+
     }
 
 
@@ -1226,7 +1236,9 @@ async function checkServerStatus() {
 
         const response =
             await fetch(
-                SERVER_STATUS_URL + "?t=" + Date.now(),
+                SERVER_STATUS_URL +
+                "?t=" +
+                Date.now(),
                 {
                     method: "GET",
                     cache: "no-store"
@@ -1235,7 +1247,12 @@ async function checkServerStatus() {
 
 
         if (!response.ok) {
-            throw new Error("Server offline");
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
         }
 
 
@@ -1243,29 +1260,49 @@ async function checkServerStatus() {
             await response.json();
 
 
-        if (result.status === "online") {
+        if (
+            result.status !==
+            "online"
+        ) {
 
-            serverOnline = true;
-
-            statusElement.textContent =
-                "ONLINE";
-
-            statusElement.className =
-                "server-status online";
-
-            indicator.className =
-                "server-indicator online";
-
-        } else {
-
-            throw new Error("Server offline");
+            throw new Error(
+                "Server offline"
+            );
 
         }
 
 
+        // =================================================
+        // ONLINE
+        // =================================================
+
+        serverOnline = true;
+
+
+        statusElement.textContent =
+            "ONLINE";
+
+        statusElement.className =
+            "server-status online";
+
+
+        indicator.className =
+            "server-indicator online";
+
+
+        console.log(
+            "🟢 SERVER ONLINE"
+        );
+
+
     } catch (error) {
 
+        // =================================================
+        // OFFLINE
+        // =================================================
+
         serverOnline = false;
+
 
         statusElement.textContent =
             "OFFLINE";
@@ -1273,8 +1310,14 @@ async function checkServerStatus() {
         statusElement.className =
             "server-status offline";
 
+
         indicator.className =
             "server-indicator offline";
+
+
+        console.log(
+            "🔴 SERVER OFFLINE"
+        );
 
     }
 
