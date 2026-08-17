@@ -673,3 +673,67 @@ body {
     border-radius: 14px;
 
 }
+
+/* =====================================================
+   ONLINE STATUS
+===================================================== */
+
+.online-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.online-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* ONLINE */
+
+.online-status.online {
+    color: #16a34a;
+}
+
+.online-status.online .online-dot {
+    background: #22c55e;
+    animation: onlineBlink 1.2s infinite;
+}
+
+
+/* OFFLINE */
+
+.online-status.offline {
+    color: #dc2626;
+}
+
+.online-status.offline .online-dot {
+    background: #ef4444;
+}
+
+
+/* KEDIP */
+
+@keyframes onlineBlink {
+
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.25;
+        transform: scale(0.75);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}

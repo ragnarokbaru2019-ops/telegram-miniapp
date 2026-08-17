@@ -1205,26 +1205,36 @@ const SERVER_STATUS_URL =
 let serverOnline = false;
 
 
+// =========================================================
+// CHECK SERVER STATUS
+// =========================================================
+
 async function checkServerStatus() {
 
-    const statusElement =
+    const statusContainer =
         document.getElementById(
-            "server-status"
+            "online-status"
         );
 
     const indicator =
         document.getElementById(
-            "server-indicator"
+            "online-indicator"
+        );
+
+    const text =
+        document.getElementById(
+            "online-text"
         );
 
 
     if (
-        !statusElement ||
-        !indicator
+        !statusContainer ||
+        !indicator ||
+        !text
     ) {
 
         console.error(
-            "❌ SERVER STATUS ELEMENT TIDAK DITEMUKAN"
+            "❌ ELEMENT ONLINE STATUS TIDAK DITEMUKAN"
         );
 
         return;
@@ -1249,8 +1259,7 @@ async function checkServerStatus() {
         if (!response.ok) {
 
             throw new Error(
-                "HTTP " +
-                response.status
+                "Server tidak merespon"
             );
 
         }
@@ -1261,8 +1270,7 @@ async function checkServerStatus() {
 
 
         if (
-            result.status !==
-            "online"
+            result.status !== "online"
         ) {
 
             throw new Error(
@@ -1279,15 +1287,12 @@ async function checkServerStatus() {
         serverOnline = true;
 
 
-        statusElement.textContent =
+        statusContainer.className =
+            "online-status online";
+
+
+        text.textContent =
             "ONLINE";
-
-        statusElement.className =
-            "server-status online";
-
-
-        indicator.className =
-            "server-indicator online";
 
 
         console.log(
@@ -1304,19 +1309,17 @@ async function checkServerStatus() {
         serverOnline = false;
 
 
-        statusElement.textContent =
+        statusContainer.className =
+            "online-status offline";
+
+
+        text.textContent =
             "OFFLINE";
-
-        statusElement.className =
-            "server-status offline";
-
-
-        indicator.className =
-            "server-indicator offline";
 
 
         console.log(
-            "🔴 SERVER OFFLINE"
+            "🔴 SERVER OFFLINE",
+            error
         );
 
     }
