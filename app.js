@@ -87,9 +87,9 @@ function renderProducts() {
                         ${data.description}
                     </p>
 
-                    <strong>
-                        $${data.price}
-                    </strong>
+<strong>
+    ฿${data.price}
+</strong>
 
                 </div>
 
@@ -243,7 +243,7 @@ function updateDisplay() {
                         </span>
 
                         <strong>
-                            $${subtotal}
+    ฿${subtotal}
                         </strong>
                     </div>
                 `;
@@ -288,8 +288,8 @@ function updateDisplay() {
     if (totalElement) {
 
         totalElement.textContent =
-            "$" + total;
-
+    "฿" + total;
+        
     }
 
 }
