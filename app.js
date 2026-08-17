@@ -834,32 +834,92 @@ async function confirmOrder() {
 
     try {
 
-        const response =
-            await fetch(
-                ORDER_API_URL,
-                {
+    console.log("📡 ORDER API:", ORDER_API_URL);
 
-                    method:
-                        "POST",
+    const response = await fetch(
+        ORDER_API_URL,
+        {
+            method: "POST",
 
-                    headers: {
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-                        "Content-Type":
-                            "application/json"
+            body: JSON.stringify(data)
+        }
+    );
 
-                    },
+    console.log(
+        "📡 HTTP STATUS:",
+        response.status
+    );
 
-                    body:
-                        JSON.stringify(data)
+    const text =
+        await response.text();
 
-                }
-            );
+    console.log(
+        "📦 RESPONSE SERVER:",
+        text
+    );
 
+    let result;
 
-        const result =
-            await response.json();
+    try {
 
+        result = JSON.parse(text);
 
+    } catch (jsonError) {
+
+        console.error(
+            "❌ RESPONSE BUKAN JSON:",
+            text
+        );
+
+        throw new Error(
+            "Server mengembalikan response bukan JSON"
+        );
+    }
+
+    console.log(
+        "✅ RESULT:",
+        result
+    );
+
+    if (!response.ok) {
+
+        throw new Error(
+            result.error ||
+            "Server error"
+        );
+    }
+
+    if (!result.success) {
+
+        throw new Error(
+            result.error ||
+            "Order gagal"
+        );
+    }
+
+    console.log(
+        "✅ ORDER BERHASIL:",
+        result.order_id
+    );
+
+    // LANJUTKAN KODE SUKSES KAMU DI SINI
+
+} catch (error) {
+
+    console.error(
+        "❌ ORDER ERROR:",
+        error
+    );
+
+    alert(
+        "Order gagal: " +
+        error.message
+    );
+}
         console.log(
             "📥 SERVER:",
             result
