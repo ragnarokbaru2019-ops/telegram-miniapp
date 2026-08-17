@@ -699,9 +699,7 @@ function buildItems() {
 
 async function confirmOrder() {
 
-    const items =
-        buildItems();
-
+    const items = buildItems();
 
     if (!items.length) {
 
@@ -832,104 +830,103 @@ async function confirmOrder() {
     }
 
 
-    try {
-
-    console.log("📡 ORDER API:", ORDER_API_URL);
-
-    const response = await fetch(
-        ORDER_API_URL,
-        {
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(data)
-        }
-    );
-
-    console.log(
-        "📡 HTTP STATUS:",
-        response.status
-    );
-
-    const text =
-        await response.text();
-
-    console.log(
-        "📦 RESPONSE SERVER:",
-        text
-    );
-
-    let result;
+    // =====================================================
+    // SEND ORDER
+    // =====================================================
 
     try {
 
-        result = JSON.parse(text);
+        console.log(
+            "📡 ORDER API:",
+            ORDER_API_URL
+        );
 
-    } catch (jsonError) {
 
-        console.error(
-            "❌ RESPONSE BUKAN JSON:",
+        const response =
+            await fetch(
+                ORDER_API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(data)
+
+                }
+            );
+
+
+        console.log(
+            "📡 HTTP STATUS:",
+            response.status
+        );
+
+
+        // =================================================
+        // READ RESPONSE
+        // =================================================
+
+        const text =
+            await response.text();
+
+
+        console.log(
+            "📦 RESPONSE SERVER:",
             text
         );
 
-        throw new Error(
-            "Server mengembalikan response bukan JSON"
-        );
-    }
 
-    console.log(
-        "✅ RESULT:",
-        result
-    );
+        let result;
 
-    if (!response.ok) {
 
-        throw new Error(
-            result.error ||
-            "Server error"
-        );
-    }
+        try {
 
-    if (!result.success) {
+            result =
+                JSON.parse(text);
 
-        throw new Error(
-            result.error ||
-            "Order gagal"
-        );
-    }
+        } catch (jsonError) {
 
-    console.log(
-        "✅ ORDER BERHASIL:",
-        result.order_id
-    );
+            console.error(
+                "❌ RESPONSE BUKAN JSON:",
+                text
+            );
 
-    // LANJUTKAN KODE SUKSES KAMU DI SINI
+            throw new Error(
+                "Server mengembalikan response bukan JSON"
+            );
 
-} catch (error) {
+        }
 
-    console.error(
-        "❌ ORDER ERROR:",
-        error
-    );
 
-    alert(
-        "Order gagal: " +
-        error.message
-    );
-}
         console.log(
             "📥 SERVER:",
             result
         );
 
 
-        if (
-            !response.ok ||
-            !result.success
-        ) {
+        // =================================================
+        // CHECK RESPONSE
+        // =================================================
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.error ||
+                "Server error"
+            );
+
+        }
+
+
+        if (!result.success) {
 
             throw new Error(
                 result.error ||
@@ -939,6 +936,16 @@ async function confirmOrder() {
         }
 
 
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        console.log(
+            "✅ ORDER BERHASIL:",
+            result.order_id
+        );
+
+
         alert(
             "✅ ORDER BERHASIL!\n\n" +
             "No Order: " +
@@ -946,7 +953,9 @@ async function confirmOrder() {
         );
 
 
-        // Reset cart
+        // =================================================
+        // RESET CART
+        // =================================================
 
         Object.keys(cart).forEach(
             product => {
@@ -966,6 +975,10 @@ async function confirmOrder() {
 
         backToMenu();
 
+
+        // =================================================
+        // RESET GPS
+        // =================================================
 
         const gpsStatus =
             document.getElementById(
@@ -1000,6 +1013,10 @@ async function confirmOrder() {
 
     } catch (error) {
 
+        // =================================================
+        // ERROR
+        // =================================================
+
         console.error(
             "❌ ORDER ERROR:",
             error
@@ -1014,6 +1031,10 @@ async function confirmOrder() {
 
     } finally {
 
+        // =================================================
+        // ENABLE BUTTON
+        // =================================================
+
         if (button) {
 
             button.disabled =
@@ -1027,7 +1048,6 @@ async function confirmOrder() {
     }
 
 }
-
 
 // =========================================================
 // INIT
