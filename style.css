@@ -29,6 +29,10 @@ body {
 }
 
 
+/* =====================================================
+   HEADER
+===================================================== */
+
 .header {
 
     background: #d62828;
@@ -62,12 +66,20 @@ body {
 }
 
 
+/* =====================================================
+   MENU
+===================================================== */
+
 .menu-title h2 {
 
     margin-bottom: 12px;
 
 }
 
+
+/* =====================================================
+   PRODUCT
+===================================================== */
 
 .product {
 
@@ -92,11 +104,17 @@ body {
 }
 
 
+/* =====================================================
+   PRODUCT IMAGE
+===================================================== */
+
 .product-icon {
 
-    width: 60px;
+    width: 70px;
 
-    height: 60px;
+    height: 70px;
+
+    min-width: 70px;
 
     background: #fff1d6;
 
@@ -108,14 +126,33 @@ body {
 
     justify-content: center;
 
-    font-size: 30px;
+    overflow: hidden;
 
 }
 
 
+.product-icon img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+
 .product-info {
 
     flex: 1;
+
+    min-width: 0;
 
 }
 
@@ -148,6 +185,10 @@ body {
 
 }
 
+
+/* =====================================================
+   QUANTITY
+===================================================== */
 
 .quantity {
 
@@ -201,6 +242,10 @@ body {
 }
 
 
+/* =====================================================
+   CART
+===================================================== */
+
 .cart {
 
     background: white;
@@ -249,6 +294,10 @@ body {
 }
 
 
+/* =====================================================
+   TOTAL
+===================================================== */
+
 .total {
 
     display: flex;
@@ -270,6 +319,10 @@ body {
 
 }
 
+
+/* =====================================================
+   CHECKOUT BUTTON
+===================================================== */
 
 .checkout {
 
@@ -304,5 +357,160 @@ body {
 .checkout:disabled {
 
     opacity: 0.6;
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-option {
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #f1f1f1;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.payment-option:active {
+
+    transform: scale(0.98);
+
+}
+
+
+/* =====================================================
+   GPS
+===================================================== */
+
+.gps-button {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #222;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.gps-button:disabled {
+
+    opacity: 0.6;
+
+}
+
+
+.gps-status {
+
+    text-align: center;
+
+    margin-top: 10px;
+
+    color: #777;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .container {
+
+        padding: 10px;
+
+    }
+
+
+    .product {
+
+        padding: 12px;
+
+        gap: 8px;
+
+    }
+
+
+    .product-icon {
+
+        width: 60px;
+
+        height: 60px;
+
+        min-width: 60px;
+
+    }
+
+
+    .product-info h3 {
+
+        font-size: 15px;
+
+    }
+
+
+    .product-info p {
+
+        font-size: 12px;
+
+    }
+
+
+    .product-info strong {
+
+        font-size: 16px;
+
+    }
+
+
+    .quantity {
+
+        gap: 5px;
+
+    }
+
+
+    .quantity button {
+
+        width: 30px;
+
+        height: 30px;
+
+        font-size: 19px;
+
+    }
 
 }
