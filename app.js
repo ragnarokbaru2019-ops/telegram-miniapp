@@ -25,17 +25,23 @@ const products = {
 
     bakso_urat: {
         name: "Bakso Urat",
-        price: 4
+        description: "Bakso urat sapi yang lezat",
+        price: 4,
+        image: "images/bakso-urat.jpg"
     },
 
     bakso_telur: {
         name: "Bakso Telur",
-        price: 4
+        description: "Bakso dengan isian telur",
+        price: 4,
+        image: "images/bakso-telur.jpg"
     },
 
     mie_ayam: {
         name: "Mie Ayam",
-        price: 3
+        description: "Mie ayam gurih dan nikmat",
+        price: 3,
+        image: "images/mie-ayam.jpg"
     }
 
 };
@@ -45,15 +51,13 @@ const products = {
 // CART
 // =========================================================
 
-const cart = {
+const cart = {};
 
-    bakso_urat: 0,
-
-    bakso_telur: 0,
-
-    mie_ayam: 0
-
-};
+Object.keys(products).forEach(
+    product => {
+        cart[product] = 0;
+    }
+);
 
 
 // =========================================================

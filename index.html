@@ -49,170 +49,100 @@
     </div>
 
 
-    <!-- =====================================================
-         MENU
-    ====================================================== -->
+<!-- =====================================================
+     MENU
+====================================================== -->
 
-    <div class="menu-title">
+<div class="menu-title">
 
-        <h2>
-            Menu Kami
-        </h2>
+    <h2>
+        Menu Kami
+    </h2>
 
-    </div>
+</div>
 
+<div id="product-list"></div>
 
-    <!-- =====================================================
-         BAKSO URAT
-    ====================================================== -->
+// =========================================================
+// RENDER PRODUCTS
+// =========================================================
 
-    <div class="product">
+function renderProducts() {
 
-        <div class="product-icon">
-            🍜
-        </div>
+    const productList =
+        document.getElementById(
+            "product-list"
+        );
 
-        <div class="product-info">
+    if (!productList) {
+        return;
+    }
 
-            <h3>
-                Bakso Urat
-            </h3>
+    let html = "";
 
-            <p>
-                Bakso urat sapi yang lezat
-            </p>
+    Object.keys(products).forEach(
+        product => {
 
-            <strong>
-                $4
-            </strong>
+            const data =
+                products[product];
 
-        </div>
+            html += `
+                <div class="product">
 
-        <div class="quantity">
+                    <div class="product-icon">
 
-            <button
-                type="button"
-                onclick="decrease('bakso_urat')"
-            >
-                −
-            </button>
+                        <img
+                            src="${data.image}"
+                            alt="${data.name}"
+                        >
 
-            <span id="qty-bakso_urat">
-                0
-            </span>
+                    </div>
 
-            <button
-                type="button"
-                onclick="increase('bakso_urat')"
-            >
-                +
-            </button>
+                    <div class="product-info">
 
-        </div>
+                        <h3>
+                            ${data.name}
+                        </h3>
 
-    </div>
+                        <p>
+                            ${data.description}
+                        </p>
 
+                        <strong>
+                            $${data.price}
+                        </strong>
 
-    <!-- =====================================================
-         BAKSO TELUR
-    ====================================================== -->
+                    </div>
 
-    <div class="product">
+                    <div class="quantity">
 
-        <div class="product-icon">
-            🥚
-        </div>
+                        <button
+                            type="button"
+                            onclick="decrease('${product}')"
+                        >
+                            −
+                        </button>
 
-        <div class="product-info">
+                        <span id="qty-${product}">
+                            0
+                        </span>
 
-            <h3>
-                Bakso Telur
-            </h3>
+                        <button
+                            type="button"
+                            onclick="increase('${product}')"
+                        >
+                            +
+                        </button>
 
-            <p>
-                Bakso dengan isian telur
-            </p>
+                    </div>
 
-            <strong>
-                $4
-            </strong>
+                </div>
+            `;
+        }
+    );
 
-        </div>
-
-        <div class="quantity">
-
-            <button
-                type="button"
-                onclick="decrease('bakso_telur')"
-            >
-                −
-            </button>
-
-            <span id="qty-bakso_telur">
-                0
-            </span>
-
-            <button
-                type="button"
-                onclick="increase('bakso_telur')"
-            >
-                +
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         MIE AYAM
-    ====================================================== -->
-
-    <div class="product">
-
-        <div class="product-icon">
-            🍗
-        </div>
-
-        <div class="product-info">
-
-            <h3>
-                Mie Ayam
-            </h3>
-
-            <p>
-                Mie ayam gurih dan nikmat
-            </p>
-
-            <strong>
-                $3
-            </strong>
-
-        </div>
-
-        <div class="quantity">
-
-            <button
-                type="button"
-                onclick="decrease('mie_ayam')"
-            >
-                −
-            </button>
-
-            <span id="qty-mie_ayam">
-                0
-            </span>
-
-            <button
-                type="button"
-                onclick="increase('mie_ayam')"
-            >
-                +
-            </button>
-
-        </div>
-
-    </div>
+    productList.innerHTML = html;
+}
 
 
     <!-- =====================================================
@@ -410,6 +340,10 @@
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
+        renderProducts();
+
+        updateDisplay();
 
         if (
             window.Telegram &&
