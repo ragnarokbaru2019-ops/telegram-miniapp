@@ -37,20 +37,27 @@
 <div class="header">
 
     <img
-        src="images/------Photoroom.png"
+        src="images/logo-bakso-juragan.png"
         alt="Bakso Juragan"
         class="header-logo"
     >
 
-    <h1>
-        Mie ayam & Bakso Juragan
-    </h1>
+    <div class="header-info">
 
-    <p>
-        Poipet
-    </p>
+        <h1>
+            Bakso Juragan
+        </h1>
+
+        <div class="online-status">
+            <span>🟢</span>
+            online
+        </div>
+
+    </div>
 
 </div>
+
+
 <!-- =====================================================
      MENU
 ====================================================== -->
@@ -62,6 +69,48 @@
     </h2>
 
 </div>
+
+
+<!-- =====================================================
+     CATEGORY
+====================================================== -->
+
+<div class="category-scroll">
+
+    <button
+        type="button"
+        class="category-chip active"
+        onclick="selectCategory('all')"
+    >
+        Semua
+    </button>
+
+    <button
+        type="button"
+        class="category-chip"
+        onclick="selectCategory('bakso')"
+    >
+        Bakso
+    </button>
+
+    <button
+        type="button"
+        class="category-chip"
+        onclick="selectCategory('mie')"
+    >
+        Mie Ayam
+    </button>
+
+    <button
+        type="button"
+        class="category-chip"
+        onclick="selectCategory('minuman')"
+    >
+        Minuman
+    </button>
+
+</div>
+
 
 <div id="product-list"></div>
 

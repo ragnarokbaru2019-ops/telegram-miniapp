@@ -27,24 +27,68 @@ const products = {
         name: "Bakso Urat",
         description: "Bakso urat sapi yang lezat",
         price: 4,
-        image: "images/Bakso Komplit - Kecil.jpg"
+        image: "images/bakso-urat.jpg",
+        category: "bakso"
     },
 
     bakso_telur: {
         name: "Bakso Telur",
         description: "Bakso dengan isian telur",
         price: 4,
-        image: "images/Bakso Komplit - Mercon.jpg"
+        image: "images/bakso-telur.jpg",
+        category: "bakso"
     },
 
     mie_ayam: {
         name: "Mie Ayam",
         description: "Mie ayam gurih dan nikmat",
         price: 3,
-        image: "images/Bakso Komplit - Telur.jpg"
+        image: "images/mie-ayam.jpg",
+        category: "mie"
     }
 
 };
+
+// =========================================================
+// CATEGORY
+// =========================================================
+
+let activeCategory = "all";
+
+
+function selectCategory(category) {
+
+    activeCategory = category;
+
+    // Ubah tombol aktif
+    document
+        .querySelectorAll(".category-chip")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+
+    // Cari tombol yang diklik
+    const activeButton =
+        document.querySelector(
+            `.category-chip[onclick="selectCategory('${category}')"]`
+        );
+
+
+    if (activeButton) {
+
+        activeButton.classList.add("active");
+
+    }
+
+
+    renderProducts();
+
+    updateDisplay();
+
+}
 
 // =========================================================
 // RENDER PRODUCTS
@@ -61,9 +105,22 @@ function renderProducts() {
 
     let html = "";
 
+
     Object.keys(products).forEach(product => {
 
         const data = products[product];
+
+
+        // Filter kategori
+        if (
+            activeCategory !== "all" &&
+            data.category !== activeCategory
+        ) {
+
+            return;
+
+        }
+
 
         html += `
             <div class="product">
@@ -77,6 +134,7 @@ function renderProducts() {
 
                 </div>
 
+
                 <div class="product-info">
 
                     <h3>
@@ -87,11 +145,12 @@ function renderProducts() {
                         ${data.description}
                     </p>
 
-<strong>
-    ฿${data.price}
-</strong>
+                    <strong>
+                        ฿${data.price}
+                    </strong>
 
                 </div>
+
 
                 <div class="quantity">
 
@@ -102,9 +161,11 @@ function renderProducts() {
                         −
                     </button>
 
+
                     <span id="qty-${product}">
                         0
                     </span>
+
 
                     <button
                         type="button"
@@ -120,10 +181,10 @@ function renderProducts() {
 
     });
 
+
     productList.innerHTML = html;
+
 }
-
-
 
 
 // =========================================================
@@ -289,7 +350,7 @@ function updateDisplay() {
 
         totalElement.textContent =
     "฿" + total;
-        
+
     }
 
 }
