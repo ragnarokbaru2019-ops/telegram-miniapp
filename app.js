@@ -1193,16 +1193,12 @@ async function confirmOrder() {
 
 }
 
-
 // =========================================================
 // SERVER STATUS
 // =========================================================
 
 const SERVER_STATUS_URL =
-    "https://baksojuraganpoipet.id/";
-
-
-let serverOnline = false;
+    "https://baksojuraganpoipet.id/health";
 
 
 // =========================================================
@@ -1211,30 +1207,21 @@ let serverOnline = false;
 
 async function checkServerStatus() {
 
-    const statusContainer =
+    const statusElement =
         document.getElementById(
-            "online-status"
+            "server-status"
         );
 
     const indicator =
         document.getElementById(
-            "online-indicator"
-        );
-
-    const text =
-        document.getElementById(
-            "online-text"
+            "server-indicator"
         );
 
 
-    if (
-        !statusContainer ||
-        !indicator ||
-        !text
-    ) {
+    if (!statusElement || !indicator) {
 
         console.error(
-            "❌ ELEMENT ONLINE STATUS TIDAK DITEMUKAN"
+            "❌ SERVER STATUS ELEMENT TIDAK DITEMUKAN"
         );
 
         return;
@@ -1270,61 +1257,53 @@ async function checkServerStatus() {
 
 
         if (
-            result.status !== "online"
+            result.status ===
+            "online"
         ) {
 
+            statusElement.textContent =
+                "ONLINE";
+
+            statusElement.className =
+                "server-status online";
+
+            indicator.className =
+                "server-indicator online";
+
+
+            console.log(
+                "🟢 SERVER ONLINE"
+            );
+
+        } else {
+
             throw new Error(
-                "Server offline"
+                "Status server bukan online"
             );
 
         }
 
 
-        // =================================================
-        // ONLINE
-        // =================================================
-
-        serverOnline = true;
-
-
-        statusContainer.className =
-            "online-status online";
-
-
-        text.textContent =
-            "ONLINE";
-
-
-        console.log(
-            "🟢 SERVER ONLINE"
-        );
-
-
     } catch (error) {
 
-        // =================================================
-        // OFFLINE
-        // =================================================
-
-        serverOnline = false;
-
-
-        statusContainer.className =
-            "online-status offline";
-
-
-        text.textContent =
+        statusElement.textContent =
             "OFFLINE";
+
+        statusElement.className =
+            "server-status offline";
+
+        indicator.className =
+            "server-indicator offline";
 
 
         console.log(
-            "🔴 SERVER OFFLINE",
-            error
+            "🔴 SERVER OFFLINE"
         );
 
     }
 
 }
+
 
 
 // =========================================================
@@ -1410,6 +1389,7 @@ document.addEventListener(
             checkServerStatus,
             10000
         );
+
 
         console.log(
             "🔥 BAKSO JURAGAN MINI APP READY"
