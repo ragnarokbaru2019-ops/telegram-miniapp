@@ -1193,6 +1193,94 @@ async function confirmOrder() {
 
 }
 
+
+// =========================================================
+// SERVER STATUS
+// =========================================================
+
+const SERVER_STATUS_URL =
+    "https://baksojuraganpoipet.id/health";
+
+let serverOnline = false;
+
+
+// =========================================================
+// CHECK SERVER STATUS
+// =========================================================
+
+async function checkServerStatus() {
+
+    const statusElement =
+        document.getElementById("server-status");
+
+    const indicator =
+        document.getElementById("server-indicator");
+
+
+    if (!statusElement || !indicator) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                SERVER_STATUS_URL + "?t=" + Date.now(),
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+            throw new Error("Server offline");
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (result.status === "online") {
+
+            serverOnline = true;
+
+            statusElement.textContent =
+                "ONLINE";
+
+            statusElement.className =
+                "server-status online";
+
+            indicator.className =
+                "server-indicator online";
+
+        } else {
+
+            throw new Error("Server offline");
+
+        }
+
+
+    } catch (error) {
+
+        serverOnline = false;
+
+        statusElement.textContent =
+            "OFFLINE";
+
+        statusElement.className =
+            "server-status offline";
+
+        indicator.className =
+            "server-indicator offline";
+
+    }
+
+}
+
+
 // =========================================================
 // INIT
 // =========================================================
@@ -1264,6 +1352,18 @@ document.addEventListener(
             );
 
         }
+
+
+        // =================================================
+        // SERVER STATUS
+        // =================================================
+
+        checkServerStatus();
+
+        setInterval(
+            checkServerStatus,
+            10000
+        );
 
         console.log(
             "🔥 BAKSO JURAGAN MINI APP READY"
