@@ -27,21 +27,21 @@ const products = {
         name: "Bakso Urat",
         description: "Bakso urat sapi yang lezat",
         price: 4,
-        image: "images/Bakso Komplit - Kecil.jpg"
+        image: "Bakso Komplit - Kecil.jpg"
     },
 
     bakso_telur: {
         name: "Bakso Telur",
         description: "Bakso dengan isian telur",
         price: 4,
-        image: "images/Bakso Komplit - Mercon.jpg"
+        image: "Bakso Komplit - Mercon.jpg"
     },
 
     mie_ayam: {
         name: "Mie Ayam",
         description: "Mie ayam gurih dan nikmat",
         price: 3,
-        image: "images/Bakso Komplit - Urat.jpg"
+        image: "Bakso Komplit - Urat.jpg"
     }
 
 };
