@@ -15,7 +15,7 @@ const tg =
 
 // MASUKKAN URL /order KAMU YANG SEKARANG
 const ORDER_API_URL =
-    "https://jake-athletic-valium-custody.trycloudflare.com/order";
+    "https://baksojuraganpoipet.id/order";
 
 // =========================================================
 // PRODUCTS
