@@ -46,6 +46,85 @@ const products = {
 
 };
 
+// =========================================================
+// RENDER PRODUCTS
+// =========================================================
+
+function renderProducts() {
+
+    const productList =
+        document.getElementById("product-list");
+
+    if (!productList) {
+        return;
+    }
+
+    let html = "";
+
+    Object.keys(products).forEach(product => {
+
+        const data = products[product];
+
+        html += `
+            <div class="product">
+
+                <div class="product-icon">
+
+                    <img
+                        src="${data.image}"
+                        alt="${data.name}"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <h3>
+                        ${data.name}
+                    </h3>
+
+                    <p>
+                        ${data.description}
+                    </p>
+
+                    <strong>
+                        $${data.price}
+                    </strong>
+
+                </div>
+
+                <div class="quantity">
+
+                    <button
+                        type="button"
+                        onclick="decrease('${product}')"
+                    >
+                        −
+                    </button>
+
+                    <span id="qty-${product}">
+                        0
+                    </span>
+
+                    <button
+                        type="button"
+                        onclick="increase('${product}')"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+    });
+
+    productList.innerHTML = html;
+}
+
+
+
 
 // =========================================================
 // CART
@@ -1061,16 +1140,15 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+        renderProducts();
+
         updateDisplay();
 
-
         // Checkout
-
         const checkoutButton =
             document.getElementById(
                 "checkout-button"
             );
-
 
         if (checkoutButton) {
 
@@ -1081,14 +1159,11 @@ document.addEventListener(
 
         }
 
-
         // GPS
-
         const gpsButton =
             document.getElementById(
                 "gps-button"
             );
-
 
         if (gpsButton) {
 
@@ -1099,14 +1174,11 @@ document.addEventListener(
 
         }
 
-
         // Confirm
-
         const confirmButton =
             document.getElementById(
                 "confirm-order"
             );
-
 
         if (confirmButton) {
 
@@ -1117,14 +1189,11 @@ document.addEventListener(
 
         }
 
-
         // Back
-
         const backButton =
             document.getElementById(
                 "back-button"
             );
-
 
         if (backButton) {
 
@@ -1134,7 +1203,6 @@ document.addEventListener(
             );
 
         }
-
 
         console.log(
             "🔥 BAKSO JURAGAN MINI APP READY"
