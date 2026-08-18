@@ -779,3 +779,31 @@ body {
     color: white;
 
 }
+
+/* =========================================================
+   ITEM NOTE MODAL
+========================================================= */
+
+.item-note-modal {
+    z-index: 100000;
+}
+
+.item-note-box {
+    animation: itemNoteModalIn 0.2s ease;
+}
+
+@keyframes itemNoteModalIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
