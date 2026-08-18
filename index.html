@@ -487,6 +487,82 @@ document.addEventListener(
 
 </div>
 
+    <!-- =====================================================
+     ITEM REQUEST / CATATAN MODAL
+====================================================== -->
+
+<div
+    id="item-note-modal"
+    class="item-note-modal"
+>
+
+    <div class="item-note-box">
+
+        <!-- HEADER -->
+
+        <div class="item-note-header">
+
+            <h2>
+                📝 Butuh Request?
+            </h2>
+
+            <button
+                type="button"
+                onclick="closeItemNote(false)"
+                class="item-note-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCT NAME -->
+
+        <div
+            id="item-note-product"
+            class="item-note-product"
+        >
+            Bakso Urat
+        </div>
+
+
+        <!-- INPUT REQUEST -->
+
+        <textarea
+            id="item-note-input"
+            rows="3"
+            placeholder="Contoh: tanpa sayur, sambal dipisah, kuah sedikit..."
+        ></textarea>
+
+
+        <!-- BUTTON -->
+
+        <div class="item-note-actions">
+
+            <button
+                type="button"
+                class="item-note-no"
+                onclick="closeItemNote(false)"
+            >
+                ❌ TIDAK
+            </button>
+
+
+            <button
+                type="button"
+                class="item-note-yes"
+                onclick="saveItemNote()"
+            >
+                ✅ YA
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+    
 
 </body>
 
