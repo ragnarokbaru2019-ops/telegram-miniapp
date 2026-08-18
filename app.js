@@ -1,4 +1,3 @@
-```javascript
 // =========================================================
 // BAKSO JURAGAN - MINI APP
 // PER ITEM REQUEST / CATATAN
@@ -23,7 +22,9 @@ if (tg) {
         tg.ready();
         tg.expand();
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(
             "❌ TELEGRAM INIT ERROR:",
@@ -55,83 +56,75 @@ const products = {
 
     bakso_komplit_urat: {
 
-        name:
-            "Bakso Komplit Urat",
+        name: "Bakso Komplit Urat",
 
-        description:
-            "Bakso komplit + kuah",
+        description: "Bakso komplit + kuah",
 
-        price:
-            4,
+        price: 4,
 
         image:
             "images/bakso-komplit-urat.jpg",
 
-        category:
-            "bakso",
+        category: "bakso",
 
-        requireMie:
-            true
+        requireMie: true
 
     },
 
 
     bakso_urat: {
 
-        name:
-            "Bakso Urat",
+        name: "Bakso Urat",
 
         description:
             "Bakso urat sapi yang lezat",
 
-        price:
-            4,
+        price: 4,
 
         image:
             "images/bakso-urat.jpg",
 
-        category:
-            "bakso"
+        category: "bakso",
+
+        requireMie: false
 
     },
 
 
     bakso_telur: {
 
-        name:
-            "Bakso Telur",
+        name: "Bakso Telur",
 
         description:
             "Bakso dengan isian telur",
 
-        price:
-            4,
+        price: 4,
 
         image:
             "images/bakso-telur.jpg",
 
-        category:
-            "bakso"
+        category: "bakso",
+
+        requireMie: false
 
     },
 
 
     mie_ayam: {
 
-        name:
-            "Mie Ayam",
+        name: "Mie Ayam",
 
         description:
             "Mie ayam gurih dan nikmat",
 
-        price:
-            3,
+        price: 3,
 
         image:
             "images/mie-ayam.jpg",
 
-        category:
-            "mie"
+        category: "mie",
+
+        requireMie: false
 
     }
 
@@ -142,8 +135,7 @@ const products = {
 // CATEGORY
 // =========================================================
 
-let activeCategory =
-    "all";
+let activeCategory = "all";
 
 
 function selectCategory(category) {
@@ -189,536 +181,250 @@ function selectCategory(category) {
 // CART
 // =========================================================
 //
-// Sekarang cart menyimpan PER PORSI.
+// SETIAP PORSI = 1 ITEM
 //
 // Contoh:
 //
-// cartItems = [
-//     {
-//         product: "bakso_urat",
-//         note: "Pedas",
-//         mie: null
-//     },
-//     {
-//         product: "bakso_urat",
-//         note: "Jangan bawang",
-//         mie: null
-//     }
-// ]
+// Bakso Urat
+// note: Kuah sedikit
 //
-// Jadi produk sama bisa punya request berbeda.
+// Bakso Urat
+// note: Tanpa daun bawang
+//
+// Keduanya berdiri sendiri.
 // =========================================================
 
 const cartItems = [];
 
 
 // =========================================================
-// POPUP REQUEST
+// ITEM YANG SEDANG DIPROSES
 // =========================================================
 
-let requestProduct =
-    null;
+let pendingProduct = null;
 
-
-let requestCallback =
-    null;
+let pendingMie = null;
 
 
 // =========================================================
-// CREATE REQUEST MODAL
-// =========================================================
-//
-// Modal dibuat otomatis oleh JavaScript.
-// Jadi tidak perlu menambah HTML manual.
+// RENDER PRODUCTS
 // =========================================================
 
-function createRequestModal() {
+function renderProducts() {
+
+    const container =
+        document.getElementById(
+            "product-list"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    Object.keys(products).forEach(
+        productId => {
+
+            const product =
+                products[productId];
+
+
+            if (
+                activeCategory !== "all" &&
+                product.category !== activeCategory
+            ) {
+
+                return;
+
+            }
+
+
+            const quantity =
+                getProductQuantity(
+                    productId
+                );
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "product";
+
+
+            card.innerHTML = `
+
+                <div class="product-icon">
+
+                    <img
+                        src="${escapeHTML(
+                            product.image
+                        )}"
+                        alt="${escapeHTML(
+                            product.name
+                        )}"
+                        onerror="
+                            this.style.display='none';
+                        "
+                    >
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <h3>
+                        ${escapeHTML(
+                            product.name
+                        )}
+                    </h3>
+
+
+                    <p>
+                        ${escapeHTML(
+                            product.description
+                        )}
+                    </p>
+
+
+                    <strong>
+                        ฿${product.price}
+                    </strong>
+
+                </div>
+
+
+                <div class="quantity">
+
+                    <button
+                        type="button"
+                        onclick="decrease('${productId}')"
+                    >
+                        −
+                    </button>
+
+
+                    <span id="qty-${productId}">
+                        ${quantity}
+                    </span>
+
+
+                    <button
+                        type="button"
+                        onclick="increase('${productId}')"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+// =========================================================
+// GET PRODUCT QUANTITY
+// =========================================================
+
+function getProductQuantity(
+    product
+) {
+
+    return cartItems.filter(
+        item =>
+            item.product === product
+    ).length;
+
+}
+
+
+// =========================================================
+// ESCAPE HTML
+// =========================================================
+
+function escapeHTML(text) {
 
     if (
-        document.getElementById(
-            "request-modal"
-        )
+        text === null ||
+        text === undefined
     ) {
 
-        return;
+        return "";
 
     }
 
 
-    const modal =
-        document.createElement(
-            "div"
-        );
+    return String(text)
 
-
-    modal.id =
-        "request-modal";
-
-
-    modal.innerHTML = `
-
-        <div
-            style="
-                position:fixed;
-                inset:0;
-                background:rgba(0,0,0,.55);
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                z-index:99999;
-                padding:20px;
-            "
-        >
-
-            <div
-                style="
-                    width:100%;
-                    max-width:400px;
-                    background:#fff;
-                    border-radius:18px;
-                    padding:22px;
-                    box-sizing:border-box;
-                    box-shadow:0 15px 40px rgba(0,0,0,.25);
-                "
-            >
-
-                <div
-                    style="
-                        font-size:20px;
-                        font-weight:700;
-                        margin-bottom:8px;
-                    "
-                >
-                    📝 Butuh request?
-                </div>
-
-
-                <div
-                    id="request-product-name"
-                    style="
-                        font-size:14px;
-                        color:#777;
-                        margin-bottom:15px;
-                    "
-                >
-                </div>
-
-
-                <input
-                    id="request-input"
-                    type="text"
-                    maxlength="200"
-                    placeholder="Contoh: kuah sedikit..."
-                    style="
-                        width:100%;
-                        box-sizing:border-box;
-                        padding:13px;
-                        border:1px solid #ddd;
-                        border-radius:10px;
-                        font-size:15px;
-                        outline:none;
-                        margin-bottom:15px;
-                    "
-                >
-
-
-                <div
-                    style="
-                        display:flex;
-                        gap:10px;
-                    "
-                >
-
-                    <button
-                        type="button"
-                        id="request-yes"
-                        style="
-                            flex:1;
-                            border:0;
-                            border-radius:10px;
-                            padding:13px;
-                            background:#16a34a;
-                            color:white;
-                            font-size:15px;
-                            font-weight:700;
-                            cursor:pointer;
-                        "
-                    >
-                        ✓ YA
-                    </button>
-
-
-                    <button
-                        type="button"
-                        id="request-no"
-                        style="
-                            flex:1;
-                            border:0;
-                            border-radius:10px;
-                            padding:13px;
-                            background:#eee;
-                            color:#333;
-                            font-size:15px;
-                            font-weight:700;
-                            cursor:pointer;
-                        "
-                    >
-                        ✕ TIDAK
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    document.body.appendChild(
-        modal
-    );
-
-
-    document
-        .getElementById(
-            "request-yes"
+        .replace(
+            /&/g,
+            "&amp;"
         )
-        .addEventListener(
-            "click",
-            function() {
 
-                const input =
-                    document.getElementById(
-                        "request-input"
-                    );
-
-
-                const note =
-                    input
-                        ? input.value.trim()
-                        : "";
-
-
-                closeRequestModal();
-
-
-                if (requestCallback) {
-
-                    const callback =
-                        requestCallback;
-
-
-                    requestCallback =
-                        null;
-
-
-                    callback(
-                        note
-                    );
-
-                }
-
-            }
-        );
-
-
-    document
-        .getElementById(
-            "request-no"
+        .replace(
+            /</g,
+            "&lt;"
         )
-        .addEventListener(
-            "click",
-            function() {
 
-                closeRequestModal();
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-                if (requestCallback) {
-
-                    const callback =
-                        requestCallback;
-
-
-                    requestCallback =
-                        null;
-
-
-                    callback(
-                        ""
-                    );
-
-                }
-
-            }
+        .replace(
+            /'/g,
+            "&#039;"
         );
-
-}
-
-
-// =========================================================
-// OPEN REQUEST MODAL
-// =========================================================
-
-function openRequestModal(
-    product,
-    callback
-) {
-
-    createRequestModal();
-
-
-    requestProduct =
-        product;
-
-
-    requestCallback =
-        callback;
-
-
-    const modal =
-        document.getElementById(
-            "request-modal"
-        );
-
-
-    const name =
-        document.getElementById(
-            "request-product-name"
-        );
-
-
-    const input =
-        document.getElementById(
-            "request-input"
-        );
-
-
-    if (name) {
-
-        name.textContent =
-            products[product].name;
-
-    }
-
-
-    if (input) {
-
-        input.value =
-            "";
-
-    }
-
-
-    if (modal) {
-
-        modal.style.display =
-            "block";
-
-    }
-
-
-    setTimeout(
-        function() {
-
-            if (input) {
-
-                input.focus();
-
-            }
-
-        },
-        100
-    );
-
-}
-
-
-// =========================================================
-// CLOSE REQUEST MODAL
-// =========================================================
-
-function closeRequestModal() {
-
-    const modal =
-        document.getElementById(
-            "request-modal"
-        );
-
-
-    if (modal) {
-
-        modal.style.display =
-            "none";
-
-    }
-
-
-    requestProduct =
-        null;
-
-}
-
-
-// =========================================================
-// MIE CHOICE
-// =========================================================
-
-let mieChoiceProduct =
-    null;
-
-
-let mieChoiceNote =
-    "";
-
-
-// =========================================================
-// OPEN MIE CHOICE
-// =========================================================
-
-function openMieChoice(
-    product,
-    note = ""
-) {
-
-    if (!products[product]) {
-
-        return;
-
-    }
-
-
-    mieChoiceProduct =
-        product;
-
-
-    mieChoiceNote =
-        note;
-
-
-    const modal =
-        document.getElementById(
-            "mie-choice-modal"
-        );
-
-
-    const title =
-        document.getElementById(
-            "mie-choice-title"
-        );
-
-
-    if (!modal) {
-
-        console.error(
-            "❌ mie-choice-modal tidak ditemukan"
-        );
-
-        return;
-
-    }
-
-
-    if (title) {
-
-        title.textContent =
-            products[product].name;
-
-    }
-
-
-    modal.classList.add(
-        "show"
-    );
-
-}
-
-
-// =========================================================
-// CLOSE MIE CHOICE
-// =========================================================
-
-function closeMieChoice() {
-
-    const modal =
-        document.getElementById(
-            "mie-choice-modal"
-        );
-
-
-    if (modal) {
-
-        modal.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    mieChoiceProduct =
-        null;
-
-
-    mieChoiceNote =
-        "";
-
-}
-
-
-// =========================================================
-// SELECT MIE
-// =========================================================
-
-function selectMieChoice(mie) {
-
-    if (!mieChoiceProduct) {
-
-        return;
-
-    }
-
-
-    const product =
-        mieChoiceProduct;
-
-
-    const note =
-        mieChoiceNote;
-
-
-    // Setiap pilihan mie = satu porsi
-    cartItems.push({
-
-        product:
-            product,
-
-        note:
-            note || "",
-
-        mie:
-            mie
-
-    });
-
-
-    console.log(
-        "🍜 ITEM DITAMBAHKAN:",
-        cartItems[
-            cartItems.length - 1
-        ]
-    );
-
-
-    closeMieChoice();
-
-
-    updateDisplay();
 
 }
 
 
 // =========================================================
 // INCREASE
+// =========================================================
+//
+// FINAL FLOW:
+//
+// Produk butuh mie:
+//
+// +
+// ↓
+// PILIH MIE
+// ↓
+// CATATAN
+// ↓
+// CART
+//
+// Produk biasa:
+//
+// +
+// ↓
+// CATATAN
+// ↓
+// CART
 // =========================================================
 
 function increase(product) {
@@ -730,61 +436,37 @@ function increase(product) {
     }
 
 
+    pendingProduct =
+        product;
+
+
+    pendingMie =
+        null;
+
+
     // =====================================================
-    // SEMUA PRODUK SEKARANG MUNCUL REQUEST POPUP
+    // PRODUK YANG BUTUH MIE
     // =====================================================
 
-    openRequestModal(
-        product,
-        function(note) {
+    if (
+        products[product].requireMie
+    ) {
 
-            // =================================================
-            // PRODUK DENGAN PILIHAN MIE
-            // =================================================
+        openMieChoice(
+            product
+        );
 
-            if (
-                products[product].requireMie
-            ) {
+        return;
 
-                openMieChoice(
-                    product,
-                    note
-                );
-
-                return;
-
-            }
+    }
 
 
-            // =================================================
-            // PRODUK BIASA
-            // =================================================
+    // =====================================================
+    // PRODUK BIASA
+    // =====================================================
 
-            cartItems.push({
-
-                product:
-                    product,
-
-                note:
-                    note || "",
-
-                mie:
-                    null
-
-            });
-
-
-            console.log(
-                "🛒 ITEM DITAMBAHKAN:",
-                cartItems[
-                    cartItems.length - 1
-                ]
-            );
-
-
-            updateDisplay();
-
-        }
+    openItemNote(
+        product
     );
 
 }
@@ -794,7 +476,7 @@ function increase(product) {
 // DECREASE
 // =========================================================
 //
-// Hapus item terakhir dari produk tersebut.
+// Hapus item TERAKHIR dari produk tersebut.
 // =========================================================
 
 function decrease(product) {
@@ -827,7 +509,7 @@ function decrease(product) {
 
             console.log(
                 "🗑️ ITEM DIHAPUS:",
-                product
+                cartItems
             );
 
             break;
@@ -843,60 +525,293 @@ function decrease(product) {
 
 
 // =========================================================
-// GET PRODUCT QUANTITY
+// MIE CHOICE
 // =========================================================
 
-function getProductQuantity(
+function openMieChoice(
     product
 ) {
 
-    return cartItems.filter(
-        item =>
-            item.product === product
-    ).length;
+    const modal =
+        document.getElementById(
+            "mie-choice-modal"
+        );
+
+
+    const title =
+        document.getElementById(
+            "mie-choice-title"
+        );
+
+
+    if (!modal) {
+
+        console.error(
+            "❌ mie-choice-modal tidak ditemukan"
+        );
+
+        return;
+
+    }
+
+
+    pendingProduct =
+        product;
+
+
+    pendingMie =
+        null;
+
+
+    if (title) {
+
+        title.textContent =
+            products[product].name;
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+function closeMieChoice() {
+
+    const modal =
+        document.getElementById(
+            "mie-choice-modal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    pendingProduct =
+        null;
+
+
+    pendingMie =
+        null;
 
 }
 
 
 // =========================================================
-// ESCAPE HTML
+// SELECT MIE
 // =========================================================
 
-function escapeHTML(
-    text
-) {
+function selectMieChoice(mie) {
 
-    if (
-        text === null ||
-        text === undefined
-    ) {
+    if (!pendingProduct) {
 
-        return "";
+        return;
 
     }
 
 
-    return String(text)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
+    pendingMie =
+        mie;
+
+
+    closeMieChoice();
+
+
+    // Setelah mie dipilih,
+    // lanjut ke catatan item.
+
+    openItemNote(
+        pendingProduct
+    );
+
+}
+
+
+// =========================================================
+// ITEM NOTE MODAL
+// =========================================================
+
+function openItemNote(
+    product
+) {
+
+    const modal =
+        document.getElementById(
+            "item-note-modal"
         );
+
+
+    const productName =
+        document.getElementById(
+            "item-note-product"
+        );
+
+
+    const input =
+        document.getElementById(
+            "item-note-input"
+        );
+
+
+    if (!modal) {
+
+        console.error(
+            "❌ item-note-modal tidak ditemukan"
+        );
+
+        return;
+
+    }
+
+
+    pendingProduct =
+        product;
+
+
+    if (productName) {
+
+        productName.textContent =
+            products[product].name;
+
+    }
+
+
+    if (input) {
+
+        input.value = "";
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function() {
+
+            if (input) {
+
+                input.focus();
+
+            }
+
+        },
+        100
+    );
+
+}
+
+
+// =========================================================
+// CLOSE ITEM NOTE
+// =========================================================
+
+function closeItemNote(
+    save = false
+) {
+
+    const modal =
+        document.getElementById(
+            "item-note-modal"
+        );
+
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    if (!save) {
+
+        pendingProduct =
+            null;
+
+        pendingMie =
+            null;
+
+    }
+
+}
+
+
+// =========================================================
+// SAVE ITEM NOTE
+// =========================================================
+
+function saveItemNote() {
+
+    if (!pendingProduct) {
+
+        return;
+
+    }
+
+
+    const input =
+        document.getElementById(
+            "item-note-input"
+        );
+
+
+    const note =
+        input
+            ? input.value.trim()
+            : "";
+
+
+    const item = {
+
+        product:
+            pendingProduct,
+
+        note:
+            note,
+
+        mie:
+            pendingMie || null
+
+    };
+
+
+    cartItems.push(
+        item
+    );
+
+
+    console.log(
+        "🛒 ITEM DITAMBAHKAN:",
+        item
+    );
+
+
+    closeItemNote(
+        true
+    );
+
+
+    pendingProduct =
+        null;
+
+
+    pendingMie =
+        null;
+
+
+    updateDisplay();
 
 }
 
@@ -916,7 +831,7 @@ function updateDisplay() {
 
 
     // =====================================================
-    // UPDATE QUANTITY DI MENU
+    // UPDATE QTY
     // =====================================================
 
     Object.keys(products).forEach(
@@ -942,11 +857,11 @@ function updateDisplay() {
 
 
     // =====================================================
-    // RENDER SETIAP PORSI
+    // CART
     // =====================================================
 
     cartItems.forEach(
-        function(item) {
+        function(item, index) {
 
             const data =
                 products[
@@ -990,7 +905,7 @@ function updateDisplay() {
 
                             <div
                                 style="
-                                    font-weight:600;
+                                    font-weight:700;
                                 "
                             >
                                 ${escapeHTML(
@@ -1052,10 +967,6 @@ function updateDisplay() {
     );
 
 
-    // =====================================================
-    // CART HTML
-    // =====================================================
-
     const cartItemsElement =
         document.getElementById(
             "cart-items"
@@ -1064,23 +975,14 @@ function updateDisplay() {
 
     if (cartItemsElement) {
 
-        if (!html) {
+        cartItemsElement.innerHTML =
+            html ||
 
-            cartItemsElement.innerHTML =
-                `
+            `
                 <p class="empty">
                     Keranjang masih kosong
                 </p>
-                `;
-
-        }
-
-        else {
-
-            cartItemsElement.innerHTML =
-                html;
-
-        }
+            `;
 
     }
 
@@ -1111,9 +1013,7 @@ function updateDisplay() {
 
 function checkout() {
 
-    if (
-        !cartItems.length
-    ) {
+    if (!cartItems.length) {
 
         alert(
             "Keranjang masih kosong."
@@ -1170,8 +1070,7 @@ function backToMenu() {
 
     window.scrollTo({
 
-        top:
-            0,
+        top: 0,
 
         behavior:
             "smooth"
@@ -1185,8 +1084,7 @@ function backToMenu() {
 // PAYMENT
 // =========================================================
 
-let payment =
-    null;
+let payment = null;
 
 
 function selectPayment(type) {
@@ -1261,8 +1159,7 @@ function selectPayment(type) {
 // GPS
 // =========================================================
 
-let gps =
-    null;
+let gps = null;
 
 
 function getGPS() {
@@ -1280,10 +1177,6 @@ function getGPS() {
 
 
     if (!status) {
-
-        console.error(
-            "❌ gps-status tidak ditemukan"
-        );
 
         return;
 
@@ -1381,9 +1274,7 @@ function getGPS() {
     }
 
 
-    if (
-        !navigator.geolocation
-    ) {
+    if (!navigator.geolocation) {
 
         gpsFailed(
             "❌ GPS tidak tersedia."
@@ -1428,7 +1319,6 @@ function getGPS() {
 
         },
 
-
         function(error) {
 
             console.error(
@@ -1441,27 +1331,21 @@ function getGPS() {
                 "❌ Gagal mengambil lokasi.";
 
 
-            if (
-                error.code === 1
-            ) {
+            if (error.code === 1) {
 
                 message =
                     "❌ Izin lokasi ditolak.";
 
             }
 
-            else if (
-                error.code === 2
-            ) {
+            else if (error.code === 2) {
 
                 message =
                     "❌ Lokasi tidak tersedia.";
 
             }
 
-            else if (
-                error.code === 3
-            ) {
+            else if (error.code === 3) {
 
                 message =
                     "❌ Waktu mengambil lokasi habis.";
@@ -1474,7 +1358,6 @@ function getGPS() {
             );
 
         },
-
 
         {
 
@@ -1544,26 +1427,9 @@ function gpsFailed(
 // BUILD ITEMS
 // =========================================================
 //
-// Setiap porsi dikirim sebagai item sendiri.
+// CATATAN SEKARANG 100% PER ITEM.
 //
-// Contoh:
-//
-// [
-//   {
-//      product: "Bakso Urat",
-//      quantity: 1,
-//      price: 4,
-//      subtotal: 4,
-//      note: "Pedas"
-//   },
-//   {
-//      product: "Bakso Urat",
-//      quantity: 1,
-//      price: 4,
-//      subtotal: 4,
-//      note: "Jangan bawang"
-//   }
-// ]
+// TIDAK ADA CUSTOMER NOTE GLOBAL.
 // =========================================================
 
 function buildItems() {
@@ -1597,18 +1463,12 @@ function buildItems() {
             };
 
 
-            // =================================================
-            // PILIHAN MIE
-            // =================================================
-
             if (item.mie) {
 
                 result.mie_choice =
                     item.mie;
 
 
-                // Tetap kirim format lama
-                // supaya backend lama lebih aman.
                 result.mie_choices = {
 
                     [item.mie]:
@@ -1645,7 +1505,6 @@ function resetCart() {
         null;
 
 
-    // Payment
     const cash =
         document.getElementById(
             "payment-cash"
@@ -1676,7 +1535,6 @@ function resetCart() {
     }
 
 
-    // GPS
     const gpsStatus =
         document.getElementById(
             "gps-status"
@@ -1708,21 +1566,6 @@ function resetCart() {
     }
 
 
-    // Customer note lama
-    const noteElement =
-        document.getElementById(
-            "customer-note"
-        );
-
-
-    if (noteElement) {
-
-        noteElement.value =
-            "";
-
-    }
-
-
     updateDisplay();
 
 }
@@ -1746,67 +1589,6 @@ function showOrderSuccess(
         "Silakan tunggu konfirmasi dari admin.";
 
 
-    if (
-        tg &&
-        typeof tg.showPopup ===
-            "function"
-    ) {
-
-        try {
-
-            tg.showPopup(
-
-                {
-
-                    title:
-                        "Order Berhasil",
-
-                    message:
-                        message,
-
-                    buttons:
-                        [
-                            {
-
-                                type:
-                                    "ok",
-
-                                text:
-                                    "OK"
-
-                            }
-
-                        ]
-
-                },
-
-                function() {
-
-                    console.log(
-                        "✅ Customer menekan OK"
-                    );
-
-                }
-
-            );
-
-
-            return;
-
-        }
-
-        catch (error) {
-
-            console.warn(
-                "⚠️ Telegram popup gagal:",
-                error
-            );
-
-        }
-
-    }
-
-
     alert(
         message
     );
@@ -1824,7 +1606,6 @@ async function confirmOrder() {
         "================================"
     );
 
-
     console.log(
         "🛒 KONFIRMASI ORDER"
     );
@@ -1838,9 +1619,7 @@ async function confirmOrder() {
         buildItems();
 
 
-    if (
-        !items.length
-    ) {
+    if (!items.length) {
 
         alert(
             "Keranjang masih kosong."
@@ -1894,31 +1673,12 @@ async function confirmOrder() {
 
 
     // =====================================================
-    // CUSTOMER NOTE GLOBAL
-    // =====================================================
-
-    const noteElement =
-        document.getElementById(
-            "customer-note"
-        );
-
-
-    const customerNote =
-        noteElement
-            ? noteElement.value.trim()
-            : "";
-
-
-    // =====================================================
     // TOTAL
     // =====================================================
 
     const total =
         items.reduce(
-            function(
-                sum,
-                item
-            ) {
+            function(sum, item) {
 
                 return (
                     sum +
@@ -1958,9 +1718,6 @@ async function confirmOrder() {
 
         total:
             total,
-
-        note:
-            customerNote,
 
         telegram_user:
             telegramUser,
@@ -2082,9 +1839,7 @@ async function confirmOrder() {
         }
 
 
-        if (
-            !response.ok
-        ) {
+        if (!response.ok) {
 
             throw new Error(
                 result.error ||
@@ -2094,9 +1849,7 @@ async function confirmOrder() {
         }
 
 
-        if (
-            !result.success
-        ) {
+        if (!result.success) {
 
             throw new Error(
                 result.error ||
@@ -2104,11 +1857,6 @@ async function confirmOrder() {
             );
 
         }
-
-
-        console.log(
-            "================================"
-        );
 
 
         console.log(
@@ -2122,11 +1870,6 @@ async function confirmOrder() {
         );
 
 
-        console.log(
-            "================================"
-        );
-
-
         showOrderSuccess(
             result.order_id
         );
@@ -2136,7 +1879,6 @@ async function confirmOrder() {
 
 
         backToMenu();
-
 
     }
 
@@ -2149,10 +1891,8 @@ async function confirmOrder() {
 
 
         alert(
-
             "❌ ORDER GAGAL\n\n" +
             error.message
-
         );
 
     }
@@ -2231,9 +1971,7 @@ async function checkServerStatus() {
             );
 
 
-        if (
-            !response.ok
-        ) {
+        if (!response.ok) {
 
             throw new Error(
                 "Server tidak merespon"
@@ -2263,10 +2001,6 @@ async function checkServerStatus() {
                 "online-dot";
 
 
-            console.log(
-                "🟢 SERVER ONLINE"
-            );
-
         }
 
         else {
@@ -2292,11 +2026,6 @@ async function checkServerStatus() {
         indicator.className =
             "online-dot";
 
-
-        console.log(
-            "🔴 SERVER OFFLINE"
-        );
-
     }
 
 }
@@ -2314,36 +2043,32 @@ document.addEventListener(
             "================================"
         );
 
-
         console.log(
             "🔥 BAKSO JURAGAN MINI APP"
         );
-
 
         console.log(
             "🚀 INITIALIZING..."
         );
 
 
-        // =================================================
-        // PRODUCTS
-        // =================================================
-
         renderProducts();
 
         updateDisplay();
 
 
-        // =================================================
-        // REQUEST MODAL
-        // =================================================
+        // SERVER STATUS
 
-        createRequestModal();
+        checkServerStatus();
 
 
-        // =================================================
+        setInterval(
+            checkServerStatus,
+            10000
+        );
+
+
         // CHECKOUT
-        // =================================================
 
         const checkoutButton =
             document.getElementById(
@@ -2361,9 +2086,7 @@ document.addEventListener(
         }
 
 
-        // =================================================
         // GPS
-        // =================================================
 
         const gpsButton =
             document.getElementById(
@@ -2381,9 +2104,7 @@ document.addEventListener(
         }
 
 
-        // =================================================
         // CONFIRM
-        // =================================================
 
         const confirmButton =
             document.getElementById(
@@ -2401,9 +2122,7 @@ document.addEventListener(
         }
 
 
-        // =================================================
         // BACK
-        // =================================================
 
         const backButton =
             document.getElementById(
@@ -2421,23 +2140,9 @@ document.addEventListener(
         }
 
 
-        // =================================================
-        // SERVER
-        // =================================================
-
-        checkServerStatus();
-
-
-        setInterval(
-            checkServerStatus,
-            10000
-        );
-
-
         console.log(
             "✅ BAKSO JURAGAN MINI APP READY"
         );
-
 
         console.log(
             "================================"
@@ -2454,51 +2159,41 @@ document.addEventListener(
 window.increase =
     increase;
 
-
 window.decrease =
     decrease;
-
 
 window.checkout =
     checkout;
 
-
 window.selectCategory =
     selectCategory;
-
 
 window.selectPayment =
     selectPayment;
 
-
 window.getGPS =
     getGPS;
-
 
 window.confirmOrder =
     confirmOrder;
 
-
 window.backToMenu =
     backToMenu;
-
 
 window.openMieChoice =
     openMieChoice;
 
-
 window.closeMieChoice =
     closeMieChoice;
-
 
 window.selectMieChoice =
     selectMieChoice;
 
+window.openItemNote =
+    openItemNote;
 
-window.openRequestModal =
-    openRequestModal;
+window.closeItemNote =
+    closeItemNote;
 
-
-window.closeRequestModal =
-    closeRequestModal;
-```
+window.saveItemNote =
+    saveItemNote;
