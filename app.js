@@ -1270,30 +1270,12 @@ function gpsFailed(
 
 
 // =========================================================
-// BUILD ITEMS
-// =========================================================
-//
-// FORMAT YANG DIKIRIM KE BOT:
-//
-// {
-//     product: "Bakso Komplit Urat",
-//     quantity: 1,
-//     price: 4,
-//     subtotal: 4,
-//     choices: [
-//         "Mie Kuning"
-//     ]
-// }
-//
-// Ini penting supaya printer.py / bot.py
-// bisa membaca pilihan mie.
+// BUILD ITEMS - GABUNG PRODUK + PILIHAN MIE
 // =========================================================
 
 function buildItems() {
 
-    const items =
-        [];
-
+    const grouped = {};
 
     Object.keys(cart).forEach(
         product => {
@@ -1301,116 +1283,120 @@ function buildItems() {
             const quantity =
                 cart[product];
 
-
-            if (
-                quantity <= 0
-            ) {
-
+            if (quantity <= 0) {
                 return;
-
             }
-
 
             const data =
                 products[product];
-
 
             // =================================================
             // PRODUK DENGAN PILIHAN MIE
             // =================================================
 
             if (
-                data.requireMie
+                data.requireMie &&
+                cartMieChoice[product] &&
+                cartMieChoice[product].length
             ) {
 
-                const choices =
-                    cartMieChoice[product] || [];
+                const mieList =
+                    cartMieChoice[product];
 
+                const key =
+                    product;
 
-                // Jangan kirim produk tanpa pilihan
-                if (
-                    choices.length === 0
-                ) {
+                if (!grouped[key]) {
 
-                    console.warn(
-                        "⚠️ Produk belum memiliki pilihan mie:",
-                        product
-                    );
+                    grouped[key] = {
 
-                    return;
+                        product:
+                            data.name,
+
+                        quantity:
+                            0,
+
+                        price:
+                            data.price,
+
+                        subtotal:
+                            0,
+
+                        mie_choices: {}
+
+                    };
 
                 }
 
-
-                // Setiap pilihan = 1 item
-                choices.forEach(
+                mieList.forEach(
                     mie => {
 
-                        items.push({
+                        if (
+                            !grouped[key]
+                                .mie_choices[mie]
+                        ) {
 
-                            product:
-                                data.name,
+                            grouped[key]
+                                .mie_choices[mie] = 0;
 
-                            quantity:
-                                1,
+                        }
 
-                            price:
-                                data.price,
+                        grouped[key]
+                            .mie_choices[mie]++;
 
-                            subtotal:
-                                data.price,
+                        grouped[key]
+                            .quantity++;
 
-                            choices:
-                                [
-                                    mie
-                                ]
-
-                        });
+                        grouped[key]
+                            .subtotal +=
+                                data.price;
 
                     }
                 );
 
-
                 return;
-
             }
-
 
             // =================================================
             // PRODUK BIASA
             // =================================================
 
-            items.push({
+            const key =
+                product;
 
-                product:
-                    data.name,
+            if (!grouped[key]) {
 
-                quantity:
-                    quantity,
+                grouped[key] = {
 
-                price:
-                    data.price,
+                    product:
+                        data.name,
 
-                subtotal:
-                    quantity *
-                    data.price,
+                    quantity:
+                        0,
 
-                choices:
-                    []
+                    price:
+                        data.price,
 
-            });
+                    subtotal:
+                        0
+
+                };
+
+            }
+
+            grouped[key].quantity +=
+                quantity;
+
+            grouped[key].subtotal +=
+                quantity *
+                data.price;
 
         }
     );
 
-
-    console.log(
-        "🍜 ITEMS:",
-        items
+    return Object.values(
+        grouped
     );
-
-
-    return items;
 
 }
 
@@ -1712,6 +1698,16 @@ async function confirmOrder() {
             ? addressElement.value.trim()
             : "";
 
+    const noteElement =
+    document.getElementById(
+        "customer-note"
+    );
+
+const customerNote =
+    noteElement
+        ? noteElement.value.trim()
+        : "";
+    
 
     if (!address) {
 
@@ -1774,6 +1770,9 @@ async function confirmOrder() {
         total:
             total,
 
+            note:
+        customerNote,
+        
         telegram_user:
             telegramUser,
 
