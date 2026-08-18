@@ -1,4 +1,9 @@
 // =========================================================
+// BAKSO JURAGAN - MINI APP
+// =========================================================
+
+
+// =========================================================
 // TELEGRAM
 // =========================================================
 
@@ -9,13 +14,40 @@ const tg =
         : null;
 
 
+if (tg) {
+
+    try {
+
+        tg.ready();
+        tg.expand();
+
+    } catch (error) {
+
+        console.error(
+            "❌ TELEGRAM INIT ERROR:",
+            error
+        );
+
+    }
+
+}
+
+
 // =========================================================
 // API
 // =========================================================
 
-// MASUKKAN URL /order KAMU YANG SEKARANG
 const ORDER_API_URL =
     "https://baksojuraganpoipet.id/order";
+
+
+// =========================================================
+// SERVER STATUS
+// =========================================================
+
+const SERVER_STATUS_URL =
+    "https://baksojuraganpoipet.id/health";
+
 
 // =========================================================
 // PRODUCTS
@@ -25,12 +57,14 @@ const products = {
 
     bakso_komplit_urat: {
 
-        name: "Bakso Komplit Urat",
+        name:
+            "Bakso Komplit Urat",
 
         description:
             "Bakso komplit + kuah",
 
-        price: 4,
+        price:
+            4,
 
         image:
             "images/bakso-komplit-urat.jpg",
@@ -46,12 +80,14 @@ const products = {
 
     bakso_urat: {
 
-        name: "Bakso Urat",
+        name:
+            "Bakso Urat",
 
         description:
             "Bakso urat sapi yang lezat",
 
-        price: 4,
+        price:
+            4,
 
         image:
             "images/bakso-urat.jpg",
@@ -64,12 +100,14 @@ const products = {
 
     bakso_telur: {
 
-        name: "Bakso Telur",
+        name:
+            "Bakso Telur",
 
         description:
             "Bakso dengan isian telur",
 
-        price: 4,
+        price:
+            4,
 
         image:
             "images/bakso-telur.jpg",
@@ -82,12 +120,14 @@ const products = {
 
     mie_ayam: {
 
-        name: "Mie Ayam",
+        name:
+            "Mie Ayam",
 
         description:
             "Mie ayam gurih dan nikmat",
 
-        price: 3,
+        price:
+            3,
 
         image:
             "images/mie-ayam.jpg",
@@ -104,24 +144,27 @@ const products = {
 // CATEGORY
 // =========================================================
 
-let activeCategory = "all";
+let activeCategory =
+    "all";
 
 
 function selectCategory(category) {
 
-    activeCategory = category;
+    activeCategory =
+        category;
 
-    // Ubah tombol aktif
+
     document
         .querySelectorAll(".category-chip")
         .forEach(button => {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
         });
 
 
-    // Cari tombol yang diklik
     const activeButton =
         document.querySelector(
             `.category-chip[onclick="selectCategory('${category}')"]`
@@ -130,7 +173,9 @@ function selectCategory(category) {
 
     if (activeButton) {
 
-        activeButton.classList.add("active");
+        activeButton.classList.add(
+            "active"
+        );
 
     }
 
@@ -141,102 +186,6 @@ function selectCategory(category) {
 
 }
 
-// =========================================================
-// RENDER PRODUCTS
-// =========================================================
-
-function renderProducts() {
-
-    const productList =
-        document.getElementById("product-list");
-
-    if (!productList) {
-        return;
-    }
-
-    let html = "";
-
-
-    Object.keys(products).forEach(product => {
-
-        const data = products[product];
-
-
-        // Filter kategori
-        if (
-            activeCategory !== "all" &&
-            data.category !== activeCategory
-        ) {
-
-            return;
-
-        }
-
-
-        html += `
-            <div class="product">
-
-                <div class="product-icon">
-
-                    <img
-                        src="${data.image}"
-                        alt="${data.name}"
-                    >
-
-                </div>
-
-
-                <div class="product-info">
-
-                    <h3>
-                        ${data.name}
-                    </h3>
-
-                    <p>
-                        ${data.description}
-                    </p>
-
-                    <strong>
-                        ฿${data.price}
-                    </strong>
-
-                </div>
-
-
-                <div class="quantity">
-
-                    <button
-                        type="button"
-                        onclick="decrease('${product}')"
-                    >
-                        −
-                    </button>
-
-
-                    <span id="qty-${product}">
-                        0
-                    </span>
-
-
-                    <button
-                        type="button"
-                        onclick="increase('${product}')"
-                    >
-                        +
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-
-    });
-
-
-    productList.innerHTML = html;
-
-}
-
 
 // =========================================================
 // CART
@@ -244,19 +193,170 @@ function renderProducts() {
 
 const cart = {};
 
+
 Object.keys(products).forEach(
     product => {
-        cart[product] = 0;
+
+        cart[product] =
+            0;
+
     }
 );
 
+
 // =========================================================
-// MIE CHOICE
+// PILIHAN MIE
+// =========================================================
+//
+// Contoh:
+//
+// cartMieChoice["bakso_komplit_urat"] = [
+//     "Mie Kuning",
+//     "Bihun"
+// ]
+//
+// Setiap kali customer menekan +
+// satu pilihan mie disimpan.
 // =========================================================
 
 const cartMieChoice = {};
 
-let mieChoiceProduct = null;
+
+// Produk yang sedang meminta pilihan mie
+let mieChoiceProduct =
+    null;
+
+
+// =========================================================
+// PAYMENT
+// =========================================================
+
+let payment =
+    null;
+
+
+// =========================================================
+// GPS
+// =========================================================
+
+let gps =
+    null;
+
+
+// =========================================================
+// RENDER PRODUCTS
+// =========================================================
+
+function renderProducts() {
+
+    const productList =
+        document.getElementById(
+            "product-list"
+        );
+
+
+    if (!productList) {
+
+        console.error(
+            "❌ product-list tidak ditemukan"
+        );
+
+        return;
+
+    }
+
+
+    let html =
+        "";
+
+
+    Object.keys(products).forEach(
+        product => {
+
+            const data =
+                products[product];
+
+
+            // Filter kategori
+            if (
+                activeCategory !== "all" &&
+                data.category !== activeCategory
+            ) {
+
+                return;
+
+            }
+
+
+            html += `
+
+                <div class="product">
+
+                    <div class="product-icon">
+
+                        <img
+                            src="${data.image}"
+                            alt="${data.name}"
+                        >
+
+                    </div>
+
+
+                    <div class="product-info">
+
+                        <h3>
+                            ${data.name}
+                        </h3>
+
+                        <p>
+                            ${data.description}
+                        </p>
+
+                        <strong>
+                            ฿${data.price}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="quantity">
+
+                        <button
+                            type="button"
+                            onclick="decrease('${product}')"
+                        >
+                            −
+                        </button>
+
+
+                        <span
+                            id="qty-${product}"
+                        >
+                            0
+                        </span>
+
+
+                        <button
+                            type="button"
+                            onclick="increase('${product}')"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    productList.innerHTML =
+        html;
+
+}
 
 
 // =========================================================
@@ -266,20 +366,27 @@ let mieChoiceProduct = null;
 function openMieChoice(product) {
 
     if (!products[product]) {
+
         return;
+
     }
 
-    mieChoiceProduct = product;
+
+    mieChoiceProduct =
+        product;
+
 
     const modal =
         document.getElementById(
             "mie-choice-modal"
         );
 
+
     const title =
         document.getElementById(
             "mie-choice-title"
         );
+
 
     if (!modal) {
 
@@ -288,7 +395,9 @@ function openMieChoice(product) {
         );
 
         return;
+
     }
+
 
     if (title) {
 
@@ -297,7 +406,10 @@ function openMieChoice(product) {
 
     }
 
-    modal.classList.add("show");
+
+    modal.classList.add(
+        "show"
+    );
 
 }
 
@@ -313,13 +425,18 @@ function closeMieChoice() {
             "mie-choice-modal"
         );
 
+
     if (modal) {
 
-        modal.classList.remove("show");
+        modal.classList.remove(
+            "show"
+        );
 
     }
 
-    mieChoiceProduct = null;
+
+    mieChoiceProduct =
+        null;
 
 }
 
@@ -340,19 +457,20 @@ function selectMieChoice(mie) {
 
     }
 
+
     const product =
         mieChoiceProduct;
 
 
-    // Pastikan array tersedia
     if (!cartMieChoice[product]) {
 
-        cartMieChoice[product] = [];
+        cartMieChoice[product] =
+            [];
 
     }
 
 
-    // Tambahkan jumlah produk
+    // Tambah quantity
     cart[product]++;
 
 
@@ -363,13 +481,26 @@ function selectMieChoice(mie) {
 
 
     console.log(
-        "🍜 PILIH MIE:",
+        "🍜 PILIHAN MIE:",
         mie
     );
+
 
     console.log(
         "📦 PRODUK:",
         product
+    );
+
+
+    console.log(
+        "🔢 QTY:",
+        cart[product]
+    );
+
+
+    console.log(
+        "📋 SEMUA PILIHAN:",
+        cartMieChoice[product]
     );
 
 
@@ -378,21 +509,6 @@ function selectMieChoice(mie) {
     updateDisplay();
 
 }
-
-
-
-// =========================================================
-// GPS
-// =========================================================
-
-let gps = null;
-
-
-// =========================================================
-// PAYMENT
-// =========================================================
-
-let payment = null;
 
 
 // =========================================================
@@ -410,10 +526,12 @@ function increase(product) {
 
     // Produk yang membutuhkan pilihan mie
     if (
-        product === "bakso_komplit_urat"
+        products[product].requireMie
     ) {
 
-        openMieChoice(product);
+        openMieChoice(
+            product
+        );
 
         return;
 
@@ -434,26 +552,29 @@ function increase(product) {
 function decrease(product) {
 
     if (!products[product]) {
+
         return;
+
     }
 
 
-    if (cart[product] <= 0) {
+    if (
+        cart[product] <= 0
+    ) {
+
         return;
+
     }
 
 
     cart[product]--;
 
 
-    // =================================================
-    // HAPUS PILIHAN MIE TERAKHIR
-    // =================================================
-
+    // Hapus pilihan mie terakhir
     if (
         products[product].requireMie &&
         cartMieChoice[product] &&
-        cartMieChoice[product].length
+        cartMieChoice[product].length > 0
     ) {
 
         cartMieChoice[product].pop();
@@ -472,9 +593,12 @@ function decrease(product) {
 
 function updateDisplay() {
 
-    let total = 0;
+    let total =
+        0;
 
-    let html = "";
+
+    let html =
+        "";
 
 
     Object.keys(products).forEach(
@@ -482,6 +606,7 @@ function updateDisplay() {
 
             const quantity =
                 cart[product];
+
 
             const data =
                 products[product];
@@ -501,88 +626,104 @@ function updateDisplay() {
             }
 
 
-            if (quantity > 0) {
+            if (
+                quantity <= 0
+            ) {
 
-                const subtotal =
-                    quantity *
-                    data.price;
+                return;
+
+            }
 
 
-                total += subtotal;
+            const subtotal =
+                quantity *
+                data.price;
 
+
+            total +=
+                subtotal;
+
+
+            // =================================================
+            // PRODUK DENGAN PILIHAN MIE
+            // =================================================
+
+            if (
+                data.requireMie &&
+                cartMieChoice[product] &&
+                cartMieChoice[product].length > 0
+            ) {
+
+                cartMieChoice[product].forEach(
+                    mie => {
+
+                        html += `
+
+                            <div
+                                style="
+                                    display:flex;
+                                    justify-content:space-between;
+                                    margin:8px 0;
+                                    padding:8px 0;
+                                    border-bottom:1px solid #eee;
+                                "
+                            >
+
+                                <span>
+
+                                    ${data.name}
+
+                                    <br>
+
+                                    <small>
+                                        🍜 ${mie}
+                                    </small>
+
+                                </span>
+
+
+                                <strong>
+                                    ฿${data.price}
+                                </strong>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+            }
+
+            else {
 
                 // =================================================
-                // PRODUK DENGAN PILIHAN MIE
+                // PRODUK BIASA
                 // =================================================
 
-                if (
-                    data.requireMie &&
-                    cartMieChoice[product] &&
-                    cartMieChoice[product].length
-                ) {
+                html += `
 
-                    cartMieChoice[product].forEach(
-                        mie => {
+                    <div
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            margin:8px 0;
+                        "
+                    >
 
-                            html += `
-                                <div
-                                    style="
-                                        display:flex;
-                                        justify-content:space-between;
-                                        margin:8px 0;
-                                        padding:8px 0;
-                                        border-bottom:1px solid #eee;
-                                    "
-                                >
+                        <span>
+                            ${data.name}
+                            x${quantity}
+                        </span>
 
-                                    <span>
-                                        ${data.name}
-                                        <br>
-                                        <small>
-                                            🍜 ${mie}
-                                        </small>
-                                    </span>
 
-                                    <strong>
-                                        ฿${data.price}
-                                    </strong>
+                        <strong>
+                            ฿${subtotal}
+                        </strong>
 
-                                </div>
-                            `;
+                    </div>
 
-                        }
-                    );
-
-                }
-
-                else {
-
-                    // =================================================
-                    // PRODUK BIASA
-                    // =================================================
-
-                    html += `
-                        <div
-                            style="
-                                display:flex;
-                                justify-content:space-between;
-                                margin:8px 0;
-                            "
-                        >
-
-                            <span>
-                                ${data.name}
-                                x${quantity}
-                            </span>
-
-                            <strong>
-                                ฿${subtotal}
-                            </strong>
-
-                        </div>
-                    `;
-
-                }
+                `;
 
             }
 
@@ -598,7 +739,7 @@ function updateDisplay() {
 
     if (cartItems) {
 
-        if (html === "") {
+        if (!html) {
 
             cartItems.innerHTML =
                 `
@@ -634,20 +775,26 @@ function updateDisplay() {
 
 }
 
+
 // =========================================================
 // CHECKOUT
 // =========================================================
 
 function checkout() {
 
-    let hasItems = false;
+    let hasItems =
+        false;
+
 
     Object.keys(cart).forEach(
         product => {
 
-            if (cart[product] > 0) {
+            if (
+                cart[product] > 0
+            ) {
 
-                hasItems = true;
+                hasItems =
+                    true;
 
             }
 
@@ -677,8 +824,10 @@ function checkout() {
         section.style.display =
             "block";
 
+
         section.scrollIntoView({
-            behavior: "smooth"
+            behavior:
+                "smooth"
         });
 
     }
@@ -705,9 +854,15 @@ function backToMenu() {
 
     }
 
+
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
     });
 
 }
@@ -716,10 +871,19 @@ function backToMenu() {
 // =========================================================
 // PAYMENT
 // =========================================================
+//
+// Cash / ABA
+//
+// Tombol aktif akan diberi:
+// class="selected"
+//
+// CSS nanti membuat tombol menjadi MERAH.
+// =========================================================
 
 function selectPayment(type) {
 
-    payment = type;
+    payment =
+        type;
 
 
     const cash =
@@ -727,28 +891,53 @@ function selectPayment(type) {
             "payment-cash"
         );
 
+
     const aba =
         document.getElementById(
             "payment-aba"
         );
 
 
+    // Reset semua tombol
     if (cash) {
 
-        cash.style.opacity =
-            type === "cash"
-                ? "1"
-                : "0.6";
+        cash.classList.remove(
+            "selected"
+        );
 
     }
 
 
     if (aba) {
 
-        aba.style.opacity =
-            type === "aba"
-                ? "1"
-                : "0.6";
+        aba.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    // Aktifkan tombol pilihan
+    if (
+        type === "cash" &&
+        cash
+    ) {
+
+        cash.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    if (
+        type === "aba" &&
+        aba
+    ) {
+
+        aba.classList.add(
+            "selected"
+        );
 
     }
 
@@ -771,6 +960,7 @@ function getGPS() {
         document.getElementById(
             "gps-status"
         );
+
 
     const button =
         document.getElementById(
@@ -795,7 +985,9 @@ function getGPS() {
 
     if (button) {
 
-        button.disabled = true;
+        button.disabled =
+            true;
+
 
         button.textContent =
             "📡 MENGAMBIL LOKASI...";
@@ -866,6 +1058,7 @@ function getGPS() {
                             button.disabled =
                                 false;
 
+
                             button.textContent =
                                 "✅ LOKASI SUDAH DIAMBIL";
 
@@ -877,7 +1070,9 @@ function getGPS() {
                             gps
                         );
 
-                    } else {
+                    }
+
+                    else {
 
                         gpsFailed();
 
@@ -889,7 +1084,9 @@ function getGPS() {
 
             return;
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.error(
                 "❌ Telegram GPS ERROR:",
@@ -951,6 +1148,7 @@ function getGPS() {
                 button.disabled =
                     false;
 
+
                 button.textContent =
                     "✅ LOKASI SUDAH DIAMBIL";
 
@@ -971,23 +1169,27 @@ function getGPS() {
                 "❌ Gagal mengambil lokasi.";
 
 
-            if (error.code === 1) {
+            if (
+                error.code === 1
+            ) {
 
                 message =
                     "❌ Izin lokasi ditolak.";
 
             }
 
-
-            else if (error.code === 2) {
+            else if (
+                error.code === 2
+            ) {
 
                 message =
                     "❌ Lokasi tidak tersedia.";
 
             }
 
-
-            else if (error.code === 3) {
+            else if (
+                error.code === 3
+            ) {
 
                 message =
                     "❌ Waktu mengambil lokasi habis.";
@@ -1034,13 +1236,15 @@ function gpsFailed(
             "gps-status"
         );
 
+
     const button =
         document.getElementById(
             "gps-button"
         );
 
 
-    gps = null;
+    gps =
+        null;
 
 
     if (status) {
@@ -1056,6 +1260,7 @@ function gpsFailed(
         button.disabled =
             false;
 
+
         button.textContent =
             "📍 GUNAKAN LOKASI SAYA";
 
@@ -1067,10 +1272,27 @@ function gpsFailed(
 // =========================================================
 // BUILD ITEMS
 // =========================================================
+//
+// FORMAT YANG DIKIRIM KE BOT:
+//
+// {
+//     product: "Bakso Komplit Urat",
+//     quantity: 1,
+//     price: 4,
+//     subtotal: 4,
+//     choices: [
+//         "Mie Kuning"
+//     ]
+// }
+//
+// Ini penting supaya printer.py / bot.py
+// bisa membaca pilihan mie.
+// =========================================================
 
 function buildItems() {
 
-    const items = [];
+    const items =
+        [];
 
 
     Object.keys(cart).forEach(
@@ -1080,8 +1302,12 @@ function buildItems() {
                 cart[product];
 
 
-            if (quantity <= 0) {
+            if (
+                quantity <= 0
+            ) {
+
                 return;
+
             }
 
 
@@ -1094,21 +1320,36 @@ function buildItems() {
             // =================================================
 
             if (
-                data.requireMie &&
-                cartMieChoice[product] &&
-                cartMieChoice[product].length
+                data.requireMie
             ) {
 
-                cartMieChoice[product].forEach(
+                const choices =
+                    cartMieChoice[product] || [];
+
+
+                // Jangan kirim produk tanpa pilihan
+                if (
+                    choices.length === 0
+                ) {
+
+                    console.warn(
+                        "⚠️ Produk belum memiliki pilihan mie:",
+                        product
+                    );
+
+                    return;
+
+                }
+
+
+                // Setiap pilihan = 1 item
+                choices.forEach(
                     mie => {
 
                         items.push({
 
                             product:
                                 data.name,
-
-                            mie:
-                                mie,
 
                             quantity:
                                 1,
@@ -1117,7 +1358,12 @@ function buildItems() {
                                 data.price,
 
                             subtotal:
-                                data.price
+                                data.price,
+
+                            choices:
+                                [
+                                    mie
+                                ]
 
                         });
 
@@ -1147,7 +1393,10 @@ function buildItems() {
 
                 subtotal:
                     quantity *
-                    data.price
+                    data.price,
+
+                choices:
+                    []
 
             });
 
@@ -1155,9 +1404,203 @@ function buildItems() {
     );
 
 
+    console.log(
+        "🍜 ITEMS:",
+        items
+    );
+
+
     return items;
 
 }
+
+
+// =========================================================
+// RESET CART
+// =========================================================
+
+function resetCart() {
+
+    Object.keys(cart).forEach(
+        product => {
+
+            cart[product] =
+                0;
+
+        }
+    );
+
+
+    Object.keys(cartMieChoice).forEach(
+        product => {
+
+            cartMieChoice[product] =
+                [];
+
+        }
+    );
+
+
+    payment =
+        null;
+
+
+    gps =
+        null;
+
+
+    // Reset payment buttons
+    const cash =
+        document.getElementById(
+            "payment-cash"
+        );
+
+
+    const aba =
+        document.getElementById(
+            "payment-aba"
+        );
+
+
+    if (cash) {
+
+        cash.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    if (aba) {
+
+        aba.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    // Reset GPS
+    const gpsStatus =
+        document.getElementById(
+            "gps-status"
+        );
+
+
+    if (gpsStatus) {
+
+        gpsStatus.textContent =
+            "Lokasi belum diambil";
+
+    }
+
+
+    const gpsButton =
+        document.getElementById(
+            "gps-button"
+        );
+
+
+    if (gpsButton) {
+
+        gpsButton.disabled =
+            false;
+
+
+        gpsButton.textContent =
+            "📍 GUNAKAN LOKASI SAYA";
+
+    }
+
+
+    updateDisplay();
+
+}
+
+
+// =========================================================
+// SHOW ORDER SUCCESS
+// =========================================================
+
+function showOrderSuccess(orderId) {
+
+    const message =
+        "✅ ORDER BERHASIL!\n\n" +
+        "🧾 No Order: " +
+        orderId +
+        "\n\n" +
+        "🔥 Bakso Juragan\n" +
+        "Pesanan kamu sudah diterima.\n\n" +
+        "Silakan tunggu konfirmasi dari admin.";
+
+
+    // Telegram popup kalau tersedia
+    if (
+        tg &&
+        typeof tg.showPopup ===
+            "function"
+    ) {
+
+        try {
+
+            tg.showPopup(
+
+                {
+
+                    title:
+                        "Order Berhasil",
+
+                    message:
+                        message,
+
+                    buttons:
+                        [
+                            {
+                                type:
+                                    "ok",
+
+                                text:
+                                    "OK"
+
+                            }
+                        ]
+
+                },
+
+                function() {
+
+                    console.log(
+                        "✅ Customer menekan OK"
+                    );
+
+                }
+
+            );
+
+
+            return;
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                "⚠️ Telegram popup gagal:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // Fallback
+    alert(
+        message
+    );
+
+}
+
 
 // =========================================================
 // CONFIRM ORDER
@@ -1165,9 +1608,27 @@ function buildItems() {
 
 async function confirmOrder() {
 
-    const items = buildItems();
+    console.log(
+        "================================"
+    );
 
-    if (!items.length) {
+
+    console.log(
+        "🛒 KONFIRMASI ORDER"
+    );
+
+
+    // =====================================================
+    // BUILD ITEMS
+    // =====================================================
+
+    const items =
+        buildItems();
+
+
+    if (
+        !items.length
+    ) {
 
         alert(
             "Keranjang masih kosong."
@@ -1177,6 +1638,53 @@ async function confirmOrder() {
 
     }
 
+
+    // =====================================================
+    // VALIDASI PILIHAN MIE
+    // =====================================================
+
+    for (
+        const product of Object.keys(cart)
+    ) {
+
+        if (
+            cart[product] <= 0
+        ) {
+
+            continue;
+
+        }
+
+
+        if (
+            products[product].requireMie
+        ) {
+
+            const choices =
+                cartMieChoice[product] || [];
+
+
+            if (
+                choices.length !==
+                cart[product]
+            ) {
+
+                alert(
+                    "Silakan pilih mie untuk setiap Bakso Komplit Urat."
+                );
+
+                return;
+
+            }
+
+        }
+
+    }
+
+
+    // =====================================================
+    // PAYMENT
+    // =====================================================
 
     if (!payment) {
 
@@ -1188,6 +1696,10 @@ async function confirmOrder() {
 
     }
 
+
+    // =====================================================
+    // ADDRESS
+    // =====================================================
 
     const addressElement =
         document.getElementById(
@@ -1212,14 +1724,25 @@ async function confirmOrder() {
     }
 
 
+    // =====================================================
+    // TOTAL
+    // =====================================================
+
     const total =
         items.reduce(
             (
                 sum,
                 item
-            ) =>
-                sum +
-                item.subtotal,
+            ) => {
+
+                return (
+                    sum +
+                    Number(
+                        item.subtotal
+                    )
+                );
+
+            },
             0
         );
 
@@ -1270,6 +1793,7 @@ async function confirmOrder() {
         "📦 DATA ORDER:"
     );
 
+
     console.log(
         JSON.stringify(
             data,
@@ -1278,6 +1802,10 @@ async function confirmOrder() {
         )
     );
 
+
+    // =====================================================
+    // BUTTON
+    // =====================================================
 
     const button =
         document.getElementById(
@@ -1289,6 +1817,7 @@ async function confirmOrder() {
 
         button.disabled =
             true;
+
 
         button.textContent =
             "⏳ MENGIRIM ORDER...";
@@ -1310,7 +1839,9 @@ async function confirmOrder() {
 
         const response =
             await fetch(
+
                 ORDER_API_URL,
+
                 {
 
                     method:
@@ -1324,9 +1855,12 @@ async function confirmOrder() {
                     },
 
                     body:
-                        JSON.stringify(data)
+                        JSON.stringify(
+                            data
+                        )
 
                 }
+
             );
 
 
@@ -1356,14 +1890,19 @@ async function confirmOrder() {
         try {
 
             result =
-                JSON.parse(text);
+                JSON.parse(
+                    text
+                );
 
-        } catch (jsonError) {
+        }
+
+        catch (jsonError) {
 
             console.error(
                 "❌ RESPONSE BUKAN JSON:",
                 text
             );
+
 
             throw new Error(
                 "Server mengembalikan response bukan JSON"
@@ -1379,10 +1918,12 @@ async function confirmOrder() {
 
 
         // =================================================
-        // CHECK RESPONSE
+        // HTTP ERROR
         // =================================================
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
 
             throw new Error(
                 result.error ||
@@ -1392,7 +1933,13 @@ async function confirmOrder() {
         }
 
 
-        if (!result.success) {
+        // =================================================
+        // ORDER ERROR
+        // =================================================
+
+        if (
+            !result.success
+        ) {
 
             throw new Error(
                 result.error ||
@@ -1407,14 +1954,31 @@ async function confirmOrder() {
         // =================================================
 
         console.log(
-            "✅ ORDER BERHASIL:",
+            "================================"
+        );
+
+
+        console.log(
+            "✅ ORDER BERHASIL"
+        );
+
+
+        console.log(
+            "🧾 ORDER ID:",
             result.order_id
         );
 
 
-        alert(
-            "✅ ORDER BERHASIL!\n\n" +
-            "No Order: " +
+        console.log(
+            "================================"
+        );
+
+
+        // =================================================
+        // TAMPILKAN SUKSES
+        // =================================================
+
+        showOrderSuccess(
             result.order_id
         );
 
@@ -1423,74 +1987,19 @@ async function confirmOrder() {
         // RESET CART
         // =================================================
 
-Object.keys(cart).forEach(
-    product => {
-
-        cart[product] = 0;
-
-    }
-);
+        resetCart();
 
 
-Object.keys(cartMieChoice).forEach(
-    product => {
-
-        cartMieChoice[product] = [];
-
-    }
-);
-
-
-payment = null;
-
-gps = null;
-
-
-        updateDisplay();
+        // =================================================
+        // KEMBALI KE MENU
+        // =================================================
 
         backToMenu();
 
 
-        // =================================================
-        // RESET GPS
-        // =================================================
+    }
 
-        const gpsStatus =
-            document.getElementById(
-                "gps-status"
-            );
-
-
-        if (gpsStatus) {
-
-            gpsStatus.textContent =
-                "Lokasi belum diambil";
-
-        }
-
-
-        const gpsButton =
-            document.getElementById(
-                "gps-button"
-            );
-
-
-        if (gpsButton) {
-
-            gpsButton.disabled =
-                false;
-
-            gpsButton.textContent =
-                "📍 GUNAKAN LOKASI SAYA";
-
-        }
-
-
-    } catch (error) {
-
-        // =================================================
-        // ERROR
-        // =================================================
+    catch (error) {
 
         console.error(
             "❌ ORDER ERROR:",
@@ -1499,21 +2008,21 @@ gps = null;
 
 
         alert(
+
             "❌ ORDER GAGAL\n\n" +
             error.message
+
         );
 
+    }
 
-    } finally {
-
-        // =================================================
-        // ENABLE BUTTON
-        // =================================================
+    finally {
 
         if (button) {
 
             button.disabled =
                 false;
+
 
             button.textContent =
                 "✅ KONFIRMASI ORDER";
@@ -1524,15 +2033,9 @@ gps = null;
 
 }
 
+
 // =========================================================
 // SERVER STATUS
-// =========================================================
-
-const SERVER_STATUS_URL =
-    "https://baksojuraganpoipet.id/health";
-
-// =========================================================
-// CHECK SERVER STATUS
 // =========================================================
 
 async function checkServerStatus() {
@@ -1542,10 +2045,12 @@ async function checkServerStatus() {
             "online-text"
         );
 
+
     const indicator =
         document.getElementById(
             "online-indicator"
         );
+
 
     const statusWrapper =
         document.getElementById(
@@ -1572,17 +2077,27 @@ async function checkServerStatus() {
 
         const response =
             await fetch(
+
                 SERVER_STATUS_URL +
                 "?t=" +
                 Date.now(),
+
                 {
-                    method: "GET",
-                    cache: "no-store"
+
+                    method:
+                        "GET",
+
+                    cache:
+                        "no-store"
+
                 }
+
             );
 
 
-        if (!response.ok) {
+        if (
+            !response.ok
+        ) {
 
             throw new Error(
                 "Server tidak merespon"
@@ -1609,8 +2124,10 @@ async function checkServerStatus() {
             statusElement.textContent =
                 "ONLINE";
 
+
             statusWrapper.className =
                 "online-status online";
+
 
             indicator.className =
                 "online-dot";
@@ -1620,7 +2137,9 @@ async function checkServerStatus() {
                 "🟢 SERVER ONLINE"
             );
 
-        } else {
+        }
+
+        else {
 
             throw new Error(
                 "Server status bukan online"
@@ -1628,14 +2147,17 @@ async function checkServerStatus() {
 
         }
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         statusElement.textContent =
             "OFFLINE";
 
+
         statusWrapper.className =
             "online-status offline";
+
 
         indicator.className =
             "online-dot";
@@ -1657,17 +2179,41 @@ async function checkServerStatus() {
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
+
+        console.log(
+            "================================"
+        );
+
+
+        console.log(
+            "🔥 BAKSO JURAGAN MINI APP"
+        );
+
+
+        console.log(
+            "🚀 INITIALIZING..."
+        );
+
+
+        // =================================================
+        // PRODUCTS
+        // =================================================
 
         renderProducts();
 
         updateDisplay();
 
-        // Checkout
+
+        // =================================================
+        // CHECKOUT
+        // =================================================
+
         const checkoutButton =
             document.getElementById(
                 "checkout-button"
             );
+
 
         if (checkoutButton) {
 
@@ -1678,11 +2224,16 @@ document.addEventListener(
 
         }
 
+
+        // =================================================
         // GPS
+        // =================================================
+
         const gpsButton =
             document.getElementById(
                 "gps-button"
             );
+
 
         if (gpsButton) {
 
@@ -1693,11 +2244,16 @@ document.addEventListener(
 
         }
 
-        // Confirm
+
+        // =================================================
+        // CONFIRM ORDER
+        // =================================================
+
         const confirmButton =
             document.getElementById(
                 "confirm-order"
             );
+
 
         if (confirmButton) {
 
@@ -1708,11 +2264,16 @@ document.addEventListener(
 
         }
 
-        // Back
+
+        // =================================================
+        // BACK
+        // =================================================
+
         const backButton =
             document.getElementById(
                 "back-button"
             );
+
 
         if (backButton) {
 
@@ -1730,6 +2291,7 @@ document.addEventListener(
 
         checkServerStatus();
 
+
         setInterval(
             checkServerStatus,
             10000
@@ -1737,7 +2299,12 @@ document.addEventListener(
 
 
         console.log(
-            "🔥 BAKSO JURAGAN MINI APP READY"
+            "✅ BAKSO JURAGAN MINI APP READY"
+        );
+
+
+        console.log(
+            "================================"
         );
 
     }
@@ -1745,35 +2312,48 @@ document.addEventListener(
 
 
 // =========================================================
-// GLOBAL
+// GLOBAL FUNCTIONS
 // =========================================================
 
 window.increase =
     increase;
 
+
 window.decrease =
     decrease;
+
 
 window.checkout =
     checkout;
 
+
+window.selectCategory =
+    selectCategory;
+
+
 window.selectPayment =
     selectPayment;
+
 
 window.getGPS =
     getGPS;
 
+
 window.confirmOrder =
     confirmOrder;
+
 
 window.backToMenu =
     backToMenu;
 
+
 window.openMieChoice =
     openMieChoice;
 
+
 window.closeMieChoice =
     closeMieChoice;
+
 
 window.selectMieChoice =
     selectMieChoice;

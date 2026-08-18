@@ -570,3 +570,32 @@ body {
     }
 
 }
+
+/* =========================================================
+   PAYMENT BUTTON
+   ========================================================= */
+
+#payment-cash,
+#payment-aba {
+    transition: all 0.2s ease;
+}
+
+
+/* Tombol yang dipilih */
+#payment-cash.selected,
+#payment-aba.selected {
+    background: #e53935 !important;
+    background-color: #e53935 !important;
+    color: #ffffff !important;
+    border-color: #e53935 !important;
+    opacity: 1 !important;
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.30);
+}
+
+
+/* Tombol yang tidak dipilih */
+#payment-cash:not(.selected),
+#payment-aba:not(.selected) {
+    opacity: 0.65;
+}
