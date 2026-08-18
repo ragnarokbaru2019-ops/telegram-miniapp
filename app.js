@@ -742,11 +742,19 @@ function openItemNote(
 
 
 // =========================================================
+// =========================================================
 // CLOSE ITEM NOTE
+// =========================================================
+//
+// closeItemNote(false)
+// = benar-benar membatalkan proses
+//
+// Tombol ❌ TIDAK JANGAN memakai fungsi ini.
+// Tombol TIDAK menggunakan addItemWithoutNote().
 // =========================================================
 
 function closeItemNote(
-    save = false
+    cancel = true
 ) {
 
     const modal =
@@ -764,7 +772,7 @@ function closeItemNote(
     }
 
 
-    if (!save) {
+    if (cancel) {
 
         pendingProduct =
             null;
@@ -778,12 +786,91 @@ function closeItemNote(
 
 
 // =========================================================
+// ADD ITEM WITHOUT NOTE
+// =========================================================
+//
+// Dipakai ketika customer memilih:
+// ❌ TIDAK
+//
+// Artinya:
+// "Tidak ada request"
+// BUKAN:
+// "Batalkan produk"
+// =========================================================
+
+function addItemWithoutNote() {
+
+    if (!pendingProduct) {
+
+        console.error(
+            "❌ Tidak ada produk yang sedang diproses"
+        );
+
+        return;
+
+    }
+
+
+    const item = {
+
+        product:
+            pendingProduct,
+
+        note:
+            "",
+
+        mie:
+            pendingMie || null
+
+    };
+
+
+    cartItems.push(
+        item
+    );
+
+
+    console.log(
+        "🛒 ITEM DITAMBAHKAN TANPA CATATAN:",
+        item
+    );
+
+
+    closeItemNote(
+        true
+    );
+
+
+    pendingProduct =
+        null;
+
+
+    pendingMie =
+        null;
+
+
+    updateDisplay();
+
+}
+
+
+// =========================================================
 // SAVE ITEM NOTE
+// =========================================================
+//
+// Dipakai ketika customer memilih:
+// ✅ YA
+//
+// Catatan boleh diisi.
 // =========================================================
 
 function saveItemNote() {
 
     if (!pendingProduct) {
+
+        console.error(
+            "❌ Tidak ada produk yang sedang diproses"
+        );
 
         return;
 
@@ -834,7 +921,6 @@ function saveItemNote() {
 
     pendingProduct =
         null;
-
 
     pendingMie =
         null;
