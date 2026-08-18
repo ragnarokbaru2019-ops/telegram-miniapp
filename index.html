@@ -17,10 +17,10 @@
 
     <title>Bakso Juragan</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<link
+    rel="stylesheet"
+    href="style.css?v=20260817-04"
+>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -48,15 +48,18 @@
             Bakso Juragan
         </h1>
 
-        <div class="online-status" id="online-status">
+        <div class="server-status-wrapper">
 
     <span
-        id="online-indicator"
-        class="online-dot"
+        id="server-indicator"
+        class="server-indicator offline"
     ></span>
 
-    <span id="online-text">
-        ONLINE
+    <span
+        id="server-status"
+        class="server-status offline"
+    >
+        OFFLINE
     </span>
 
 </div>
@@ -358,83 +361,6 @@ document.addEventListener(
 );
 
 </script>
-
-<!-- =====================================================
-     PILIH MIE MODAL
-====================================================== -->
-
-<div
-    id="mie-choice-modal"
-    class="mie-choice-modal"
->
-
-    <div class="mie-choice-box">
-
-        <div class="mie-choice-header">
-
-            <h2 id="mie-choice-title">
-                PILIH MIE
-            </h2>
-
-            <button
-                type="button"
-                onclick="closeMieChoice()"
-                class="mie-close"
-            >
-                ✕
-            </button>
-
-        </div>
-
-
-        <p class="mie-choice-subtitle">
-            Pilih jenis mie untuk pesanan kamu
-        </p>
-
-
-        <button
-            type="button"
-            class="mie-choice-button"
-            onclick="selectMieChoice('Mie Kuning')"
-        >
-            <span>🟡</span>
-            <strong>Mie Kuning</strong>
-        </button>
-
-
-        <button
-            type="button"
-            class="mie-choice-button"
-            onclick="selectMieChoice('Bihun')"
-        >
-            <span>⚪</span>
-            <strong>Bihun</strong>
-        </button>
-
-
-        <button
-            type="button"
-            class="mie-choice-button"
-            onclick="selectMieChoice('Campur')"
-        >
-            <span>🟠</span>
-            <strong>Campur</strong>
-        </button>
-
-
-        <button
-            type="button"
-            class="mie-choice-button"
-            onclick="selectMieChoice('Kosongan')"
-        >
-            <span>⭕</span>
-            <strong>Kosongan</strong>
-        </button>
-
-    </div>
-
-</div>
-
 
 </body>
 
