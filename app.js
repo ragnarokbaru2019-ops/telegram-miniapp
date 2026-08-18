@@ -613,27 +613,56 @@ function selectMieChoice(mie) {
 
     if (!pendingProduct) {
 
+        console.error(
+            "❌ Tidak ada produk yang sedang diproses"
+        );
+
         return;
 
     }
+
+
+    // Simpan dulu sebelum modal ditutup
+    const product =
+        pendingProduct;
 
 
     pendingMie =
         mie;
 
 
-    closeMieChoice();
+    console.log(
+        "🍜 MIE DIPILIH:",
+        mie
+    );
 
 
-    // Setelah mie dipilih,
-    // lanjut ke catatan item.
+    // Tutup modal mie
+    const modal =
+        document.getElementById(
+            "mie-choice-modal"
+        );
 
+
+    if (modal) {
+
+        modal.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    // Jangan reset pendingProduct di sini.
+    // Produk masih dibutuhkan oleh modal catatan.
+
+
+    // Lanjut ke catatan item
     openItemNote(
-        pendingProduct
+        product
     );
 
 }
-
 
 // =========================================================
 // ITEM NOTE MODAL
