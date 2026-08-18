@@ -13,9 +13,9 @@ const tg =
 // API
 // =========================================================
 
+// MASUKKAN URL /order KAMU YANG SEKARANG
 const ORDER_API_URL =
     "https://baksojuraganpoipet.id/order";
-
 
 // =========================================================
 // PRODUCTS
@@ -39,15 +39,6 @@ const products = {
         category: "bakso"
     },
 
-    komplit_urat: {
-        name: "Komplit Urat",
-        description: "Bakso komplit + kuah",
-        price: 4,
-        image: "images/bakso-urat.jpg",
-        category: "bakso",
-        mieChoice: true
-    },
-
     mie_ayam: {
         name: "Mie Ayam",
         description: "Mie ayam gurih dan nikmat",
@@ -57,7 +48,6 @@ const products = {
     }
 
 };
-
 
 // =========================================================
 // CATEGORY
@@ -70,6 +60,7 @@ function selectCategory(category) {
 
     activeCategory = category;
 
+    // Ubah tombol aktif
     document
         .querySelectorAll(".category-chip")
         .forEach(button => {
@@ -79,6 +70,7 @@ function selectCategory(category) {
         });
 
 
+    // Cari tombol yang diklik
     const activeButton =
         document.querySelector(
             `.category-chip[onclick="selectCategory('${category}')"]`
@@ -98,7 +90,6 @@ function selectCategory(category) {
 
 }
 
-
 // =========================================================
 // RENDER PRODUCTS
 // =========================================================
@@ -112,7 +103,6 @@ function renderProducts() {
         return;
     }
 
-
     let html = "";
 
 
@@ -121,6 +111,7 @@ function renderProducts() {
         const data = products[product];
 
 
+        // Filter kategori
         if (
             activeCategory !== "all" &&
             data.category !== activeCategory
@@ -202,146 +193,26 @@ function renderProducts() {
 
 const cart = {};
 
-const cartChoices = {};
-
-
-Object.keys(products).forEach(product => {
-
-    cart[product] = 0;
-
-    cartChoices[product] = [];
-
-});
+Object.keys(products).forEach(
+    product => {
+        cart[product] = 0;
+    }
+);
 
 
 // =========================================================
-// PILIHAN MIE
+// GPS
 // =========================================================
 
-let selectedChoiceProduct = null;
-
-
-function openMieChoice(product) {
-
-    if (!products[product]) {
-        return;
-    }
-
-
-    selectedChoiceProduct = product;
-
-
-    const modal =
-        document.getElementById(
-            "mie-choice-modal"
-        );
-
-
-    const title =
-        document.getElementById(
-            "mie-choice-title"
-        );
-
-
-    if (!modal) {
-        return;
-    }
-
-
-    if (title) {
-
-        title.textContent =
-            "PILIH MIE";
-
-    }
-
-
-    modal.classList.add("show");
-
-
-    // Lock scroll belakang
-    document.body.classList.add(
-        "modal-open"
-    );
-
-}
+let gps = null;
 
 
 // =========================================================
-// TUTUP PILIHAN MIE
+// PAYMENT
 // =========================================================
 
-function closeMieChoice() {
+let payment = null;
 
-    const modal =
-        document.getElementById(
-            "mie-choice-modal"
-        );
-
-
-    if (modal) {
-
-        modal.classList.remove("show");
-
-    }
-
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
-
-    selectedChoiceProduct = null;
-
-}
-
-
-// =========================================================
-// PILIH MIE
-// =========================================================
-
-function selectMieChoice(choice) {
-
-    if (!selectedChoiceProduct) {
-        return;
-    }
-
-    const product =
-        selectedChoiceProduct;
-
-    // Tambah quantity
-    cart[product]++;
-
-    // Simpan pilihan mie
-    if (!cartChoices[product]) {
-
-        cartChoices[product] = [];
-
-    }
-
-    cartChoices[product].push(choice);
-
-    console.log(
-        "🍜 PILIHAN MIE:",
-        products[product].name,
-        choice
-    );
-
-    console.log(
-        "🛒 CART:",
-        cart[product]
-    );
-
-    console.log(
-        "🍜 CHOICES:",
-        cartChoices[product]
-    );
-
-    closeMieChoice();
-
-    updateDisplay();
-
-}
 
 // =========================================================
 // INCREASE
@@ -352,17 +223,6 @@ function increase(product) {
     if (!products[product]) {
         return;
     }
-
-
-    // Produk yang membutuhkan pilihan mie
-    if (products[product].mieChoice) {
-
-        openMieChoice(product);
-
-        return;
-
-    }
-
 
     cart[product]++;
 
@@ -381,25 +241,11 @@ function decrease(product) {
         return;
     }
 
-
     if (cart[product] <= 0) {
         return;
     }
 
-
     cart[product]--;
-
-
-    // Hapus pilihan mie terakhir
-    if (
-        products[product].mieChoice &&
-        cartChoices[product].length > 0
-    ) {
-
-        cartChoices[product].pop();
-
-    }
-
 
     updateDisplay();
 
@@ -416,23 +262,19 @@ function updateDisplay() {
 
     let html = "";
 
-
     Object.keys(products).forEach(
         product => {
 
             const quantity =
                 cart[product];
 
-
             const data =
                 products[product];
-
 
             const qtyElement =
                 document.getElementById(
                     "qty-" + product
                 );
-
 
             if (qtyElement) {
 
@@ -441,70 +283,29 @@ function updateDisplay() {
 
             }
 
-
             if (quantity > 0) {
 
                 const subtotal =
                     quantity * data.price;
 
-
                 total += subtotal;
 
-
                 html += `
-                    <div class="cart-product">
+                    <div
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            margin:8px 0;
+                        "
+                    >
+                        <span>
+                            ${data.name}
+                            x${quantity}
+                        </span>
 
-                        <div class="cart-product-main">
-
-                            <span>
-                                ${data.name}
-                                x${quantity}
-                            </span>
-
-                            <strong>
-                                ฿${subtotal}
-                            </strong>
-
-                        </div>
-                `;
-
-
-                // =================================================
-                // PILIHAN MIE
-                // =================================================
-
-                if (
-                    data.mieChoice &&
-                    cartChoices[product] &&
-                    cartChoices[product].length > 0
-                ) {
-
-                    html += `
-                        <div class="cart-choices">
-                    `;
-
-
-                    cartChoices[product].forEach(
-                        (choice, index) => {
-
-                            html += `
-                                <div class="cart-choice">
-                                    🍜 ${choice}
-                                </div>
-                            `;
-
-                        }
-                    );
-
-
-                    html += `
-                        </div>
-                    `;
-
-                }
-
-
-                html += `
+                        <strong>
+    ฿${subtotal}
+                        </strong>
                     </div>
                 `;
 
@@ -525,11 +326,9 @@ function updateDisplay() {
         if (html === "") {
 
             cartItems.innerHTML =
-                `
-                <p class="empty">
+                `<p class="empty">
                     Keranjang masih kosong
-                </p>
-                `;
+                </p>`;
 
         } else {
 
@@ -550,7 +349,7 @@ function updateDisplay() {
     if (totalElement) {
 
         totalElement.textContent =
-            "฿" + total;
+    "฿" + total;
 
     }
 
@@ -564,7 +363,6 @@ function updateDisplay() {
 function checkout() {
 
     let hasItems = false;
-
 
     Object.keys(cart).forEach(
         product => {
@@ -601,7 +399,6 @@ function checkout() {
         section.style.display =
             "block";
 
-
         section.scrollIntoView({
             behavior: "smooth"
         });
@@ -630,7 +427,6 @@ function backToMenu() {
 
     }
 
-
     window.scrollTo({
         top: 0,
         behavior: "smooth"
@@ -643,9 +439,6 @@ function backToMenu() {
 // PAYMENT
 // =========================================================
 
-let payment = null;
-
-
 function selectPayment(type) {
 
     payment = type;
@@ -656,7 +449,6 @@ function selectPayment(type) {
             "payment-cash"
         );
 
-
     const aba =
         document.getElementById(
             "payment-aba"
@@ -665,20 +457,20 @@ function selectPayment(type) {
 
     if (cash) {
 
-        cash.classList.toggle(
-            "selected",
+        cash.style.opacity =
             type === "cash"
-        );
+                ? "1"
+                : "0.6";
 
     }
 
 
     if (aba) {
 
-        aba.classList.toggle(
-            "selected",
+        aba.style.opacity =
             type === "aba"
-        );
+                ? "1"
+                : "0.6";
 
     }
 
@@ -695,16 +487,12 @@ function selectPayment(type) {
 // GPS
 // =========================================================
 
-let gps = null;
-
-
 function getGPS() {
 
     const status =
         document.getElementById(
             "gps-status"
         );
-
 
     const button =
         document.getElementById(
@@ -839,7 +627,9 @@ function getGPS() {
     // FALLBACK BROWSER GPS
     // =====================================================
 
-    if (!navigator.geolocation) {
+    if (
+        !navigator.geolocation
+    ) {
 
         gpsFailed(
             "❌ GPS tidak tersedia."
@@ -910,12 +700,14 @@ function getGPS() {
 
             }
 
+
             else if (error.code === 2) {
 
                 message =
                     "❌ Lokasi tidak tersedia.";
 
             }
+
 
             else if (error.code === 3) {
 
@@ -925,7 +717,9 @@ function getGPS() {
             }
 
 
-            gpsFailed(message);
+            gpsFailed(
+                message
+            );
 
         },
 
@@ -961,7 +755,6 @@ function gpsFailed(
         document.getElementById(
             "gps-status"
         );
-
 
     const button =
         document.getElementById(
@@ -1018,7 +811,7 @@ function buildItems() {
                 products[product];
 
 
-            const item = {
+            items.push({
 
                 product:
                     data.name,
@@ -1033,22 +826,7 @@ function buildItems() {
                     quantity *
                     data.price
 
-            };
-
-
-            // =================================================
-            // TAMBAHKAN PILIHAN MIE
-            // =================================================
-
-            if (data.mieChoice) {
-
-                item.choices =
-                    [...cartChoices[product]];
-
-            }
-
-
-            items.push(item);
+            });
 
         }
     );
@@ -1060,106 +838,12 @@ function buildItems() {
 
 
 // =========================================================
-// RESET CART
-// =========================================================
-
-function resetCart() {
-
-    Object.keys(cart).forEach(
-        product => {
-
-            cart[product] = 0;
-
-        }
-    );
-
-
-    Object.keys(cartChoices).forEach(
-        product => {
-
-            cartChoices[product] = [];
-
-        }
-    );
-
-
-    payment = null;
-
-    gps = null;
-
-
-    // Reset payment UI
-    document
-        .querySelectorAll(".payment-option")
-        .forEach(button => {
-
-            button.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-    // Reset address
-    const address =
-        document.getElementById(
-            "address"
-        );
-
-
-    if (address) {
-
-        address.value = "";
-
-    }
-
-
-    // Reset GPS
-    const gpsStatus =
-        document.getElementById(
-            "gps-status"
-        );
-
-
-    if (gpsStatus) {
-
-        gpsStatus.textContent =
-            "Lokasi belum diambil";
-
-    }
-
-
-    const gpsButton =
-        document.getElementById(
-            "gps-button"
-        );
-
-
-    if (gpsButton) {
-
-        gpsButton.disabled =
-            false;
-
-        gpsButton.textContent =
-            "📍 GUNAKAN LOKASI SAYA";
-
-    }
-
-
-    updateDisplay();
-
-}
-
-
-// =========================================================
 // CONFIRM ORDER
 // =========================================================
 
 async function confirmOrder() {
 
-    const items =
-        buildItems();
-
+    const items = buildItems();
 
     if (!items.length) {
 
@@ -1264,7 +948,6 @@ async function confirmOrder() {
         "📦 DATA ORDER:"
     );
 
-
     console.log(
         JSON.stringify(
             data,
@@ -1290,6 +973,10 @@ async function confirmOrder() {
 
     }
 
+
+    // =====================================================
+    // SEND ORDER
+    // =====================================================
 
     try {
 
@@ -1326,6 +1013,10 @@ async function confirmOrder() {
             response.status
         );
 
+
+        // =================================================
+        // READ RESPONSE
+        // =================================================
 
         const text =
             await response.text();
@@ -1365,6 +1056,10 @@ async function confirmOrder() {
         );
 
 
+        // =================================================
+        // CHECK RESPONSE
+        // =================================================
+
         if (!response.ok) {
 
             throw new Error(
@@ -1385,6 +1080,10 @@ async function confirmOrder() {
         }
 
 
+        // =================================================
+        // SUCCESS
+        // =================================================
+
         console.log(
             "✅ ORDER BERHASIL:",
             result.order_id
@@ -1398,13 +1097,69 @@ async function confirmOrder() {
         );
 
 
-        // Reset semua
-        resetCart();
+        // =================================================
+        // RESET CART
+        // =================================================
+
+        Object.keys(cart).forEach(
+            product => {
+
+                cart[product] = 0;
+
+            }
+        );
+
+
+        payment = null;
+
+        gps = null;
+
+
+        updateDisplay();
 
         backToMenu();
 
 
+        // =================================================
+        // RESET GPS
+        // =================================================
+
+        const gpsStatus =
+            document.getElementById(
+                "gps-status"
+            );
+
+
+        if (gpsStatus) {
+
+            gpsStatus.textContent =
+                "Lokasi belum diambil";
+
+        }
+
+
+        const gpsButton =
+            document.getElementById(
+                "gps-button"
+            );
+
+
+        if (gpsButton) {
+
+            gpsButton.disabled =
+                false;
+
+            gpsButton.textContent =
+                "📍 GUNAKAN LOKASI SAYA";
+
+        }
+
+
     } catch (error) {
+
+        // =================================================
+        // ERROR
+        // =================================================
 
         console.error(
             "❌ ORDER ERROR:",
@@ -1420,6 +1175,10 @@ async function confirmOrder() {
 
     } finally {
 
+        // =================================================
+        // ENABLE BUTTON
+        // =================================================
+
         if (button) {
 
             button.disabled =
@@ -1434,16 +1193,12 @@ async function confirmOrder() {
 
 }
 
-
 // =========================================================
 // SERVER STATUS
 // =========================================================
 
 const SERVER_STATUS_URL =
-    "https://baksojuraganpoipet.id/";
-
-
-let serverOnline = false;
+    "https://baksojuraganpoipet.id/health";
 
 
 // =========================================================
@@ -1452,32 +1207,21 @@ let serverOnline = false;
 
 async function checkServerStatus() {
 
-    const statusContainer =
+    const statusElement =
         document.getElementById(
-            "online-status"
+            "server-status"
         );
-
 
     const indicator =
         document.getElementById(
-            "online-indicator"
+            "server-indicator"
         );
 
 
-    const text =
-        document.getElementById(
-            "online-text"
-        );
-
-
-    if (
-        !statusContainer ||
-        !indicator ||
-        !text
-    ) {
+    if (!statusElement || !indicator) {
 
         console.error(
-            "❌ ELEMENT ONLINE STATUS TIDAK DITEMUKAN"
+            "❌ SERVER STATUS ELEMENT TIDAK DITEMUKAN"
         );
 
         return;
@@ -1493,13 +1237,8 @@ async function checkServerStatus() {
                 "?t=" +
                 Date.now(),
                 {
-
-                    method:
-                        "GET",
-
-                    cache:
-                        "no-store"
-
+                    method: "GET",
+                    cache: "no-store"
                 }
             );
 
@@ -1518,53 +1257,53 @@ async function checkServerStatus() {
 
 
         if (
-            result.status !== "online"
+            result.status ===
+            "online"
         ) {
 
+            statusElement.textContent =
+                "ONLINE";
+
+            statusElement.className =
+                "server-status online";
+
+            indicator.className =
+                "server-indicator online";
+
+
+            console.log(
+                "🟢 SERVER ONLINE"
+            );
+
+        } else {
+
             throw new Error(
-                "Server offline"
+                "Status server bukan online"
             );
 
         }
 
 
-        serverOnline = true;
-
-
-        statusContainer.className =
-            "online-status online";
-
-
-        text.textContent =
-            "ONLINE";
-
-
-        console.log(
-            "🟢 SERVER ONLINE"
-        );
-
-
     } catch (error) {
 
-        serverOnline = false;
-
-
-        statusContainer.className =
-            "online-status offline";
-
-
-        text.textContent =
+        statusElement.textContent =
             "OFFLINE";
+
+        statusElement.className =
+            "server-status offline";
+
+        indicator.className =
+            "server-indicator offline";
 
 
         console.log(
-            "🔴 SERVER OFFLINE",
-            error
+            "🔴 SERVER OFFLINE"
         );
 
     }
 
 }
+
 
 
 // =========================================================
@@ -1579,13 +1318,11 @@ document.addEventListener(
 
         updateDisplay();
 
-
         // Checkout
         const checkoutButton =
             document.getElementById(
                 "checkout-button"
             );
-
 
         if (checkoutButton) {
 
@@ -1596,13 +1333,11 @@ document.addEventListener(
 
         }
 
-
         // GPS
         const gpsButton =
             document.getElementById(
                 "gps-button"
             );
-
 
         if (gpsButton) {
 
@@ -1613,13 +1348,11 @@ document.addEventListener(
 
         }
 
-
         // Confirm
         const confirmButton =
             document.getElementById(
                 "confirm-order"
             );
-
 
         if (confirmButton) {
 
@@ -1630,13 +1363,11 @@ document.addEventListener(
 
         }
 
-
         // Back
         const backButton =
             document.getElementById(
                 "back-button"
             );
-
 
         if (backButton) {
 
@@ -1648,41 +1379,16 @@ document.addEventListener(
         }
 
 
-        // Server status
-        checkServerStatus();
+        // =================================================
+        // SERVER STATUS
+        // =================================================
 
+        checkServerStatus();
 
         setInterval(
             checkServerStatus,
             10000
         );
-
-
-        // Klik luar modal = tutup
-        const modal =
-            document.getElementById(
-                "mie-choice-modal"
-            );
-
-
-        if (modal) {
-
-            modal.addEventListener(
-                "click",
-                function(event) {
-
-                    if (
-                        event.target === modal
-                    ) {
-
-                        closeMieChoice();
-
-                    }
-
-                }
-            );
-
-        }
 
 
         console.log(
@@ -1706,9 +1412,6 @@ window.decrease =
 window.checkout =
     checkout;
 
-window.selectCategory =
-    selectCategory;
-
 window.selectPayment =
     selectPayment;
 
@@ -1720,12 +1423,3 @@ window.confirmOrder =
 
 window.backToMenu =
     backToMenu;
-
-window.openMieChoice =
-    openMieChoice;
-
-window.closeMieChoice =
-    closeMieChoice;
-
-window.selectMieChoice =
-    selectMieChoice;
