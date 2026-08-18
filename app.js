@@ -23,31 +23,82 @@ const ORDER_API_URL =
 
 const products = {
 
-    bakso_urat: {
-        name: "Bakso Urat",
-        description: "Bakso urat sapi yang lezat",
+    bakso_komplit_urat: {
+
+        name: "Bakso Komplit Urat",
+
+        description:
+            "Bakso komplit + kuah",
+
         price: 4,
-        image: "images/bakso-urat.jpg",
-        category: "bakso"
+
+        image:
+            "images/bakso-komplit-urat.jpg",
+
+        category:
+            "bakso",
+
+        requireMie:
+            true
+
     },
+
+
+    bakso_urat: {
+
+        name: "Bakso Urat",
+
+        description:
+            "Bakso urat sapi yang lezat",
+
+        price: 4,
+
+        image:
+            "images/bakso-urat.jpg",
+
+        category:
+            "bakso"
+
+    },
+
 
     bakso_telur: {
+
         name: "Bakso Telur",
-        description: "Bakso dengan isian telur",
+
+        description:
+            "Bakso dengan isian telur",
+
         price: 4,
-        image: "images/bakso-telur.jpg",
-        category: "bakso"
+
+        image:
+            "images/bakso-telur.jpg",
+
+        category:
+            "bakso"
+
     },
 
+
     mie_ayam: {
+
         name: "Mie Ayam",
-        description: "Mie ayam gurih dan nikmat",
+
+        description:
+            "Mie ayam gurih dan nikmat",
+
         price: 3,
-        image: "images/mie-ayam.jpg",
-        category: "mie"
+
+        image:
+            "images/mie-ayam.jpg",
+
+        category:
+            "mie"
+
     }
 
 };
+
 
 // =========================================================
 // CATEGORY
@@ -199,6 +250,136 @@ Object.keys(products).forEach(
     }
 );
 
+// =========================================================
+// MIE CHOICE
+// =========================================================
+
+const cartMieChoice = {};
+
+let mieChoiceProduct = null;
+
+
+// =========================================================
+// OPEN MIE CHOICE
+// =========================================================
+
+function openMieChoice(product) {
+
+    if (!products[product]) {
+        return;
+    }
+
+    mieChoiceProduct = product;
+
+    const modal =
+        document.getElementById(
+            "mie-choice-modal"
+        );
+
+    const title =
+        document.getElementById(
+            "mie-choice-title"
+        );
+
+    if (!modal) {
+
+        console.error(
+            "❌ mie-choice-modal tidak ditemukan"
+        );
+
+        return;
+    }
+
+    if (title) {
+
+        title.textContent =
+            products[product].name;
+
+    }
+
+    modal.classList.add("show");
+
+}
+
+
+// =========================================================
+// CLOSE MIE CHOICE
+// =========================================================
+
+function closeMieChoice() {
+
+    const modal =
+        document.getElementById(
+            "mie-choice-modal"
+        );
+
+    if (modal) {
+
+        modal.classList.remove("show");
+
+    }
+
+    mieChoiceProduct = null;
+
+}
+
+
+// =========================================================
+// SELECT MIE CHOICE
+// =========================================================
+
+function selectMieChoice(mie) {
+
+    if (!mieChoiceProduct) {
+
+        console.error(
+            "❌ Produk belum dipilih"
+        );
+
+        return;
+
+    }
+
+    const product =
+        mieChoiceProduct;
+
+
+    // Pastikan array tersedia
+    if (!cartMieChoice[product]) {
+
+        cartMieChoice[product] = [];
+
+    }
+
+
+    // Tambahkan jumlah produk
+    cart[product]++;
+
+
+    // Simpan pilihan mie
+    cartMieChoice[product].push(
+        mie
+    );
+
+
+    console.log(
+        "🍜 PILIH MIE:",
+        mie
+    );
+
+    console.log(
+        "📦 PRODUK:",
+        product
+    );
+
+
+    closeMieChoice();
+
+    updateDisplay();
+
+}
+
+
 
 // =========================================================
 // GPS
@@ -221,8 +402,23 @@ let payment = null;
 function increase(product) {
 
     if (!products[product]) {
+
         return;
+
     }
+
+
+    // Produk yang membutuhkan pilihan mie
+    if (
+        product === "bakso_komplit_urat"
+    ) {
+
+        openMieChoice(product);
+
+        return;
+
+    }
+
 
     cart[product]++;
 
@@ -1202,6 +1398,14 @@ const SERVER_STATUS_URL =
 
 
 // =========================================================
+// SERVER STATUS
+// =========================================================
+
+const SERVER_STATUS_URL =
+    "https://baksojuraganpoipet.id/health";
+
+
+// =========================================================
 // CHECK SERVER STATUS
 // =========================================================
 
@@ -1209,19 +1413,28 @@ async function checkServerStatus() {
 
     const statusElement =
         document.getElementById(
-            "server-status"
+            "online-text"
         );
 
     const indicator =
         document.getElementById(
-            "server-indicator"
+            "online-indicator"
+        );
+
+    const statusWrapper =
+        document.getElementById(
+            "online-status"
         );
 
 
-    if (!statusElement || !indicator) {
+    if (
+        !statusElement ||
+        !indicator ||
+        !statusWrapper
+    ) {
 
         console.error(
-            "❌ SERVER STATUS ELEMENT TIDAK DITEMUKAN"
+            "❌ ELEMENT STATUS ONLINE TIDAK DITEMUKAN"
         );
 
         return;
@@ -1256,6 +1469,12 @@ async function checkServerStatus() {
             await response.json();
 
 
+        console.log(
+            "📡 HEALTH:",
+            result
+        );
+
+
         if (
             result.status ===
             "online"
@@ -1264,11 +1483,11 @@ async function checkServerStatus() {
             statusElement.textContent =
                 "ONLINE";
 
-            statusElement.className =
-                "server-status online";
+            statusWrapper.className =
+                "online-status online";
 
             indicator.className =
-                "server-indicator online";
+                "online-dot";
 
 
             console.log(
@@ -1278,7 +1497,7 @@ async function checkServerStatus() {
         } else {
 
             throw new Error(
-                "Status server bukan online"
+                "Server status bukan online"
             );
 
         }
@@ -1289,21 +1508,21 @@ async function checkServerStatus() {
         statusElement.textContent =
             "OFFLINE";
 
-        statusElement.className =
-            "server-status offline";
+        statusWrapper.className =
+            "online-status offline";
 
         indicator.className =
-            "server-indicator offline";
+            "online-dot";
 
 
         console.log(
-            "🔴 SERVER OFFLINE"
+            "🔴 SERVER OFFLINE",
+            error
         );
 
     }
 
 }
-
 
 
 // =========================================================
@@ -1423,3 +1642,12 @@ window.confirmOrder =
 
 window.backToMenu =
     backToMenu;
+
+window.openMieChoice =
+    openMieChoice;
+
+window.closeMieChoice =
+    closeMieChoice;
+
+window.selectMieChoice =
+    selectMieChoice;
