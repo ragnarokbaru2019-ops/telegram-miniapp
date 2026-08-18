@@ -19,7 +19,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css"
+        href="style.css?v=20260818-02"
     >
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -48,16 +48,23 @@
             Bakso Juragan
         </h1>
 
-<div class="online-status" id="online-status">
+        <div
+            class="online-status"
+            id="online-status"
+        >
 
-    <span
-        id="online-indicator"
-        class="online-dot"
-    ></span>
+            <span
+                id="online-indicator"
+                class="online-dot"
+            ></span>
 
-    <span id="online-text">
-        CHECKING...
-    </span>
+            <span id="online-text">
+                CHECKING...
+            </span>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -116,185 +123,193 @@
 </div>
 
 
+<!-- PRODUCT LIST -->
+
 <div id="product-list"></div>
 
 
-    <!-- =====================================================
-         CART
-    ====================================================== -->
+<!-- =====================================================
+     CART
+====================================================== -->
+
+<div class="cart">
+
+    <div class="cart-header">
+
+        <h2>
+            🛒 Keranjang
+        </h2>
+
+    </div>
+
+
+    <div id="cart-items">
+
+        <p class="empty">
+            Keranjang masih kosong
+        </p>
+
+    </div>
+
+
+    <div class="total">
+
+        <span>
+            Total
+        </span>
+
+        <strong id="total">
+            ฿0
+        </strong>
+
+    </div>
+
+
+    <button
+        class="checkout"
+        id="checkout-button"
+        type="button"
+    >
+        🛒 LANJUT ORDER
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     CHECKOUT
+====================================================== -->
+
+<div
+    id="checkout-section"
+    style="display:none;"
+>
 
     <div class="cart">
 
-        <div class="cart-header">
+        <h2>
+            📦 Detail Pengantaran
+        </h2>
 
-            <h2>
-                🛒 Keranjang
-            </h2>
+
+        <!-- PAYMENT -->
+
+        <div style="margin-top:20px;">
+
+            <h3>
+                💵 Metode Pembayaran
+            </h3>
+
+
+            <button
+                type="button"
+                class="payment-option"
+                id="payment-cash"
+                onclick="selectPayment('cash')"
+            >
+                💵 Cash
+            </button>
+
+
+            <button
+                type="button"
+                class="payment-option"
+                id="payment-aba"
+                onclick="selectPayment('aba')"
+            >
+                🦁 ABA / QR
+            </button>
 
         </div>
 
-        <div id="cart-items">
 
-            <p class="empty">
-                Keranjang masih kosong
-            </p>
+        <!-- ADDRESS -->
+
+        <div style="margin-top:20px;">
+
+            <h3>
+                📍 Alamat Pengantaran
+            </h3>
+
+
+            <textarea
+                id="address"
+                rows="4"
+                placeholder="Contoh: Golden Crown Hotel, Poipet"
+                style="
+                    width:100%;
+                    box-sizing:border-box;
+                    padding:12px;
+                    border-radius:10px;
+                    border:1px solid #ccc;
+                    font-size:16px;
+                    resize:none;
+                "
+            ></textarea>
 
         </div>
 
-        <div class="total">
 
-            <span>
-                Total
-            </span>
+        <!-- GPS -->
 
-            <strong id="total">
-    ฿0
-            </strong>
+        <div style="margin-top:20px;">
+
+            <h3>
+                📍 Lokasi GPS
+            </h3>
+
+
+            <button
+                type="button"
+                id="gps-button"
+                class="gps-button"
+            >
+                📍 GUNAKAN LOKASI SAYA
+            </button>
+
+
+            <div
+                id="gps-status"
+                class="gps-status"
+            >
+                Lokasi belum diambil
+            </div>
 
         </div>
+
+
+        <!-- CONFIRM -->
 
         <button
-            class="checkout"
-            id="checkout-button"
             type="button"
+            id="confirm-order"
+            class="checkout"
         >
-            🛒 LANJUT ORDER
+            ✅ KONFIRMASI ORDER
+        </button>
+
+
+        <!-- BACK -->
+
+        <button
+            type="button"
+            id="back-button"
+            style="
+                width:100%;
+                margin-top:10px;
+                padding:14px;
+                border:none;
+                border-radius:10px;
+                background:#ddd;
+                font-size:16px;
+            "
+        >
+            ← KEMBALI KE MENU
         </button>
 
     </div>
 
-
-    <!-- =====================================================
-         CHECKOUT
-    ====================================================== -->
-
-    <div
-        id="checkout-section"
-        style="display:none;"
-    >
-
-        <div class="cart">
-
-            <h2>
-                📦 Detail Pengantaran
-            </h2>
-
-
-            <!-- PAYMENT -->
-
-            <div style="margin-top:20px;">
-
-                <h3>
-                    💵 Metode Pembayaran
-                </h3>
-
-                <button
-                    type="button"
-                    class="payment-option"
-                    id="payment-cash"
-                    onclick="selectPayment('cash')"
-                >
-                    💵 Cash
-                </button>
-
-                <button
-                    type="button"
-                    class="payment-option"
-                    id="payment-aba"
-                    onclick="selectPayment('aba')"
-                >
-                    🦁 ABA / QR
-                </button>
-
-            </div>
-
-
-            <!-- ADDRESS -->
-
-            <div style="margin-top:20px;">
-
-                <h3>
-                    📍 Alamat Pengantaran
-                </h3>
-
-                <textarea
-                    id="address"
-                    rows="4"
-                    placeholder="Contoh: Golden Crown Hotel, Poipet"
-                    style="
-                        width:100%;
-                        box-sizing:border-box;
-                        padding:12px;
-                        border-radius:10px;
-                        border:1px solid #ccc;
-                        font-size:16px;
-                        resize:none;
-                    "
-                ></textarea>
-
-            </div>
-
-
-            <!-- =================================================
-                 GPS
-            ================================================== -->
-
-            <div style="margin-top:20px;">
-
-                <h3>
-                    📍 Lokasi GPS
-                </h3>
-
-                <button
-                    type="button"
-                    id="gps-button"
-                    class="gps-button"
-                >
-                    📍 GUNAKAN LOKASI SAYA
-                </button>
-
-                <div
-                    id="gps-status"
-                    class="gps-status"
-                >
-                    Lokasi belum diambil
-                </div>
-
-            </div>
-
-
-            <!-- CONFIRM -->
-
-            <button
-                type="button"
-                id="confirm-order"
-                class="checkout"
-            >
-                ✅ KONFIRMASI ORDER
-            </button>
-
-
-            <!-- BACK -->
-
-            <button
-                type="button"
-                id="back-button"
-                style="
-                    width:100%;
-                    margin-top:10px;
-                    padding:14px;
-                    border:none;
-                    border-radius:10px;
-                    background:#ddd;
-                    font-size:16px;
-                "
-            >
-                ← KEMBALI KE MENU
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
@@ -303,7 +318,8 @@
      APP JS
 ====================================================== -->
 
-<script src="app.js?v=20260818-01"></script>
+<script src="app.js?v=20260818-02"></script>
+
 
 <!-- =====================================================
      TELEGRAM INIT
@@ -350,9 +366,11 @@ document.addEventListener(
         }
 
     }
+
 );
 
 </script>
+
 
 <!-- =====================================================
      PILIH MIE MODAL
@@ -370,6 +388,7 @@ document.addEventListener(
             <h2 id="mie-choice-title">
                 PILIH MIE
             </h2>
+
 
             <button
                 type="button"
@@ -392,8 +411,13 @@ document.addEventListener(
             class="mie-choice-button"
             onclick="selectMieChoice('Mie Kuning')"
         >
+
             <span>🟡</span>
-            <strong>Mie Kuning</strong>
+
+            <strong>
+                Mie Kuning
+            </strong>
+
         </button>
 
 
@@ -402,8 +426,13 @@ document.addEventListener(
             class="mie-choice-button"
             onclick="selectMieChoice('Bihun')"
         >
+
             <span>⚪</span>
-            <strong>Bihun</strong>
+
+            <strong>
+                Bihun
+            </strong>
+
         </button>
 
 
@@ -412,8 +441,13 @@ document.addEventListener(
             class="mie-choice-button"
             onclick="selectMieChoice('Campur')"
         >
+
             <span>🟠</span>
-            <strong>Campur</strong>
+
+            <strong>
+                Campur
+            </strong>
+
         </button>
 
 
@@ -422,8 +456,13 @@ document.addEventListener(
             class="mie-choice-button"
             onclick="selectMieChoice('Kosongan')"
         >
+
             <span>⭕</span>
-            <strong>Kosongan</strong>
+
+            <strong>
+                Kosongan
+            </strong>
+
         </button>
 
     </div>

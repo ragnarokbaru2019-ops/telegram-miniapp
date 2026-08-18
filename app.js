@@ -437,11 +437,29 @@ function decrease(product) {
         return;
     }
 
+
     if (cart[product] <= 0) {
         return;
     }
 
+
     cart[product]--;
+
+
+    // =================================================
+    // HAPUS PILIHAN MIE TERAKHIR
+    // =================================================
+
+    if (
+        products[product].requireMie &&
+        cartMieChoice[product] &&
+        cartMieChoice[product].length
+    ) {
+
+        cartMieChoice[product].pop();
+
+    }
+
 
     updateDisplay();
 
@@ -458,6 +476,7 @@ function updateDisplay() {
 
     let html = "";
 
+
     Object.keys(products).forEach(
         product => {
 
@@ -467,10 +486,12 @@ function updateDisplay() {
             const data =
                 products[product];
 
+
             const qtyElement =
                 document.getElementById(
                     "qty-" + product
                 );
+
 
             if (qtyElement) {
 
@@ -479,31 +500,89 @@ function updateDisplay() {
 
             }
 
+
             if (quantity > 0) {
 
                 const subtotal =
-                    quantity * data.price;
+                    quantity *
+                    data.price;
+
 
                 total += subtotal;
 
-                html += `
-                    <div
-                        style="
-                            display:flex;
-                            justify-content:space-between;
-                            margin:8px 0;
-                        "
-                    >
-                        <span>
-                            ${data.name}
-                            x${quantity}
-                        </span>
 
-                        <strong>
-    ฿${subtotal}
-                        </strong>
-                    </div>
-                `;
+                // =================================================
+                // PRODUK DENGAN PILIHAN MIE
+                // =================================================
+
+                if (
+                    data.requireMie &&
+                    cartMieChoice[product] &&
+                    cartMieChoice[product].length
+                ) {
+
+                    cartMieChoice[product].forEach(
+                        mie => {
+
+                            html += `
+                                <div
+                                    style="
+                                        display:flex;
+                                        justify-content:space-between;
+                                        margin:8px 0;
+                                        padding:8px 0;
+                                        border-bottom:1px solid #eee;
+                                    "
+                                >
+
+                                    <span>
+                                        ${data.name}
+                                        <br>
+                                        <small>
+                                            🍜 ${mie}
+                                        </small>
+                                    </span>
+
+                                    <strong>
+                                        ฿${data.price}
+                                    </strong>
+
+                                </div>
+                            `;
+
+                        }
+                    );
+
+                }
+
+                else {
+
+                    // =================================================
+                    // PRODUK BIASA
+                    // =================================================
+
+                    html += `
+                        <div
+                            style="
+                                display:flex;
+                                justify-content:space-between;
+                                margin:8px 0;
+                            "
+                        >
+
+                            <span>
+                                ${data.name}
+                                x${quantity}
+                            </span>
+
+                            <strong>
+                                ฿${subtotal}
+                            </strong>
+
+                        </div>
+                    `;
+
+                }
 
             }
 
@@ -522,11 +601,15 @@ function updateDisplay() {
         if (html === "") {
 
             cartItems.innerHTML =
-                `<p class="empty">
+                `
+                <p class="empty">
                     Keranjang masih kosong
-                </p>`;
+                </p>
+                `;
 
-        } else {
+        }
+
+        else {
 
             cartItems.innerHTML =
                 html;
@@ -545,12 +628,11 @@ function updateDisplay() {
     if (totalElement) {
 
         totalElement.textContent =
-    "฿" + total;
+            "฿" + total;
 
     }
 
 }
-
 
 // =========================================================
 // CHECKOUT
@@ -1007,6 +1089,51 @@ function buildItems() {
                 products[product];
 
 
+            // =================================================
+            // PRODUK DENGAN PILIHAN MIE
+            // =================================================
+
+            if (
+                data.requireMie &&
+                cartMieChoice[product] &&
+                cartMieChoice[product].length
+            ) {
+
+                cartMieChoice[product].forEach(
+                    mie => {
+
+                        items.push({
+
+                            product:
+                                data.name,
+
+                            mie:
+                                mie,
+
+                            quantity:
+                                1,
+
+                            price:
+                                data.price,
+
+                            subtotal:
+                                data.price
+
+                        });
+
+                    }
+                );
+
+
+                return;
+
+            }
+
+
+            // =================================================
+            // PRODUK BIASA
+            // =================================================
+
             items.push({
 
                 product:
@@ -1031,7 +1158,6 @@ function buildItems() {
     return items;
 
 }
-
 
 // =========================================================
 // CONFIRM ORDER
@@ -1297,18 +1423,27 @@ async function confirmOrder() {
         // RESET CART
         // =================================================
 
-        Object.keys(cart).forEach(
-            product => {
+Object.keys(cart).forEach(
+    product => {
 
-                cart[product] = 0;
+        cart[product] = 0;
 
-            }
-        );
+    }
+);
 
 
-        payment = null;
+Object.keys(cartMieChoice).forEach(
+    product => {
 
-        gps = null;
+        cartMieChoice[product] = [];
+
+    }
+);
+
+
+payment = null;
+
+gps = null;
 
 
         updateDisplay();
@@ -1395,15 +1530,6 @@ async function confirmOrder() {
 
 const SERVER_STATUS_URL =
     "https://baksojuraganpoipet.id/health";
-
-
-// =========================================================
-// SERVER STATUS
-// =========================================================
-
-const SERVER_STATUS_URL =
-    "https://baksojuraganpoipet.id/health";
-
 
 // =========================================================
 // CHECK SERVER STATUS
