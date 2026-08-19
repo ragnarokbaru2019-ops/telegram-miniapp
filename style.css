@@ -133,30 +133,52 @@ body {
    CATEGORY
 ========================================================= */
 
-.category-container {
-    display: grid;
-    grid-template-columns: repeat(3, max-content);
-    justify-content: start;
+.category-scroll {
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     padding: 10px 12px;
-
-    overflow-x: auto;
-    scrollbar-width: none;
+    justify-content: center;
 }
 
-.category-container::-webkit-scrollbar {
-    display: none;
-}
 
 .category-chip {
-    white-space: nowrap;
-    padding: 8px 14px;
-    border-radius: 20px;
     border: 1px solid #ddd;
     background: #fff;
+    color: #333;
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
     font-size: 13px;
     font-weight: 600;
+
     cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+
+/* =========================================================
+   CATEGORY AKTIF
+========================================================= */
+
+.category-chip.active {
+    background: #e53935;
+    color: #fff;
+    border-color: #e53935;
+}
+
+
+/* Saat ditekan */
+
+.category-chip:active {
+    transform: scale(0.95);
 }
 
 /* =====================================================
