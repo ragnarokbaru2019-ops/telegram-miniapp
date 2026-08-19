@@ -114,7 +114,7 @@ const products = {
         price: 130,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit mercon.jpg",
 
         category: "Bakso Komplit",
 
@@ -181,7 +181,7 @@ const products = {
         price: 100,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie kecil.jpg",
 
         category: "Indomie Bakso",
 
@@ -197,7 +197,7 @@ const products = {
         price: 120,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie urat.jpg",
 
         category: "Indomie Bakso",
 
@@ -213,7 +213,7 @@ const products = {
         price: 120,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -230,7 +230,7 @@ const products = {
         price: 140,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie mercon.jpg",
 
         category: "Indomie Bakso",
 
@@ -247,7 +247,7 @@ const products = {
         price: 160,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie urat telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -264,7 +264,7 @@ const products = {
         price: 160,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie urat2.jpg",
 
         category: "Indomie Bakso",
 
@@ -281,7 +281,7 @@ const products = {
         price: 160,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/indomie telur2.jpg",
 
         category: "Indomie Bakso",
 
@@ -294,14 +294,14 @@ const products = {
         name: "Bakso Urat",
 
         description:
-            "Bakso urat sapi yang lezat",
+            "Bakso isi daging cincang 1pcs",
 
         price: 4,
 
         image:
             "images/bakso-urat.jpg",
 
-        category: "bakso",
+        category: "Tambahan",
 
         requireMie: false
 
