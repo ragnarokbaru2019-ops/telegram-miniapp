@@ -54,23 +54,240 @@ const SERVER_STATUS_URL =
 
 const products = {
 
-    bakso_komplit_urat: {
+    bakso_komplit_kecil: {
 
-        name: "Bakso Komplit Urat",
+        name: "Bakso Komplit Kecil",
 
-        description: "Bakso komplit + kuah",
+        description: "Bakso kecil 8pcs + tetelan",
 
-        price: 4,
+        price: 90,
 
         image:
-            "images/bakso-komplit-urat.jpg",
+            "images/Bakso Komplit - Kecil -.jpg",
 
-        category: "bakso",
+        category: "Bakso Komplit",
 
         requireMie: true
 
     },
 
+    bakso_komplit_Urat: {
+
+        name: "Bakso Komplit Urat",
+
+        description: "Bakso kecil 5pcs + Bakso isi daging cincang 1pcs + tetelan",
+
+        price: 110,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+
+             },
+
+    bakso_komplit_telur: {
+
+        name: "Bakso Komplit Telur",
+
+        description: "Bakso kecil 5pcs + Bakso telur 1pcs + tetelan",
+
+        price: 110,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+
+             },
+
+    bakso_komplit_mercon: {
+
+        name: "Bakso Komplit Mercon",
+
+        description: "Bakso kecil 5pcs + Bakso mercon 1pcs + tetelan",
+
+        price: 130,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+
+             },
+
+    bakso_komplit_urattelur: {
+
+        name: "Bakso Komplit Urat + Telur",
+
+        description: "Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + Bakso Telur 1pcs + tetelan",
+
+        price: 150,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+
+             },
+
+    bakso_komplit_uraturat: {
+
+        name: "Bakso Komplit Urat + Urat",
+
+        description: "Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + tetelan",
+
+        price: 150,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+
+             },
+
+    bakso_komplit_telurtelur: {
+
+        name: "Bakso Komplit Telur + Telur",
+
+        description: "Bakso kecil 5pcs + Bakso Telur 2pcs + tetelan",
+
+        price: 150,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Bakso Komplit",
+
+        requireMie: true
+             },
+
+    bakso_indomie_kecil: {
+
+        name: "Indomie Komplit Kecil",
+
+        description: "Indomie Soto + Bakso kecil 8pcs + tetelan",
+
+        price: 100,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+             },
+
+    bakso_indomie_urat: {
+
+        name: "Indomie Komplit Urat",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 1pcs + tetelan",
+
+        price: 120,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+             },
+
+    bakso_indomie_telur: {
+
+        name: "Indomie Komplit Telur",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso telur 1pcs + tetelan",
+
+        price: 120,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+        
+             },
+    
+    bakso_indomie_Mercon: {
+
+        name: "Indomie Komplit Mercon",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso Mercon 1pcs + tetelan",
+
+        price: 140,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+        
+             },
+
+    bakso_indomie_Urattelur: {
+
+        name: "Indomie Komplit Urat + Telur",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 1pcs + Bakso Telur + tetelan",
+
+        price: 160,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+        
+             },
+
+    bakso_indomie_Uraturat: {
+
+        name: "Indomie Komplit Urat + Urat",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + tetelan",
+
+        price: 160,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+        
+             },
+
+    bakso_indomie_Telurtelur: {
+
+        name: "Indomie Komplit Telur + Telur",
+
+        description: "Indomie Soto + Bakso kecil 5pcs + Bakso Telur 2pcs + tetelan",
+
+        price: 160,
+
+        image:
+            "images/Bakso Komplit - Kecil -.jpg",
+
+        category: "Indomie Bakso",
+
+        requireMie: False
+        
+             },
 
     bakso_urat: {
 
@@ -89,44 +306,6 @@ const products = {
         requireMie: false
 
     },
-
-
-    bakso_telur: {
-
-        name: "Bakso Telur",
-
-        description:
-            "Bakso dengan isian telur",
-
-        price: 4,
-
-        image:
-            "images/bakso-telur.jpg",
-
-        category: "bakso",
-
-        requireMie: false
-
-    },
-
-
-    mie_ayam: {
-
-        name: "Mie Ayam",
-
-        description:
-            "Mie ayam gurih dan nikmat",
-
-        price: 3,
-
-        image:
-            "images/mie-ayam.jpg",
-
-        category: "mie",
-
-        requireMie: false
-
-    }
 
 };
 
