@@ -309,6 +309,13 @@ const products = {
 
 };
 
+// =========================================================
+// PAGINATION
+// =========================================================
+
+let currentPage = 1;
+
+const productsPerPage = 10;
 
 // =========================================================
 // CATEGORY
@@ -319,8 +326,9 @@ let activeCategory = "all";
 
 function selectCategory(category) {
 
-    activeCategory =
-        category;
+    activeCategory = category;
+
+    currentPage = 1;
 
 
     document
@@ -398,30 +406,80 @@ function renderProducts() {
 
 
     if (!container) {
-
         return;
-
     }
 
 
     container.innerHTML = "";
 
 
-    Object.keys(products).forEach(
+    // =====================================================
+    // FILTER CATEGORY
+    // =====================================================
+
+    const filteredProducts =
+        Object.keys(products).filter(
+            productId => {
+
+                const product =
+                    products[productId];
+
+
+                return (
+                    activeCategory === "all" ||
+                    product.category === activeCategory
+                );
+
+            }
+        );
+
+
+    // =====================================================
+    // PAGINATION
+    // =====================================================
+
+    const totalPages =
+        Math.ceil(
+            filteredProducts.length /
+            productsPerPage
+        );
+
+
+    // Kalau pindah kategori dan halaman sebelumnya terlalu tinggi
+    if (currentPage > totalPages) {
+
+        currentPage =
+            totalPages || 1;
+
+    }
+
+
+    const startIndex =
+        (currentPage - 1) *
+        productsPerPage;
+
+
+    const endIndex =
+        startIndex +
+        productsPerPage;
+
+
+    const pageProducts =
+        filteredProducts.slice(
+            startIndex,
+            endIndex
+        );
+
+
+    // =====================================================
+    // RENDER PRODUCTS
+    // =====================================================
+
+    pageProducts.forEach(
         productId => {
 
             const product =
                 products[productId];
-
-
-            if (
-                activeCategory !== "all" &&
-                product.category !== activeCategory
-            ) {
-
-                return;
-
-            }
 
 
             const quantity =
@@ -516,8 +574,97 @@ function renderProducts() {
         }
     );
 
-}
 
+    // =====================================================
+    // PAGINATION BUTTON
+    // =====================================================
+
+    if (totalPages > 1) {
+
+        const pagination =
+            document.createElement(
+                "div"
+            );
+
+
+        pagination.className =
+            "pagination";
+
+
+        for (
+            let page = 1;
+            page <= totalPages;
+            page++
+        ) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                page;
+
+
+            if (
+                page === currentPage
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            button.onclick =
+                function () {
+
+                    currentPage =
+                        page;
+
+
+                    renderProducts();
+
+
+                    // kembali ke atas daftar menu
+                    const productList =
+                        document.getElementById(
+                            "product-list"
+                        );
+
+
+                    if (productList) {
+
+                        productList.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }
+
+                };
+
+
+            pagination.appendChild(
+                button
+            );
+
+        }
+
+
+        container.appendChild(
+            pagination
+        );
+
+    }
+
+}
 
 // =========================================================
 // GET PRODUCT QUANTITY
