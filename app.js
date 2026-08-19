@@ -2431,7 +2431,7 @@ async function checkServerStatus() {
         ) {
 
             statusElement.textContent =
-                "🟢 OPEN";
+                "🟢 <b>OPEN</b>";
 
 
             statusWrapper.className =
@@ -2456,7 +2456,7 @@ async function checkServerStatus() {
     catch (error) {
 
         statusElement.textContent =
-            "🔴 CLOSE";
+            "🔴 <b>CLOSE</b>";
 
 
         statusWrapper.className =
