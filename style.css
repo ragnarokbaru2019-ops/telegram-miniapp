@@ -129,43 +129,34 @@ body {
     margin-bottom: 12px;
 }
 
-/* =====================================================
-   CATEGORY CHIP
-===================================================== */
+/* =========================================================
+   CATEGORY
+========================================================= */
 
-.category-scroll {
-    display: flex;
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: start;
     gap: 8px;
+    padding: 10px 12px;
+
     overflow-x: auto;
-    padding: 4px 2px 12px;
-    margin-bottom: 5px;
     scrollbar-width: none;
 }
 
-.category-scroll::-webkit-scrollbar {
+.category-container::-webkit-scrollbar {
     display: none;
 }
 
 .category-chip {
-    flex-shrink: 0;
-    border: none;
-    padding: 9px 16px;
-    border-radius: 20px;
-    background: #eeeeee;
-    color: #555;
-    font-size: 14px;
-    cursor: pointer;
     white-space: nowrap;
-}
-
-.category-chip.active {
-    background: #d62828;
-    color: white;
-    font-weight: bold;
-}
-
-.category-chip:active {
-    transform: scale(0.95);
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 /* =====================================================
