@@ -315,7 +315,7 @@ const products = {
         price: 90,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam bakso kecil.jpg",
 
         category: "Mie Ayam",
 
@@ -333,7 +333,7 @@ Mie_ayam_urat: {
         price: 110,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam urat.jpg",
 
         category: "Mie Ayam",
 
@@ -350,7 +350,7 @@ Mie_ayam_urat: {
         price: 110,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam telur.jpg",
 
         category: "Mie Ayam",
 
@@ -367,7 +367,7 @@ Mie_ayam_urat: {
         price: 130,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/indomie teklur2.jpg",
 
         category: "Mie Ayam",
 
@@ -384,7 +384,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam urat telur.jpg",
 
         category: "Mie Ayam",
 
@@ -401,7 +401,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam urat 2.jpg",
 
         category: "Mie Ayam",
 
@@ -418,7 +418,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/mie ayam telur 2.jpg",
 
         category: "Mie Ayam",
 
@@ -436,7 +436,7 @@ Mie_ayam_urat: {
         price: 20,
 
         image:
-            "images/bakso-urat.jpg",
+            "images/nasi.jpeg",
 
         category: "Tambahan",
 
@@ -453,7 +453,7 @@ Mie_ayam_urat: {
         price: 30,
 
         image:
-            "images/bakso-urat.jpg",
+            "images/kecil3pcs.jpg",
 
         category: "Tambahan",
 
@@ -470,7 +470,7 @@ Mie_ayam_urat: {
         price: 50,
 
         image:
-            "images/bakso-urat.jpg",
+            "images/urat1pcs.jpg",
 
         category: "Tambahan",
 
@@ -488,7 +488,7 @@ Mie_ayam_urat: {
         price: 50,
 
         image:
-            "images/bakso-urat.jpg",
+            "images/telur 1pcs.jpg",
 
         category: "Tambahan",
 
@@ -506,7 +506,7 @@ Mie_ayam_urat: {
         price: 70,
 
         image:
-            "images/bakso-urat.jpg",
+            "images/mercon 1pcs.jpg",
 
         category: "Tambahan",
 
