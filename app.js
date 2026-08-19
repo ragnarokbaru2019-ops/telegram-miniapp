@@ -441,7 +441,7 @@ Mie_ayam_urat: {
         category: "Tambahan",
 
         requireMie: false
-
+},
 
     bakso_kecil: {
 
