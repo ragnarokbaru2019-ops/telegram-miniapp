@@ -185,7 +185,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
              },
 
     bakso_indomie_urat: {
@@ -201,7 +201,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
              },
 
     bakso_indomie_telur: {
@@ -217,7 +217,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
         
              },
     
@@ -234,7 +234,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
         
              },
 
@@ -251,7 +251,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
         
              },
 
@@ -268,7 +268,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
         
              },
 
@@ -285,7 +285,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        requireMie: False
+        requireMie: false
         
              },
 
