@@ -289,6 +289,177 @@ const products = {
         
              },
 
+        Mie_ayam: {
+
+        name: "Mie Ayam",
+
+        description: "Mie ayam + kuah kaldu",
+
+        price: 80,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_kecil: {
+
+        name: "Mie Ayam Bakso Kecil",
+
+        description: "Mie ayam + bakso kecil 3pcs + kuah kaldu",
+
+        price: 90,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+
+Mie_ayam_urat: {
+
+        name: "Mie Ayam Bakso Urat",
+
+        description: "Mie ayam + bakso urat 1pcs + kuah kaldu",
+
+        price: 110,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_telur: {
+
+        name: "Mie Ayam Bakso Telur",
+
+        description: "Mie ayam + bakso telur 1pcs + kuah kaldu",
+
+        price: 110,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_mercon: {
+
+        name: "Mie Ayam Bakso Mercon",
+
+        description: "Mie ayam + bakso Mercon 1pcs + kuah kaldu",
+
+        price: 130,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_urat_telur: {
+
+        name: "Mie Ayam Bakso Urat + Bakso Telur",
+
+        description: "Mie ayam + bakso urat 1pcs + bakso telur 1pcs + kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_urat_urat: {
+
+        name: "Mie Ayam Bakso Urat + Bakso Urat",
+
+        description: "Mie ayam + bakso urat 2pcs + kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_ayam_telur_telur: {
+
+        name: "Mie Ayam Bakso Telur + Bakso Telur",
+
+        description: "Mie ayam + bakso Telur 2pcs + kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    nasi_putih: {
+
+        name: "Nasi Putih",
+
+        description:
+            "Nasi putih",
+
+        price: 20,
+
+        image:
+            "images/bakso-urat.jpg",
+
+        category: "Tambahan",
+
+        requireMie: false
+
+
+    bakso_kecil: {
+
+        name: "Bakso Kecil",
+
+        description:
+            "Bakso kecil 3pcs",
+
+        price: 30,
+
+        image:
+            "images/bakso-urat.jpg",
+
+        category: "Tambahan",
+
+        requireMie: false
+ },
+            
     bakso_urat: {
 
         name: "Bakso Urat",
@@ -296,7 +467,43 @@ const products = {
         description:
             "Bakso isi daging cincang 1pcs",
 
-        price: 4,
+        price: 50,
+
+        image:
+            "images/bakso-urat.jpg",
+
+        category: "Tambahan",
+
+        requireMie: false
+
+    },
+    
+    bakso_telur: {
+
+        name: "Bakso Telur",
+
+        description:
+            "Bakso telur 1pcs",
+
+        price: 50,
+
+        image:
+            "images/bakso-urat.jpg",
+
+        category: "Tambahan",
+
+        requireMie: false
+
+    },
+
+    bakso_mercon: {
+
+        name: "Bakso Mercon",
+
+        description:
+            "Bakso Mercon 1pcs",
+
+        price: 70,
 
         image:
             "images/bakso-urat.jpg",
