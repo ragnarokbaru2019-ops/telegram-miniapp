@@ -1737,8 +1737,7 @@ let payment = null;
 
 function selectPayment(type) {
 
-    payment =
-        type;
+    payment = type;
 
 
     const cash =
@@ -1747,9 +1746,15 @@ function selectPayment(type) {
         );
 
 
-    const aba =
+    const riel =
         document.getElementById(
-            "payment-aba"
+            "payment-riel"
+        );
+
+
+    const bank =
+        document.getElementById(
+            "payment-bank"
         );
 
 
@@ -1762,9 +1767,18 @@ function selectPayment(type) {
     }
 
 
-    if (aba) {
+    if (riel) {
 
-        aba.classList.remove(
+        riel.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    if (bank) {
+
+        bank.classList.remove(
             "selected"
         );
 
@@ -1772,7 +1786,7 @@ function selectPayment(type) {
 
 
     if (
-        type === "cash" &&
+        type === "cash_baht" &&
         cash
     ) {
 
@@ -1784,11 +1798,23 @@ function selectPayment(type) {
 
 
     if (
-        type === "aba" &&
-        aba
+        type === "cash_riel" &&
+        riel
     ) {
 
-        aba.classList.add(
+        riel.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    if (
+        type === "transfer_bank" &&
+        bank
+    ) {
+
+        bank.classList.add(
             "selected"
         );
 
