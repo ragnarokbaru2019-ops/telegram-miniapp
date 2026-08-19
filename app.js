@@ -63,7 +63,7 @@ const products = {
         price: 90,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit kecil.jpg",
 
         category: "Bakso Komplit",
 
@@ -80,7 +80,7 @@ const products = {
         price: 110,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit urat.jpg",
 
         category: "Bakso Komplit",
 
@@ -97,7 +97,7 @@ const products = {
         price: 110,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit telur.jpg",
 
         category: "Bakso Komplit",
 
@@ -131,7 +131,7 @@ const products = {
         price: 150,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit urat telur.jpg",
 
         category: "Bakso Komplit",
 
@@ -148,7 +148,7 @@ const products = {
         price: 150,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/kompolit uraturat.jpg",
 
         category: "Bakso Komplit",
 
@@ -165,7 +165,7 @@ const products = {
         price: 150,
 
         image:
-            "images/Bakso Komplit - Kecil -.jpg",
+            "images/komplit telur 2.jpg",
 
         category: "Bakso Komplit",
 
