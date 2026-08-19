@@ -136,14 +136,22 @@ body {
 .category-scroll {
     display: flex;
     flex-wrap: wrap;
+
     gap: 8px;
+
     padding: 10px 12px;
-    justify-content: center;
+
+    justify-content: flex-start;
 }
 
 
+/* =========================================================
+   CATEGORY BUTTON
+========================================================= */
+
 .category-chip {
     border: 1px solid #ddd;
+
     background: #fff;
     color: #333;
 
@@ -165,7 +173,7 @@ body {
 
 
 /* =========================================================
-   CATEGORY AKTIF
+   ACTIVE
 ========================================================= */
 
 .category-chip.active {
@@ -174,8 +182,6 @@ body {
     border-color: #e53935;
 }
 
-
-/* Saat ditekan */
 
 .category-chip:active {
     transform: scale(0.95);
