@@ -2426,12 +2426,12 @@ async function checkServerStatus() {
 
 
         if (
-    result.status ===
-    "online"
-) {
+            result.status ===
+            "online"
+        ) {
 
-    statusElement.textContent =
-        "🟢 ONLINE";
+            statusElement.textContent =
+                "🟢 ONLINE";
 
 
             statusWrapper.className =
@@ -2440,7 +2440,6 @@ async function checkServerStatus() {
 
             indicator.className =
                 "online-dot";
-
 
         }
 
@@ -2456,16 +2455,20 @@ async function checkServerStatus() {
 
     catch (error) {
 
-    statusElement.textContent =
-        "🔴 OFFLINE";
+        statusElement.textContent =
+            "🔴 OFFLINE";
 
-    statusWrapper.className =
-        "online-status offline";
 
-    indicator.className =
-        "online-dot";
+        statusWrapper.className =
+            "online-status offline";
 
-}
+
+        indicator.className =
+            "online-dot";
+
+    }
+
+} // ← INI YANG TADI KURANG BRO
 
 
 // =========================================================
