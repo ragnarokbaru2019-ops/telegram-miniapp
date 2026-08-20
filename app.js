@@ -58,7 +58,7 @@ const products = {
 
         name: "Bakso Komplit Kecil\nមួយឈុត តូច",
 
-        description: "∗ Bakso kecil 8pcs\n∗ tetelan",
+        description: "∗ Bakso kecil 8pcs\n∗ Tetelan",
 
         price: 90,
 
@@ -75,7 +75,7 @@ const products = {
 
         name: "Bakso Komplit Urat\nមួយឈុត សាច់",
 
-        description: "∗ Bakso isi daging cincang 1pcs \n∗ Bakso kecil 5pcs\n∗ tetelan",
+        description: "∗ Bakso daging cincang 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 110,
 
@@ -90,9 +90,9 @@ const products = {
 
     bakso_komplit_telur: {
 
-        name: "Bakso Komplit Telur",
+        name: "Bakso Komplit Telur\nមួយឈុត ពង",
 
-        description: "Bakso kecil 5pcs + Bakso telur 1pcs + tetelan",
+        description: "∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 110,
 
@@ -107,9 +107,9 @@ const products = {
 
     bakso_komplit_mercon: {
 
-        name: "Bakso Komplit Mercon",
+        name: "Bakso Komplit Mercon\nមួយឈុត ម្ទេស",
 
-        description: "Bakso kecil 5pcs + Bakso mercon 1pcs + tetelan",
+        description: "∗ Bakso mercon 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 130,
 
@@ -124,9 +124,9 @@ const products = {
 
     bakso_komplit_urattelur: {
 
-        name: "Bakso Komplit Urat + Telur",
+        name: "Bakso Komplit Urat + Telur\nមួយឈុត សាច់ + ពង",
 
-        description: "Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + Bakso Telur 1pcs + tetelan",
+        description: "∗ Bakso daging cincang 1pcs\n∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 150,
 
@@ -141,9 +141,9 @@ const products = {
 
     bakso_komplit_uraturat: {
 
-        name: "Bakso Komplit Urat + Urat",
+        name: "Bakso Komplit Urat + Urat\nមួយឈុត សាច់ + សាច់",
 
-        description: "Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + tetelan",
+        description: "∗ Bakso daging cincang 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 150,
 
@@ -158,9 +158,9 @@ const products = {
 
     bakso_komplit_telurtelur: {
 
-        name: "Bakso Komplit Telur + Telur",
+        name: "Bakso Komplit Telur + Telur\nមួយឈុត ពង + ពង",
 
-        description: "Bakso kecil 5pcs + Bakso Telur 2pcs + tetelan",
+        description: "∗ Bakso telur 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 150,
 
@@ -174,9 +174,9 @@ const products = {
 
     bakso_indomie_kecil: {
 
-        name: "Indomie Komplit Kecil",
+        name: "Indomie Komplit Kecil\nមីសូតូ តូច",
 
-        description: "Indomie Soto + Bakso kecil 8pcs + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 100,
 
@@ -190,9 +190,9 @@ const products = {
 
     bakso_indomie_urat: {
 
-        name: "Indomie Komplit Urat",
+        name: "Indomie Komplit Urat\nមីសូតូ សាច់",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 1pcs + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso daging cincang 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 120,
 
@@ -206,9 +206,9 @@ const products = {
 
     bakso_indomie_telur: {
 
-        name: "Indomie Komplit Telur",
+        name: "Indomie Komplit Telur\nមីសូតូ ពង",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso telur 1pcs + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 120,
 
@@ -223,10 +223,10 @@ const products = {
     
     bakso_indomie_Mercon: {
 
-        name: "Indomie Komplit Mercon",
+        name: "Indomie Komplit Mercon\nមីសូតូ ម្ទេស",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso Mercon 1pcs + tetelan",
-
+        description: "∗ Indomie Soto\n∗ Bakso mercon 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+        
         price: 140,
 
         image:
@@ -240,9 +240,9 @@ const products = {
 
     bakso_indomie_Urattelur: {
 
-        name: "Indomie Komplit Urat + Telur",
+        name: "Indomie Komplit Urat + Telur\nមីសូតូ សាច់ + ពង",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 1pcs + Bakso Telur + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso daging cincang 1pcs\n∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 160,
 
@@ -257,9 +257,9 @@ const products = {
 
     bakso_indomie_Uraturat: {
 
-        name: "Indomie Komplit Urat + Urat",
+        name: "Indomie Komplit Urat + Urat\nមីសូតូ សាច់ + សាច់",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso isi daging cincang 2pcs + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso daging cincang 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 160,
 
@@ -274,14 +274,14 @@ const products = {
 
     bakso_indomie_Telurtelur: {
 
-        name: "Indomie Komplit Telur + Telur",
+        name: "Indomie Komplit Telur + Telur\nមីសូតូ ពង + ពង",
 
-        description: "Indomie Soto + Bakso kecil 5pcs + Bakso Telur 2pcs + tetelan",
+        description: "∗ Indomie Soto\n∗ Bakso telur 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
 
         price: 160,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/indomie telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -291,14 +291,14 @@ const products = {
 
         Mie_ayam: {
 
-        name: "Mie Ayam",
+        name: "Mie Ayam\nមី មាន់",
 
-        description: "Mie ayam + kuah kaldu",
+        description: "∗ Mie ayam\n∗ kuah kaldu",
 
         price: 80,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/indomie telu.jpg",
 
         category: "Mie Ayam",
 
@@ -308,9 +308,9 @@ const products = {
 
     Mie_ayam_kecil: {
 
-        name: "Mie Ayam Bakso Kecil",
+        name: "Mie Ayam Bakso Kecil\nមី មាន់ តូច",
 
-        description: "Mie ayam + bakso kecil 3pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso kecil 3pcs\n∗ kuah kaldu",
 
         price: 90,
 
@@ -326,9 +326,9 @@ const products = {
 
 Mie_ayam_urat: {
 
-        name: "Mie Ayam Bakso Urat",
+        name: "Mie Ayam Bakso Urat\nមី មាន់ សាច់",
 
-        description: "Mie ayam + bakso urat 1pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso urat 1pcs\n∗ kuah kaldu",
 
         price: 110,
 
@@ -343,9 +343,9 @@ Mie_ayam_urat: {
 
     Mie_ayam_telur: {
 
-        name: "Mie Ayam Bakso Telur",
+        name: "Mie Ayam Bakso Telur\nមី មាន់ ពង",
 
-        description: "Mie ayam + bakso telur 1pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso telur 1pcs\n∗ kuah kaldu",
 
         price: 110,
 
@@ -360,9 +360,9 @@ Mie_ayam_urat: {
 
     Mie_ayam_mercon: {
 
-        name: "Mie Ayam Bakso Mercon",
+        name: "Mie Ayam Bakso Mercon\nមី មាន់ ម្ទេស",
 
-        description: "Mie ayam + bakso Mercon 1pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso mercon 1pcs\n∗ kuah kaldu",
 
         price: 130,
 
@@ -377,9 +377,9 @@ Mie_ayam_urat: {
 
     Mie_ayam_urat_telur: {
 
-        name: "Mie Ayam Bakso Urat + Bakso Telur",
+        name: "Mie Ayam Bakso Urat + Bakso Telur\nមី មាន់ សាច់ + ពង",
 
-        description: "Mie ayam + bakso urat 1pcs + bakso telur 1pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso urat 1pcs\n∗ Bakso telur 1pcs\n∗ kuah kaldu",
 
         price: 150,
 
@@ -394,9 +394,9 @@ Mie_ayam_urat: {
 
     Mie_ayam_urat_urat: {
 
-        name: "Mie Ayam Bakso Urat + Bakso Urat",
+        name: "Mie Ayam Bakso Urat + Bakso Urat\nមី មាន់ សាច់ + សាច់",
 
-        description: "Mie ayam + bakso urat 2pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso urat 2pcs\n∗ kuah kaldu",
 
         price: 150,
 
@@ -411,9 +411,9 @@ Mie_ayam_urat: {
 
     Mie_ayam_telur_telur: {
 
-        name: "Mie Ayam Bakso Telur + Bakso Telur",
+        name: "Mie Ayam Bakso Telur + Bakso Telur\nមី មាន់ ពង + ពង",
 
-        description: "Mie ayam + bakso Telur 2pcs + kuah kaldu",
+        description: "∗ Mie ayam\n∗ Bakso telur 2pcs\n∗ kuah kaldu",
 
         price: 150,
 
@@ -426,12 +426,150 @@ Mie_ayam_urat: {
         
              },
 
+    Mie_yamin: {
+
+        name: "Mie Ayam\nមី យ៉ាមីន",
+
+        description: "∗ Mie yamin\n∗ kuah kaldu",
+
+        price: 80,
+
+        image:
+            "images/indomie telu.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_kecil: {
+
+        name: "Mie Yamin Bakso Kecil\nមី យ៉ាមីន តូច",
+
+        description: "∗ Mie yamin\n∗ Bakso kecil 3pcs\n∗ kuah kaldu",
+
+        price: 90,
+
+        image:
+            "images/mie ayam bakso kecil.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+
+Mie_yamin_urat: {
+
+        name: "Mie Yamin Bakso Urat\មី យ៉ាមីន សាច់",
+
+        description: "∗ Mie yamin\n∗ Bakso urat 1pcs\n∗ kuah kaldu",
+
+        price: 110,
+
+        image:
+            "images/mie ayam urat.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_telur: {
+
+        name: "Mie Yamin Bakso Telur\nមី យ៉ាមីន ពង",
+
+        description: "∗ Mie yamin\n∗ Bakso telur 1pcs\n∗ kuah kaldu",
+
+        price: 110,
+
+        image:
+            "images/mie ayam telur.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_mercon: {
+
+        name: "Mie Yamin Bakso Mercon\nមី យ៉ាមីន ម្ទេស",
+
+        description: "∗ Mie yamin\n∗ Bakso mercon 1pcs\n∗ kuah kaldu",
+
+        price: 130,
+
+        image:
+            "images/indomie teklur2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_urat_telur: {
+
+        name: "Mie Yamin Bakso Urat + Bakso Telur\nមី យ៉ាមីន សាច់ + ពង",
+
+        description: "∗ Mie yamin\n∗ Bakso urat 1pcs\n∗ Bakso telur 1pcs\n∗ kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/mie ayam urat telur.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_urat_urat: {
+
+        name: "Mie Yamin Bakso Urat + Bakso Urat\nមី យ៉ាមីន សាច់ + សាច់",
+
+        description: "∗ Mie yamin\n∗ Bakso urat 2pcs\n∗ kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/mie ayam urat 2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+
+    Mie_yamin_telur_telur: {
+
+        name: "Mie Yamin Bakso Telur + Bakso Telur\nមី យ៉ាមីន ពង + ពង",
+
+        description: "∗ Mie yamin\n∗ Bakso telur 2pcs\n∗ kuah kaldu",
+
+        price: 150,
+
+        image:
+            "images/mie ayam telur 2.jpg",
+
+        category: "Mie Ayam",
+
+        requireMie: false
+        
+             },
+    
+
     nasi_putih: {
 
-        name: "Nasi Putih",
+        name: "Nasi Putih\nបាយ",
 
         description:
-            "Nasi putih",
+            "∗ Nasi putih 1 porsi",
 
         price: 20,
 
@@ -443,12 +581,29 @@ Mie_ayam_urat: {
         requireMie: false
 },
 
-    bakso_kecil: {
+    telur_rebus: {
 
-        name: "Bakso Kecil",
+        name: "Telur rebus\nពង ឆ្អិន ១ គ្រាប់",
 
         description:
-            "Bakso kecil 3pcs",
+            "∗ Telur rebus 1pcs",
+
+        price: 20,
+
+        image:
+            "images/nasi.jpeg",
+
+        category: "Tambahan",
+
+        requireMie: false
+},
+    
+    bakso_kecil: {
+
+        name: "Bakso Kecil\nប្រហិត តូច ៣ គ្រាប់",
+
+        description:
+            "∗ Bakso kecil 3pcs",
 
         price: 30,
 
@@ -462,10 +617,10 @@ Mie_ayam_urat: {
             
     bakso_urat: {
 
-        name: "Bakso Urat",
+        name: "Bakso Urat\n ប្រហិត សាច់ ១ គ្រាប់",
 
         description:
-            "Bakso isi daging cincang 1pcs",
+            "∗ Bakso daging cincang 1pcs",
 
         price: 50,
 
@@ -480,10 +635,10 @@ Mie_ayam_urat: {
     
     bakso_telur: {
 
-        name: "Bakso Telur",
+        name: "Bakso Telur\nប្រហិត ពង ​១ គ្រាប់",
 
         description:
-            "Bakso telur 1pcs",
+            "∗ Bakso telur 1pcs",
 
         price: 50,
 
@@ -498,10 +653,10 @@ Mie_ayam_urat: {
 
     bakso_mercon: {
 
-        name: "Bakso Mercon",
+        name: "Bakso Mercon\nប្រហិត ១ គ្រាប់",
 
         description:
-            "Bakso Mercon 1pcs",
+            "∗ Bakso Mercon 1pcs",
 
         price: 70,
 
