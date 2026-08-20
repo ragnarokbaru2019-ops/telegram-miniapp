@@ -58,7 +58,7 @@ const products = {
 
         name: "Bakso Komplit Kecil\nមួយឈុត តូច",
 
-        description: "-Bakso kecil 8pcs\n\n-tetelan\n\n",
+        description: "∗ Bakso kecil 8pcs\n∗ tetelan",
 
         price: 90,
 
@@ -75,7 +75,7 @@ const products = {
 
         name: "Bakso Komplit Urat\nមួយឈុត សាច់",
 
-        description: "Bakso kecil 5pcs\nBakso isi daging cincang 1pcs\ntetelan",
+        description: "∗ Bakso isi daging cincang 1pcs \n∗ Bakso kecil 5pcs\n∗ tetelan",
 
         price: 110,
 
