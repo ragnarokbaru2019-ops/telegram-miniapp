@@ -298,7 +298,7 @@ const products = {
         price: 80,
 
         image:
-            "images/indomie telu.jpg",
+            "images/miayam.jpg",
 
         category: "Mie Ayam",
 
@@ -435,7 +435,7 @@ Mie_ayam_urat: {
         price: 80,
 
         image:
-            "images/indomie telu.jpg",
+            "images/miayam.jpg",
 
         category: "Mie Yamin",
 
@@ -591,7 +591,7 @@ Mie_yamin_urat: {
         price: 20,
 
         image:
-            "images/nasi.jpeg",
+            "images/telurrebus.jpg",
 
         category: "Tambahan",
 
