@@ -2321,6 +2321,7 @@ async function confirmOrder() {
 
     // =====================================================
     // ADDRESS
+    // WAJIB
     // =====================================================
 
     const addressElement =
@@ -2338,12 +2339,84 @@ async function confirmOrder() {
     if (!address) {
 
         alert(
-            "Silakan masukkan alamat pengantaran."
+            "⚠️ Alamat pengantaran wajib diisi."
+        );
+
+        if (addressElement) {
+
+            addressElement.focus();
+
+        }
+
+        return;
+
+    }
+
+
+    // =====================================================
+    // GPS
+    // WAJIB
+    // =====================================================
+
+    if (
+        !gps ||
+        typeof gps !== "object" ||
+        gps.latitude === undefined ||
+        gps.longitude === undefined ||
+        gps.latitude === null ||
+        gps.longitude === null
+    ) {
+
+        alert(
+
+            "⚠️ Lokasi GPS wajib dikirim.\n\n" +
+
+            "Silakan tekan tombol " +
+            "\"📍 KIRIM LOKASI\" terlebih dahulu."
+
         );
 
         return;
 
     }
+
+
+    // =====================================================
+    // VALIDASI NILAI GPS
+    // =====================================================
+
+    const latitude =
+        Number(
+            gps.latitude
+        );
+
+
+    const longitude =
+        Number(
+            gps.longitude
+        );
+
+
+    if (
+        !Number.isFinite(latitude) ||
+        !Number.isFinite(longitude)
+    ) {
+
+        alert(
+            "⚠️ Data GPS tidak valid.\n\n" +
+            "Silakan kirim lokasi GPS kembali."
+        );
+
+        return;
+
+    }
+
+
+    console.log(
+        "📍 GPS VALID:",
+        latitude,
+        longitude
+    );
 
 
     // =====================================================
@@ -2402,8 +2475,15 @@ async function confirmOrder() {
         address:
             address,
 
-        gps:
-            gps
+        gps: {
+
+            latitude:
+                latitude,
+
+            longitude:
+                longitude
+
+        }
 
     };
 
