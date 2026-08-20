@@ -213,7 +213,7 @@ const products = {
         price: 120,
 
         image:
-            "images/indomie telur.jpg",
+            "images/indomie_telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -367,7 +367,7 @@ Mie_ayam_urat: {
         price: 130,
 
         image:
-            "images/indomie teklur2.jpg",
+            "images/mieayammercon.jpg",
 
         category: "Mie Ayam",
 
@@ -428,7 +428,7 @@ Mie_ayam_urat: {
 
     Mie_yamin: {
 
-        name: "Mie Ayam\nមី យ៉ាមីន",
+        name: "Mie Yamin\nមី យ៉ាមីន",
 
         description: "∗ Mie yamin\n∗ kuah kaldu",
 
@@ -463,7 +463,7 @@ Mie_ayam_urat: {
 
 Mie_yamin_urat: {
 
-        name: "Mie Yamin Bakso Urat\មី យ៉ាមីន សាច់",
+        name: "Mie Yamin Bakso Urat\nមី យ៉ាមីន សាច់",
 
         description: "∗ Mie yamin\n∗ Bakso urat 1pcs\n∗ kuah kaldu",
 
@@ -504,7 +504,7 @@ Mie_yamin_urat: {
         price: 130,
 
         image:
-            "images/indomie teklur2.jpg",
+            "images/mieayammercon.jpg",
 
         category: "Mie Yamin",
 
