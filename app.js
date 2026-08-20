@@ -726,18 +726,17 @@ function renderProducts() {
 
                 <div class="product-info">
 
-                    <h3>
-                        ${escapeHTML(
-                            product.name
-                        )}
-                    </h3>
-
+<h3>
+    ${escapeHTML(
+        product.name
+    ).replace(/\n/g, "<br>")}
+</h3>
 
                     <p>
-                        ${escapeHTML(
-                            product.description
-                        )}
-                    </p>
+    ${escapeHTML(
+        product.description
+    ).replace(/\n/g, "<br>")}
+</p>
 
 
                     <strong>
