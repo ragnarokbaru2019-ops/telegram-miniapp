@@ -56,9 +56,9 @@ const products = {
 
     bakso_komplit_kecil: {
 
-        name: "Bakso Komplit Kecil/nមួយឈុត តូច",
+        name: "Bakso Komplit Kecil\nមួយឈុត តូច",
 
-        description: "-Bakso kecil 8pcs/n/n-tetelan/n/n",
+        description: "-Bakso kecil 8pcs\n\n-tetelan\n\n",
 
         price: 90,
 
