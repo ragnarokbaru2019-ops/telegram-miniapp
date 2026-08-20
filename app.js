@@ -281,7 +281,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie telur.jpg",
+            "images/indomie telur2.jpg",
 
         category: "Indomie Bakso",
 
@@ -437,7 +437,7 @@ Mie_ayam_urat: {
         image:
             "images/indomie telu.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -454,7 +454,7 @@ Mie_ayam_urat: {
         image:
             "images/mie ayam bakso kecil.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -472,7 +472,7 @@ Mie_yamin_urat: {
         image:
             "images/mie ayam urat.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -489,7 +489,7 @@ Mie_yamin_urat: {
         image:
             "images/mie ayam telur.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -506,7 +506,7 @@ Mie_yamin_urat: {
         image:
             "images/indomie teklur2.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -523,7 +523,7 @@ Mie_yamin_urat: {
         image:
             "images/mie ayam urat telur.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -540,7 +540,7 @@ Mie_yamin_urat: {
         image:
             "images/mie ayam urat 2.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
@@ -557,7 +557,7 @@ Mie_yamin_urat: {
         image:
             "images/mie ayam telur 2.jpg",
 
-        category: "Mie Ayam",
+        category: "Mie Yamin",
 
         requireMie: false
         
