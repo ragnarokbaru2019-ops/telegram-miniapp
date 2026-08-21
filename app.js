@@ -2251,18 +2251,20 @@ function gpsFailed(
 }
 
 
-// =========================================================
+// =====================================================
 // BUILD ITEMS
-// =========================================================
+// =====================================================
 //
-// CATATAN SEKARANG 100% PER ITEM.
-//
-// TIDAK ADA CUSTOMER NOTE GLOBAL.
-// =========================================================
+// ITEM YANG SAMA AKAN DIGABUNG
+// BEDANYA MIE / NOTE = TETAP TERPISAH
+// =====================================================
 
 function buildItems() {
 
-    return cartItems.map(
+    const grouped = {};
+
+
+    cartItems.forEach(
         function(item) {
 
             const data =
@@ -2270,6 +2272,58 @@ function buildItems() {
                     item.product
                 ];
 
+
+            const mie =
+                item.mie || "";
+
+
+            const note =
+                item.note || "";
+
+
+            // ---------------------------------------------
+            // KUNCI PENGGABUNGAN
+            // ---------------------------------------------
+            // Produk + mie + note harus sama
+            // baru dianggap item yang sama
+
+            const key =
+                item.product +
+                "|" +
+                mie +
+                "|" +
+                note;
+
+
+            // ---------------------------------------------
+            // ITEM SUDAH ADA
+            // ---------------------------------------------
+
+            if (grouped[key]) {
+
+                grouped[key].quantity += 1;
+
+                grouped[key].subtotal =
+                    grouped[key].quantity *
+                    grouped[key].price;
+
+
+                // jumlah pilihan mie
+                if (mie) {
+
+                    grouped[key].mie_choices[mie] =
+                        grouped[key].quantity;
+
+                }
+
+                return;
+
+            }
+
+
+            // ---------------------------------------------
+            // ITEM BARU
+            // ---------------------------------------------
 
             const result = {
 
@@ -2286,20 +2340,24 @@ function buildItems() {
                     data.price,
 
                 note:
-                    item.note || ""
+                    note
 
             };
 
 
-            if (item.mie) {
+            // ---------------------------------------------
+            // MIE
+            // ---------------------------------------------
+
+            if (mie) {
 
                 result.mie_choice =
-                    item.mie;
+                    mie;
 
 
                 result.mie_choices = {
 
-                    [item.mie]:
+                    [mie]:
                         1
 
                 };
@@ -2307,13 +2365,18 @@ function buildItems() {
             }
 
 
-            return result;
+            grouped[key] =
+                result;
 
         }
     );
 
-}
 
+    return Object.values(
+        grouped
+    );
+
+}
 
 // =========================================================
 // RESET CART
