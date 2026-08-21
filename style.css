@@ -118,7 +118,7 @@ body {
     display: flex;
     flex-wrap: wrap;
 
-    gap: 5px;
+    gap: 6px;
 
     padding: 3px 0 8px;
 
@@ -126,22 +126,21 @@ body {
 
     width: 100%;
 }
-
 /* =========================================================
    CATEGORY BUTTON
 ========================================================= */
 
-.category-chip {
+..category-chip {
     border: 1px solid #ddd;
 
     background: #fff;
     color: #333;
 
-    padding: 5px 9px;
+    padding: 6px 11px;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 600;
 
     cursor: pointer;
