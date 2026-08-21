@@ -43,6 +43,8 @@ if (tg) {
 const ORDER_API_URL =
     "https://baksojuraganpoipet.id/order";
 
+const BESTSELLER_API_URL =
+    "https://baksojuraganpoipet.id/bestseller";
 
 const SERVER_STATUS_URL =
     "https://baksojuraganpoipet.id/health";
@@ -683,8 +685,12 @@ const productsPerPage = 10;
 // CATEGORY
 // =========================================================
 
-let activeCategory = "all";
+let activeCategory =
+    "best_seller";
 
+
+let bestSellerProducts =
+    [];
 
 function selectCategory(category) {
 
@@ -724,7 +730,98 @@ function selectCategory(category) {
     updateDisplay();
 
 }
+// =========================================================
+// LOAD BEST SELLER
+// =========================================================
 
+async function loadBestSellers() {
+
+    try {
+
+        console.log(
+            "🔥 MENGAMBIL DATA BEST SELLER..."
+        );
+
+
+        const response =
+            await fetch(
+
+                BESTSELLER_API_URL +
+                "?t=" +
+                Date.now(),
+
+                {
+
+                    method:
+                        "GET",
+
+                    cache:
+                        "no-store"
+
+                }
+
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Server Best Seller error"
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "🔥 BEST SELLER:",
+            result
+        );
+
+
+        if (
+            !result.success ||
+            !Array.isArray(result.items)
+        ) {
+
+            throw new Error(
+                "Data Best Seller tidak valid"
+            );
+
+        }
+
+
+        bestSellerProducts =
+            result.items
+                .map(
+                    item => item.product
+                );
+
+
+        renderProducts();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ GAGAL LOAD BEST SELLER:",
+            error
+        );
+
+
+        bestSellerProducts =
+            [];
+
+        renderProducts();
+
+    }
+
+}
 
 // =========================================================
 // CART
@@ -776,24 +873,77 @@ function renderProducts() {
 
 
     // =====================================================
-    // FILTER CATEGORY
+    // FILTER + URUTAN CATEGORY
     // =====================================================
 
-    const filteredProducts =
-        Object.keys(products).filter(
-            productId => {
-
-                const product =
-                    products[productId];
+    let filteredProducts;
 
 
-                return (
-                    activeCategory === "all" ||
-                    product.category === activeCategory
-                );
+    // =====================================================
+    // BEST SELLER
+    // =====================================================
 
-            }
-        );
+    if (
+        activeCategory === "best_seller"
+    ) {
+
+        filteredProducts =
+            bestSellerProducts
+                .map(
+                    productName => {
+
+                        return Object.keys(
+                            products
+                        ).find(
+                            productId => {
+
+                                return (
+                                    products[productId].name ===
+                                    productName
+                                );
+
+                            }
+                        );
+
+                    }
+                )
+                .filter(Boolean);
+
+    }
+
+
+    // =====================================================
+    // CATEGORY BIASA
+    // =====================================================
+
+    else {
+
+        filteredProducts =
+            Object.keys(products).filter(
+                productId => {
+
+                    const product =
+                        products[productId];
+
+
+                    if (
+                        activeCategory !== "all"
+                    ) {
+
+                        return (
+                            product.category ===
+                            activeCategory
+                        );
+
+                    }
+
+
+                    return true;
+
+                }
+            );
+
+    }
 
 
     // =====================================================
@@ -807,8 +957,12 @@ function renderProducts() {
         );
 
 
-    // Kalau pindah kategori dan halaman sebelumnya terlalu tinggi
-    if (currentPage > totalPages) {
+    // Kalau pindah kategori dan halaman
+    // sebelumnya terlalu tinggi
+
+    if (
+        currentPage > totalPages
+    ) {
 
         currentPage =
             totalPages || 1;
@@ -881,17 +1035,24 @@ function renderProducts() {
 
                 <div class="product-info">
 
-<h3>
-    ${escapeHTML(
-        product.name
-    ).replace(/\n/g, "<br>")}
-</h3>
+                    <h3>
+                        ${escapeHTML(
+                            product.name
+                        ).replace(
+                            /\n/g,
+                            "<br>"
+                        )}
+                    </h3>
+
 
                     <p>
-    ${escapeHTML(
-        product.description
-    ).replace(/\n/g, "<br>")}
-</p>
+                        ${escapeHTML(
+                            product.description
+                        ).replace(
+                            /\n/g,
+                            "<br>"
+                        )}
+                    </p>
 
 
                     <strong>
@@ -911,7 +1072,9 @@ function renderProducts() {
                     </button>
 
 
-                    <span id="qty-${productId}">
+                    <span
+                        id="qty-${productId}"
+                    >
                         ${quantity}
                     </span>
 
@@ -940,7 +1103,9 @@ function renderProducts() {
     // PAGINATION BUTTON
     // =====================================================
 
-    if (totalPages > 1) {
+    if (
+        totalPages > 1
+    ) {
 
         const pagination =
             document.createElement(
@@ -994,6 +1159,7 @@ function renderProducts() {
 
 
                     // kembali ke atas daftar menu
+
                     const productList =
                         document.getElementById(
                             "product-list"
@@ -1003,8 +1169,13 @@ function renderProducts() {
                     if (productList) {
 
                         productList.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start"
+
+                            behavior:
+                                "smooth",
+
+                            block:
+                                "start"
+
                         });
 
                     }
@@ -1636,28 +1807,41 @@ function updateDisplay() {
     // UPDATE QTY
     // =====================================================
 
-    Object.keys(products).forEach(
-        product => {
+let productKeys;
 
-            const qtyElement =
-                document.getElementById(
-                    "qty-" + product
-                );
+if (
+    activeCategory === "best_seller"
+) {
 
+    productKeys =
+        bestSellerProducts
+            .map(
+                name => {
 
-            if (qtyElement) {
-
-                qtyElement.textContent =
-                    getProductQuantity(
-                        product
+                    return Object.keys(
+                        products
+                    ).find(
+                        key =>
+                            products[key].name === name
                     );
 
-            }
+                }
+            )
+            .filter(Boolean);
 
-        }
-    );
+}
+else {
+
+    productKeys =
+        Object.keys(products);
+
+}
 
 
+productKeys.forEach(
+    product => {
+
+        
     // =====================================================
     // CART
     // =====================================================
