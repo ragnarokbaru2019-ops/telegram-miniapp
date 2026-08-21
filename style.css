@@ -39,7 +39,7 @@ body {
     width: 64px;
     height: 64px;
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 0%;
     background: white;
     flex-shrink: 0;
 }
@@ -118,9 +118,9 @@ body {
     display: flex;
     flex-wrap: wrap;
 
-    gap: 8px;
+    gap: 6px;                /* dari 8px */
 
-    padding: 4px 0 12px;
+    padding: 4px 0 10px;
 
     justify-content: flex-start;
 
@@ -137,11 +137,11 @@ body {
     background: #fff;
     color: #333;
 
-    padding: 9px 15px;
+    padding: 7px 12px;       /* diperkecil */
 
-    border-radius: 20px;
+    border-radius: 18px;
 
-    font-size: 13px;
+    font-size: 12px;         /* dari 13px */
     font-weight: 600;
 
     cursor: pointer;
@@ -154,7 +154,6 @@ body {
         border-color 0.2s ease,
         transform 0.1s ease;
 }
-
 /* =========================================================
    ACTIVE
 ========================================================= */
