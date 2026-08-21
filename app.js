@@ -289,6 +289,126 @@ const products = {
         
              },
 
+
+
+        bakso_indomie_double_kecil: {
+
+        name: "Indomie Double Komplit Kecil\nមីសូតូ តូច",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 100,
+
+        image:
+            "images/indomie kecil.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+             },
+
+    bakso_indomie_Double_urat: {
+
+        name: "Indomie Double Komplit Urat\nមីសូតូ សាច់",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso daging cincang 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 120,
+
+        image:
+            "images/indomie urat.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+             },
+
+    bakso_indomie_Double_telur: {
+
+        name: "Indomie Double Komplit Telur\nមីសូតូ ពង",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 120,
+
+        image:
+            "images/indomie_telur.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+        
+             },
+    
+    bakso_indomie_Double_Mercon: {
+
+        name: "Indomie Double Komplit Mercon\nមីសូតូ ម្ទេស",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso mercon 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+        
+        price: 140,
+
+        image:
+            "images/indomie mercon.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+        
+             },
+
+    bakso_indomie_Double_Urattelur: {
+
+        name: "Indomie Double Komplit Urat + Telur\nមីសូតូ សាច់ + ពង",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso daging cincang 1pcs\n∗ Bakso telur 1pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 160,
+
+        image:
+            "images/indomie urat telur.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+        
+             },
+
+    bakso_indomie_Double_Uraturat: {
+
+        name: "Indomie DoubleKomplit Urat + Urat\nមីសូតូ សាច់ + សាច់",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso daging cincang 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 160,
+
+        image:
+            "images/indomie urat2.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+        
+             },
+
+    bakso_indomie_Double_Telurtelur: {
+
+        name: "Indomie Double Komplit Telur + Telur\nមីសូតូ ពង + ពង",
+
+        description: "∗ Indomie Soto Double\n∗ Bakso telur 2pcs\n∗ Bakso kecil 5pcs\n∗ Tetelan",
+
+        price: 160,
+
+        image:
+            "images/indomie telur2.jpg",
+
+        category: "Indomie Double Bakso",
+
+        requireMie: false
+        
+             },
+    
+
         Mie_ayam: {
 
         name: "Mie Ayam\nមី មាន់",
