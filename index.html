@@ -37,7 +37,7 @@
 <div class="header">
 
     <img
-        src="images/------Photoroom.png"
+        src="images/logo-bakso-juragan.png"
         alt="Bakso Juragan"
         class="header-logo"
     >
@@ -99,33 +99,17 @@
     <button
         type="button"
         class="category-chip"
-        onclick="selectCategory('Mie Ayam')"
+        onclick="selectCategory('bakso')"
+    >
+        Bakso
+    </button>
+
+    <button
+        type="button"
+        class="category-chip"
+        onclick="selectCategory('mie')"
     >
         Mie Ayam
-    </button>
-
-    <button
-        type="button"
-        class="category-chip"
-        onclick="selectCategory('Mie Yamin')"
-    >
-        Mie Yamin
-    </button>
-
-    <button
-        type="button"
-        class="category-chip"
-        onclick="selectCategory('Bakso Komplit')"
-    >
-        Bakso Komplit
-    </button>
-
-    <button
-        type="button"
-        class="category-chip"
-        onclick="selectCategory('Indomie Bakso')"
-    >
-        Indomie Bakso
     </button>
 
     <button
@@ -136,14 +120,6 @@
         Minuman
     </button>
 
-    <button
-        type="button"
-        class="category-chip"
-        onclick="selectCategory('Tambahan')"
-    >
-        Tambahan
-    </button>
-
 </div>
 
 
@@ -151,7 +127,7 @@
 
 <div id="product-list"></div>
 
-    
+
 <!-- =====================================================
      CART
 ====================================================== -->
@@ -175,7 +151,7 @@
 
     </div>
 
-    
+
     <div class="total">
 
         <span>
@@ -225,35 +201,24 @@
             </h3>
 
 
-<button
-    type="button"
-    class="payment-option"
-    id="payment-cash"
-    onclick="selectPayment('cash_baht')"
->
-    💵 Cash Baht
-</button>
+            <button
+                type="button"
+                class="payment-option"
+                id="payment-cash"
+                onclick="selectPayment('cash')"
+            >
+                💵 Cash
+            </button>
 
 
-<button
-    type="button"
-    class="payment-option"
-    id="payment-riel"
-    onclick="selectPayment('cash_riel')"
->
-    💰 Cash Riel
-</button>
-
-
-<button
-    type="button"
-    class="payment-option"
-    id="payment-bank"
-    onclick="selectPayment('transfer_bank')"
->
-    💳 Transfer Rupiah / Bank Local
-</button>
-
+            <button
+                type="button"
+                class="payment-option"
+                id="payment-aba"
+                onclick="selectPayment('aba')"
+            >
+                🦁 ABA / QR
+            </button>
 
         </div>
 
@@ -504,82 +469,6 @@ document.addEventListener(
 
 </div>
 
-    <!-- =====================================================
-     ITEM REQUEST / CATATAN MODAL
-====================================================== -->
-
-<div
-    id="item-note-modal"
-    class="item-note-modal"
->
-
-    <div class="item-note-box">
-
-        <!-- HEADER -->
-
-        <div class="item-note-header">
-
-            <h2>
-                📝 Butuh Request?
-            </h2>
-
-            <button
-                type="button"
-                onclick="closeItemNote(false)"
-                class="item-note-close"
-            >
-                ✕
-            </button>
-
-        </div>
-
-
-        <!-- PRODUCT NAME -->
-
-        <div
-            id="item-note-product"
-            class="item-note-product"
-        >
-            Bakso Urat
-        </div>
-
-
-        <!-- INPUT REQUEST -->
-
-        <textarea
-            id="item-note-input"
-            rows="3"
-            placeholder="Contoh: tanpa sayur, tanpa seledri , kuah sedikit..."
-        ></textarea>
-
-
-        <!-- BUTTON -->
-
-        <div class="item-note-actions">
-
-<button
-    type="button"
-    class="item-note-no"
-    onclick="addItemWithoutNote()"
->
-    ❌ TIDAK
-</button>
-        
-
-            <button
-                type="button"
-                class="item-note-yes"
-                onclick="saveItemNote()"
-            >
-                ✅ YA
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-    
 
 </body>
 
