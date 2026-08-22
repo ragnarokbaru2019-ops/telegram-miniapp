@@ -418,7 +418,7 @@ const products = {
         price: 80,
 
         image:
-            "images/miayam.jpg",
+            "images/Mie ayam.jpg",
 
         category: "Mie Ayam",
 
@@ -470,7 +470,7 @@ Mie_ayam_urat: {
         price: 110,
 
         image:
-            "images/mie ayam telur.jpg",
+            "images/Mie ayam telur.jpg",
 
         category: "Mie Ayam",
 
@@ -487,7 +487,7 @@ Mie_ayam_urat: {
         price: 130,
 
         image:
-            "images/mieayammercon.jpg",
+            "images/Mie ayam mercon.jpg",
 
         category: "Mie Ayam",
 
