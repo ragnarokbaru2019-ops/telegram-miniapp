@@ -63,7 +63,7 @@ const products = {
         price: 90,
 
         image:
-            "images/komplit kecil.jpg",
+            "images/Komplit Kecil.jpg",
 
         category: "Bakso Komplit",
 
@@ -80,7 +80,7 @@ const products = {
         price: 110,
 
         image:
-            "images/komplit urat.jpg",
+            "images/Komplit Urat .jpg",
 
         category: "Bakso Komplit",
 
@@ -97,7 +97,7 @@ const products = {
         price: 110,
 
         image:
-            "images/komplit telur.jpg",
+            "images/Komplit Telur .jpg",
 
         category: "Bakso Komplit",
 
@@ -114,7 +114,7 @@ const products = {
         price: 130,
 
         image:
-            "images/komplit mercon.jpg",
+            "images/Komplit Mercon.jpg",
 
         category: "Bakso Komplit",
 
@@ -131,7 +131,7 @@ const products = {
         price: 150,
 
         image:
-            "images/komplit urat telur.jpg",
+            "images/Komplit Urat + Telur.jpg",
 
         category: "Bakso Komplit",
 
@@ -148,7 +148,7 @@ const products = {
         price: 150,
 
         image:
-            "images/kompolit uraturat.jpg",
+            "images/Komplit Urat + Urat.jpg",
 
         category: "Bakso Komplit",
 
@@ -165,7 +165,7 @@ const products = {
         price: 150,
 
         image:
-            "images/komplit telur 2.jpg",
+            "images/Komplit Telur + Telur.jpg",
 
         category: "Bakso Komplit",
 
@@ -181,7 +181,7 @@ const products = {
         price: 100,
 
         image:
-            "images/indomie kecil.jpg",
+            "images/Indomie Komplit Kecil.jpg",
 
         category: "Indomie Bakso",
 
@@ -197,7 +197,7 @@ const products = {
         price: 120,
 
         image:
-            "images/indomie urat.jpg",
+            "images/Indomie Komplit Urat.jpg",
 
         category: "Indomie Bakso",
 
@@ -213,7 +213,7 @@ const products = {
         price: 120,
 
         image:
-            "images/indomie_telur.jpg",
+            "images/Indomie Komplit Telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -230,7 +230,7 @@ const products = {
         price: 140,
 
         image:
-            "images/indomie mercon.jpg",
+            "images/Indomie Komplit Mercon.jpg",
 
         category: "Indomie Bakso",
 
@@ -247,7 +247,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie urat telur.jpg",
+            "images/Indomie Komplit Urat + Telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -264,7 +264,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie urat2.jpg",
+            "images/Indomie Komplit Urat + Urat.jpg",
 
         category: "Indomie Bakso",
 
@@ -281,7 +281,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/Indomie Komplit Telur + Telur.jpg",
 
         category: "Indomie Bakso",
 
@@ -300,7 +300,7 @@ const products = {
         price: 100,
 
         image:
-            "images/indomie kecil.jpg",
+            "images/Indomie Komplit Kecil.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -316,7 +316,7 @@ const products = {
         price: 120,
 
         image:
-            "images/indomie urat.jpg",
+            "images/Indomie Komplit Urat.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -332,7 +332,7 @@ const products = {
         price: 120,
 
         image:
-            "images/indomie_telur.jpg",
+            "images/Indomie Komplit Telur.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -349,7 +349,7 @@ const products = {
         price: 140,
 
         image:
-            "images/indomie mercon.jpg",
+            "images/Indomie Komplit Mercon.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -366,7 +366,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie urat telur.jpg",
+            "images/Indomie Komplit Urat + Telur.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -383,7 +383,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie urat2.jpg",
+            "images/Indomie Komplit Urat + Urat.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -400,7 +400,7 @@ const products = {
         price: 160,
 
         image:
-            "images/indomie telur2.jpg",
+            "images/Indomie Komplit Telur + Telur.jpg",
 
         category: "Indomie Double Bakso",
 
@@ -435,7 +435,7 @@ const products = {
         price: 90,
 
         image:
-            "images/mie ayam bakso kecil.jpg",
+            "images/Mie ayam kecil.jpg",
 
         category: "Mie Ayam",
 
@@ -453,7 +453,7 @@ Mie_ayam_urat: {
         price: 110,
 
         image:
-            "images/mie ayam urat.jpg",
+            "images/Mie ayam urat.jpg",
 
         category: "Mie Ayam",
 
@@ -504,7 +504,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/mie ayam urat telur.jpg",
+            "images/Mie ayam urat + telur.jpg",
 
         category: "Mie Ayam",
 
@@ -521,7 +521,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/mie ayam urat 2.jpg",
+            "images/Mie ayam urat + urat.jpg",
 
         category: "Mie Ayam",
 
@@ -538,7 +538,7 @@ Mie_ayam_urat: {
         price: 150,
 
         image:
-            "images/mie ayam telur 2.jpg",
+            "images/Mie ayam telur + telur .jpg",
 
         category: "Mie Ayam",
 
@@ -555,7 +555,7 @@ Mie_ayam_urat: {
         price: 80,
 
         image:
-            "images/miayam.jpg",
+            "images/Mie ayam.jpg",
 
         category: "Mie Yamin",
 
@@ -572,7 +572,7 @@ Mie_ayam_urat: {
         price: 90,
 
         image:
-            "images/mie ayam bakso kecil.jpg",
+            "images/Mie ayam kecil.jpg",
 
         category: "Mie Yamin",
 
@@ -590,7 +590,7 @@ Mie_yamin_urat: {
         price: 110,
 
         image:
-            "images/mie ayam urat.jpg",
+            "images/Mie ayam urat.jpg",
 
         category: "Mie Yamin",
 
@@ -607,7 +607,7 @@ Mie_yamin_urat: {
         price: 110,
 
         image:
-            "images/mie ayam telur.jpg",
+            "images/Mie ayam telur.jpg",
 
         category: "Mie Yamin",
 
@@ -624,7 +624,7 @@ Mie_yamin_urat: {
         price: 130,
 
         image:
-            "images/mieayammercon.jpg",
+            "images/Mie ayam mercon.jpg",
 
         category: "Mie Yamin",
 
@@ -641,7 +641,7 @@ Mie_yamin_urat: {
         price: 150,
 
         image:
-            "images/mie ayam urat telur.jpg",
+            "images/Mie ayam urat + telur.jpg",
 
         category: "Mie Yamin",
 
@@ -658,7 +658,7 @@ Mie_yamin_urat: {
         price: 150,
 
         image:
-            "images/mie ayam urat 2.jpg",
+            "images/Mie ayam urat + urat.jpg",
 
         category: "Mie Yamin",
 
@@ -675,7 +675,7 @@ Mie_yamin_urat: {
         price: 150,
 
         image:
-            "images/mie ayam telur 2.jpg",
+            "images/Mie ayam telur + telur .jpg",
 
         category: "Mie Yamin",
 
