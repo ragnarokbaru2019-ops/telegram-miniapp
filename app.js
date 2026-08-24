@@ -789,6 +789,187 @@ Mie_yamin_urat: {
 
     },
 
+    Mineral_Water: {
+
+        name: "Mineral Water 1.5L",
+
+        description:
+            "∗ Mineral water 1.500ml",
+
+        price: 20,
+
+        image:
+            "images/mineral water.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+        es_tehmanis: {
+
+        name: "Es Teh Manis",
+
+        description:
+            "∗ Es teh manis",
+
+        price: 30,
+
+        image:
+            "images/es teh manis.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+    sting: {
+
+        name: "Sting",
+
+        description:
+            "∗ Sting + ice",
+
+        price: 40,
+
+        image:
+            "images/sting.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+    Susu_putih: {
+
+        name: "Es Susu",
+
+        description:
+            "∗ Susu Putih",
+
+        price: 30,
+
+        image:
+            "images/es susu.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+        Sirup_susu: {
+
+        name: "Sirup Susu",
+
+        description:
+            "∗ Es sirup merah + Susu ",
+
+        price: 40,
+
+        image:
+            "images/sirup susu.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+es_sirup: {
+
+        name: "Sirup Merah",
+
+        description:
+            "∗ Es sirup merah ",
+
+        price: 30,
+
+        image:
+            "images/es sirup.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+    Kopi_susu: {
+
+        name: "Kopi Godday Capucino",
+
+        description:
+            "∗ Es + Kopi Godday Capucino",
+
+        price: 40,
+
+        image:
+            "images/kopi susu.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+    Soda_susu: {
+
+        name: "Soda Susu",
+
+        description:
+            "∗ Es + Fanta susu",
+
+        price: 50,
+
+        image:
+            "images/soda susu.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+    Nutrisari_jeruk: {
+
+        name: "NutriSari Jeruk",
+
+        description:
+            "∗ Es + Nutrisari Jeruk",
+
+        price: 30,
+
+        image:
+            "images/nutrisari jeruk.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+        Nutrisari_anggur: {
+
+        name: "NutriSari Anggru",
+
+        description:
+            "∗ Es + Nutrisari Anggru",
+
+        price: 30,
+
+        image:
+            "images/nutrisari anggur.jpg",
+
+        category: "Minuman",
+
+        requireMie: false
+
+    },
+
+
 };
 
 // =========================================================
