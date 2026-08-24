@@ -953,10 +953,10 @@ es_sirup: {
 
         Nutrisari_anggur: {
 
-        name: "NutriSari Anggru",
+        name: "NutriSari Anggur",
 
         description:
-            "∗ Es + Nutrisari Anggru",
+            "∗ Es + Nutrisari Anggur",
 
         price: 30,
 
