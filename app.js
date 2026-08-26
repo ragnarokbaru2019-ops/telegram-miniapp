@@ -1422,9 +1422,15 @@ function escapeHTML(text) {
 function increase(product) {
 
     if (!products[product]) {
-
         return;
+    }
 
+    // =====================================================
+    // CEK SOLD OUT
+    // =====================================================
+
+    if (products[product].soldOut === true) {
+        return;
     }
 
 
@@ -1434,7 +1440,6 @@ function increase(product) {
 
     pendingMie =
         null;
-
 
     // =====================================================
     // PRODUK YANG BUTUH MIE
