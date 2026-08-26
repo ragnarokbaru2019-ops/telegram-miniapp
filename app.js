@@ -1220,12 +1220,13 @@ const soldOut =
                     </span>
 
 
-                    <button
-                        type="button"
-                        onclick="increase('${productId}')"
-                    >
-                        +
-                    </button>
+<button
+    type="button"
+    ${soldOut ? "disabled" : ""}
+    onclick="${soldOut ? "" : `increase('${productId}')`}"
+>
+    ${soldOut ? "SOLD OUT" : "+"}
+</button>
 
                 </div>
 
