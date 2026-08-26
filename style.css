@@ -266,6 +266,14 @@ body {
     cursor: pointer;
 }
 
+.quantity button:disabled {
+    background: #999;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.8;
+    transform: none;
+}
+
 .quantity button:active {
     transform: scale(0.92);
 }
