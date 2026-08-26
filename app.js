@@ -353,7 +353,7 @@ const products = {
 
         category: "Indomie Double Bakso",
 
-            soldOut: false,
+            soldOut: true,
 
         requireMie: false
         
