@@ -1151,7 +1151,8 @@ function renderProducts() {
                 getProductQuantity(
                     productId
                 );
-
+const soldOut =
+    product.soldOut === true;
 
             const card =
                 document.createElement(
