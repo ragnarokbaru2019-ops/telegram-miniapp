@@ -66,6 +66,8 @@ const products = {
             "images/Komplit Kecil.jpg",
 
         category: "Bakso Komplit",
+        
+                    soldOut: false,
 
         requireMie: true
 
@@ -84,6 +86,8 @@ const products = {
 
         category: "Bakso Komplit",
 
+                            soldOut: false,
+
         requireMie: true
 
              },
@@ -100,6 +104,8 @@ const products = {
             "images/Komplit Telur .jpg",
 
         category: "Bakso Komplit",
+
+                            soldOut: false,
 
         requireMie: true
 
@@ -118,6 +124,8 @@ const products = {
 
         category: "Bakso Komplit",
 
+        soldOut: true,
+
         requireMie: true
 
              },
@@ -134,6 +142,8 @@ const products = {
             "images/Komplit Urat + Telur.jpg",
 
         category: "Bakso Komplit",
+
+        soldOut: false,
 
         requireMie: true
 
@@ -152,6 +162,8 @@ const products = {
 
         category: "Bakso Komplit",
 
+        soldOut: false,
+
         requireMie: true
 
              },
@@ -169,6 +181,8 @@ const products = {
 
         category: "Bakso Komplit",
 
+        soldOut: false,
+
         requireMie: true
              },
 
@@ -184,6 +198,8 @@ const products = {
             "images/Indomie Komplit Kecil.jpg",
 
         category: "Indomie Bakso",
+
+        soldOut: false,
 
         requireMie: false
              },
@@ -201,6 +217,8 @@ const products = {
 
         category: "Indomie Bakso",
 
+        soldOut: false,
+
         requireMie: false
              },
 
@@ -216,6 +234,8 @@ const products = {
             "images/Indomie Komplit Telur.jpg",
 
         category: "Indomie Bakso",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -234,6 +254,8 @@ const products = {
 
         category: "Indomie Bakso",
 
+        soldOut: true,
+
         requireMie: false
         
              },
@@ -250,6 +272,8 @@ const products = {
             "images/Indomie Komplit Urat + Telur.jpg",
 
         category: "Indomie Bakso",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -268,6 +292,8 @@ const products = {
 
         category: "Indomie Bakso",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -284,6 +310,8 @@ const products = {
             "images/Indomie Komplit Telur + Telur.jpg",
 
         category: "Indomie Bakso",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -304,6 +332,8 @@ const products = {
 
         category: "Indomie Double Bakso",
 
+            soldOut: false,
+
         requireMie: false
              },
 
@@ -320,6 +350,8 @@ const products = {
 
         category: "Indomie Double Bakso",
 
+        soldOut: false,
+
         requireMie: false
              },
 
@@ -335,6 +367,8 @@ const products = {
             "images/Indomie Komplit Telur.jpg",
 
         category: "Indomie Double Bakso",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -372,6 +406,8 @@ const products = {
 
         category: "Indomie Double Bakso",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -389,6 +425,8 @@ const products = {
 
         category: "Indomie Double Bakso",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -405,6 +443,8 @@ const products = {
             "images/Indomie Komplit Telur + Telur.jpg",
 
         category: "Indomie Double Bakso",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -424,6 +464,8 @@ const products = {
 
         category: "Mie Ayam",
 
+            soldOut: false,
+
         requireMie: false
         
              },
@@ -440,6 +482,8 @@ const products = {
             "images/Mie ayam kecil.jpg",
 
         category: "Mie Ayam",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -459,6 +503,8 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
+    soldOut: false,
+
         requireMie: false
         
              },
@@ -476,6 +522,8 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
+        soldOut: false,
+        
         requireMie: false
         
              },
@@ -492,6 +540,8 @@ Mie_ayam_urat: {
             "images/Mie ayam mercon.jpg",
 
         category: "Mie Ayam",
+
+        soldOut: true,
 
         requireMie: false
         
@@ -510,6 +560,8 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -526,6 +578,8 @@ Mie_ayam_urat: {
             "images/Mie ayam urat + urat.jpg",
 
         category: "Mie Ayam",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -544,6 +598,8 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -560,6 +616,8 @@ Mie_ayam_urat: {
             "images/Mie ayam.jpg",
 
         category: "Mie Yamin",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -578,6 +636,8 @@ Mie_ayam_urat: {
 
         category: "Mie Yamin",
 
+        soldOut: false,
+        
         requireMie: false
         
              },
@@ -596,6 +656,8 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
+    soldOut: false,
+
         requireMie: false
         
              },
@@ -613,6 +675,8 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -629,6 +693,8 @@ Mie_yamin_urat: {
             "images/Mie ayam mercon.jpg",
 
         category: "Mie Yamin",
+        
+        soldOut: true,
 
         requireMie: false
         
@@ -647,6 +713,8 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -664,6 +732,8 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
+        soldOut: false,
+
         requireMie: false
         
              },
@@ -680,6 +750,8 @@ Mie_yamin_urat: {
             "images/Mie ayam telur + telur .jpg",
 
         category: "Mie Yamin",
+
+        soldOut: false,
 
         requireMie: false
         
@@ -700,6 +772,8 @@ Mie_yamin_urat: {
 
         category: "Tambahan",
 
+        soldOut: false,
+
         requireMie: false
 },
 
@@ -716,6 +790,8 @@ Mie_yamin_urat: {
             "images/telurrebus.jpg",
 
         category: "Tambahan",
+
+        soldOut: false,
 
         requireMie: false
 },
@@ -734,6 +810,8 @@ Mie_yamin_urat: {
 
         category: "Tambahan",
 
+        soldOut: false,
+
         requireMie: false
  },
             
@@ -750,6 +828,8 @@ Mie_yamin_urat: {
             "images/urat1pcs.jpg",
 
         category: "Tambahan",
+
+        soldOut: false,
 
         requireMie: false
 
@@ -769,6 +849,8 @@ Mie_yamin_urat: {
 
         category: "Tambahan",
 
+        soldOut: false,
+
         requireMie: false
 
     },
@@ -787,6 +869,8 @@ Mie_yamin_urat: {
 
         category: "Tambahan",
 
+        soldOut: true,
+        
         requireMie: false
 
     },
@@ -804,6 +888,8 @@ Mie_yamin_urat: {
             "images/mineral water.jpg",
 
         category: "Minuman",
+
+        soldOut: false,
 
         requireMie: false
 
@@ -823,6 +909,8 @@ Mie_yamin_urat: {
 
         category: "Minuman",
 
+            soldOut: false,
+
         requireMie: false
 
     },
@@ -840,6 +928,8 @@ Mie_yamin_urat: {
             "images/sting.jpg",
 
         category: "Minuman",
+
+        soldOut: false,
 
         requireMie: false
 
@@ -859,6 +949,8 @@ Mie_yamin_urat: {
 
         category: "Minuman",
 
+        soldOut: false,
+
         requireMie: false
 
     },
@@ -876,6 +968,8 @@ Mie_yamin_urat: {
             "images/sirup susu.jpg",
 
         category: "Minuman",
+
+            soldOut: false,
 
         requireMie: false
 
@@ -895,6 +989,8 @@ es_sirup: {
 
         category: "Minuman",
 
+    soldOut: false,
+
         requireMie: false
 
     },
@@ -913,6 +1009,8 @@ es_sirup: {
 
         category: "Minuman",
 
+        soldOut: false,
+        
         requireMie: false
 
     },
@@ -930,6 +1028,8 @@ es_sirup: {
             "images/soda susu.jpg",
 
         category: "Minuman",
+
+        soldOut: false,
 
         requireMie: false
 
@@ -949,6 +1049,8 @@ es_sirup: {
 
         category: "Minuman",
 
+        soldOut: false,
+
         requireMie: false
 
     },
@@ -966,6 +1068,8 @@ es_sirup: {
             "images/nutrisari anggur.jpg",
 
         category: "Minuman",
+
+            soldOut: false,
 
         requireMie: false
 
