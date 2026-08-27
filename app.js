@@ -124,7 +124,7 @@ const products = {
 
         category: "Bakso Komplit",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: true
 
@@ -254,7 +254,7 @@ const products = {
 
         category: "Indomie Bakso",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -387,7 +387,7 @@ const products = {
 
         category: "Indomie Double Bakso",
 
-            soldOut: false,
+            soldOut: true,
 
         requireMie: false
         
@@ -541,7 +541,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -694,7 +694,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
         
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -869,7 +869,7 @@ Mie_yamin_urat: {
 
         category: "Tambahan",
 
-        soldOut: false,
+        soldOut: true,
         
         requireMie: false
 
