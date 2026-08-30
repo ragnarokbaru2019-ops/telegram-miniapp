@@ -464,7 +464,7 @@ const products = {
 
         category: "Mie Ayam",
 
-            soldOut: false,
+            soldOut: true,
 
         requireMie: false
         
