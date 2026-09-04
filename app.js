@@ -464,7 +464,7 @@ const products = {
 
         category: "Mie Ayam",
 
-            soldOut: false,
+            soldOut: true,
 
         requireMie: false
         
@@ -483,7 +483,7 @@ const products = {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -503,7 +503,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-    soldOut: false,
+    soldOut: true,
 
         requireMie: false
         
@@ -522,7 +522,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
         
         requireMie: false
         
@@ -541,7 +541,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -560,7 +560,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -579,7 +579,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -598,7 +598,7 @@ Mie_ayam_urat: {
 
         category: "Mie Ayam",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -617,7 +617,7 @@ Mie_ayam_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -636,7 +636,7 @@ Mie_ayam_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
         
         requireMie: false
         
@@ -656,7 +656,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
-    soldOut: false,
+    soldOut: true,
 
         requireMie: false
         
@@ -675,7 +675,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -694,7 +694,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
         
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -713,7 +713,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -732,7 +732,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
@@ -751,7 +751,7 @@ Mie_yamin_urat: {
 
         category: "Mie Yamin",
 
-        soldOut: false,
+        soldOut: true,
 
         requireMie: false
         
